@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery | The Candy Town</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/framer-motion@10/dist/framer-motion.umd.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        .modal-bg {
+            backdrop-filter: blur(6px);
+            background: rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <section class="text-center pt-24 pb-6 px-4">
+        <h1 class="text-4xl font-black text-[#5A3E2B] uppercase">Our Successful Events</h1>
+        <p class="text-sm font-extrabold text-pink-600 tracking-[0.3em] uppercase mt-2">Sweetness Delivered Across India
+        </p>
+    </section>
+
+    <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-6 sm:px-10">
+
+        <div onclick="openModal('ahmedabad')" id="event-modal modal-box"
+            class="gallery-card cursor-pointer rounded-2xl shadow-lg overflow-hidden hover:scale-[1.03] transition relative">
+            <img src="images/Ahmedabad/ahmedabad1.jpg" class="w-full h-52 object-cover">
+            <div class="bg-[#5A3E2B] text-white p-4 text-left">
+                <h3 class="font-extrabold text-lg uppercase">Ahmedabad</h3>
+                <span class="text-xs opacity-80 uppercase">Corporate Event | 2025</span>
+            </div>
+        </div>
+
+        <div onclick="openModal('surat')"
+            class="gallery-card cursor-pointer rounded-2xl shadow-lg overflow-hidden hover:scale-[1.03] transition relative">
+            <img src="images/Surat/surat1.jpg" class="w-full h-52 object-cover">
+            <div class="bg-[#5A3E2B] text-white p-4 text-left">
+                <h3 class="font-extrabold text-lg uppercase">Surat</h3>
+                <span class="text-xs opacity-80 uppercase">Wedding Setup | 2025</span>
+            </div>
+        </div>
+
+        <div onclick="openModal('mumbai')"
+            class="gallery-card cursor-pointer rounded-2xl shadow-lg overflow-hidden hover:scale-[1.03] transition relative">
+            <img src="images/Mumbai/mumbai1.jpg" class="w-full h-52 object-cover">
+            <div class="bg-[#5A3E2B] text-white p-4 text-left">
+                <h3 class="font-extrabold text-lg uppercase">Mumbai</h3>
+                <span class="text-xs opacity-80 uppercase">Brand Promotion | 2025</span>
+            </div>
+        </div>
+
+        <div onclick="openModal('delhi')"
+            class="gallery-card cursor-pointer rounded-2xl shadow-lg overflow-hidden hover:scale-[1.03] transition relative">
+            <img src="images/Delhi/delhi1.jpg" class="w-full h-52 object-cover">
+            <div class="bg-[#5A3E2B] text-white p-4 text-left">
+                <h3 class="font-extrabold text-lg uppercase">Delhi</h3>
+                <span class="text-xs opacity-80 uppercase">Exhibition Stall | 2025</span>
+            </div>
+        </div>
+
+        <div onclick="openModal('lucknow')"
+            class="gallery-card cursor-pointer rounded-2xl shadow-lg overflow-hidden hover:scale-[1.03] transition relative">
+            <img src="images/Lucknow/lucknow1.jpg" class="w-full h-52 object-cover">
+            <div class="bg-[#5A3E2B] text-white p-4 text-left">
+                <h3 class="font-extrabold text-lg uppercase">Lucknow</h3>
+                <span class="text-xs opacity-80 uppercase">Exhibition Stall | 2024</span>
+            </div>
+        </div>
+
+        <div onclick="openModal('rajkot')"
+            class="gallery-card cursor-pointer rounded-2xl shadow-lg overflow-hidden hover:scale-[1.03] transition relative">
+            <img src="images/Rajkot/rajkot1.jpg" class="w-full h-52 object-cover">
+            <div class="bg-[#5A3E2B] text-white p-4 text-left">
+                <h3 class="font-extrabold text-lg uppercase">Rajkot</h3>
+                <span class="text-xs opacity-80 uppercase">Festival Setup | 2024</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL BACKGROUND -->
+    <div id="event-modal" class="fixed inset-0 bg-black/40 hidden justify-center items-center z-[150] p-4">
+
+        <!-- MODAL BOX -->
+        <div id="modal-box"
+            class="bg-white w-[95%] sm:w-[85%] md:w-[70%] lg:w-[55%] xl:w-[45%] max-w-4xl rounded-2xl shadow-2xl p-4 sm:p-6 relative">
+
+            <!-- CLOSE BUTTON (Always on top) -->
+            <button onclick="closeModal()"
+                class="absolute top-3 right-3 sm:top-4 sm:right-4 z-[200] bg-white/90 p-2 rounded-full shadow-lg hover:scale-110 transition"
+                style="pointer-events:auto;">
+                <i data-lucide="x" class="w-6 h-6 text-[#5A3E2B]"></i>
+            </button>
+
+            <!-- CAROUSEL WRAPPER -->
+            <div class="relative w-full overflow-hidden rounded-xl z-[180]">
+
+                <!-- CAROUSEL IMAGE -->
+                <img id="carousel-image"
+                    class="w-full h-[260px] sm:h-[300px] md:h-[360px] lg:h-[420px] xl:h-[460px] object-cover rounded-xl">
+
+            </div>
+
+            <!-- CONTROLS -->
+            <button onclick="prevImage()"
+                class="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 z-[190] bg-white/70 p-2 sm:p-3 rounded-full shadow-lg hover:scale-110 transition">
+                <i data-lucide="chevron-left" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+            </button>
+
+            <button onclick="nextImage()"
+                class="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-[190] bg-white/70 p-2 sm:p-3 rounded-full shadow-lg hover:scale-110 transition">
+                <i data-lucide="chevron-right" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+            </button>
+
+            <!-- MODAL TEXT -->
+            <div class="text-center mt-4 sm:mt-5">
+                <h2 id="modal-title" class="text-xl sm:text-2xl md:text-3xl font-black text-[#5A3E2B] uppercase"></h2>
+                <p class="text-xs sm:text-sm font-bold text-pink-600 uppercase tracking-widest mt-1">Event Highlights
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Event image sets
+        const eventImages = {
+            ahmedabad: ["images/Ahmedabad/ahmedabad1.jpg", "images/Ahmedabad/ahmedabad2.jpg", "images/Ahmedabad/ahmedabad3.jpg", "images/Ahmedabad/ahmedabad4.jpg"],
+            surat: ["images/Surat/surat1.jpg", "images/Surat/surat2.jpg", "images/Surat/surat3.jpg"],
+            mumbai: ["images/Mumbai/mumbai1.jpg", "images/Mumbai/mumbai2.jpg", "images/Mumbai/mumbai3.jpg"],
+            delhi: ["images/Delhi/delhi1.jpg", "images/Delhi/delhi2.jpg", "images/Delhi/delhi3.jpg"],
+            lucknow: ["images/Lucknow/lucknow1.jpg", "images/Lucknow/lucknow2.jpg", "images/Lucknow/lucknow3.jpg"],
+            rajkot: ["images/Rajkot/rajkot1.jpg", "images/Rajkot/rajkot2.jpg", "images/Rajkot/rajkot3.jpg"]
+        };
+
+        let currentEvent = "";
+        let currentIndex = 0;
+
+        function openModal(event) {
+            currentEvent = event;
+            currentIndex = 0;
+
+            const modal = document.getElementById("event-modal");
+            const box = document.getElementById("modal-box");
+
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+
+            // Smooth modal animation
+            FramerMotion.animate(box,
+                { opacity: [0, 1], scale: [0.8, 1], y: [20, 0] },
+                { duration: 0.45, ease: "easeOut" }
+            );
+
+            showImage();
+        }
+
+
+        function closeModal() {
+            document.getElementById("event-modal").classList.add("hidden");
+        }
+
+        function showImage() {
+            const img = document.getElementById("carousel-image");
+            img.src = eventImages[currentEvent][currentIndex];
+            FramerMotion.animate(img, { opacity: [0, 1], scale: [0.95, 1] }, { duration: 0.4 });
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % eventImages[currentEvent].length;
+            showImage();
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + eventImages[currentEvent].length) % eventImages[currentEvent].length;
+            showImage();
+        }
+    </script>
+
+</body>
+
+</html>

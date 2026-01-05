@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Candy Town | Premium Live Food Counters Mumbai, Pune & Bangalore</title>
+    <meta name="description"
+        content="The Candy Town provides premium live food counters. FSSAI approved Chocolate Fountains, Popcorn, and Candy Floss stalls in Mumbai, Pune, and Bangalore. Making events sweeter.">
+
+    <!-- External Dependencies -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font family: Inter (Sans-serif) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <!-- Icon Library -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Animation Library for success events -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        /* * BRAND COLOR TOKENS 
+         * Custom aqua and pink theme configuration
+         */
+        :root {
+            --brand-brown: #2C1B12;
+            --brand-blue: rgb(89, 227, 230);
+            --brand-blue2: rgb(14, 91, 179);
+            /* darker shade for blue  */
+            /* Signature Aqua */
+            --brand-blue-hover: rgb(70, 210, 213);
+            --brand-pink: #fdf2f8;
+            /* Requested Light Pink Background */
+            --brand-accent-pink: #F472B6;
+            --brand-text: #1A1310;
+        }
+
+        /* RESET & BASE STYLES */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+            color: var(--brand-text);
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* TYPOGRAPHY ENFORCEMENT */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        button,
+        a,
+        span,
+        p,
+        label,
+        input,
+        select,
+        textarea {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* BRAND UTILITIES */
+        .bg-brand-brown {
+            background-color: var(--brand-brown);
+        }
+
+        .bg-brand-blue {
+            background-color: var(--brand-blue);
+        }
+
+        .bg-brand-pink {
+            background-color: var(--brand-pink);
+        }
+
+        .text-brand-blue {
+            color: var(--brand-blue);
+        }
+
+        .text-darker-blue {
+            color: var(--brand-blue2);
+        }
+
+        .text-brand-brown {
+            color: var(--brand-brown);
+        }
+
+        .text-brand-pink {
+            color: var(--brand-accent-pink);
+        }
+
+        .border-brand-blue {
+            border-color: var(--brand-blue);
+        }
+
+        .border-brand-pink {
+            border-color: var(--brand-accent-pink);
+        }
+
+        /* NAVIGATION ANIMATIONS */
+        .nav-transition {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* RIBBON SCROLL ANIMATION 
+         * Pace maintained at 15s for a fast scroll
+         */
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .animate-scroll {
+            display: flex;
+            width: fit-content;
+            animation: scroll 15s linear infinite;
+        }
+
+        /* TESTIMONIAL MARQUEE ANIMATION 
+         * Smooth side-scrolling reviews
+         */
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 50s linear infinite;
+        }
+
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+
+        /* INTERSECTION OBSERVER ANIMATIONS */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* CARD HOVER EFFECTS */
+        .service-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(89, 227, 230, 0.3);
+        }
+
+        /* STICKY NAV SCROLL STATE */
+        .scrolled-nav {
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(89, 227, 230, 0.2);
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            background-color: var(--brand-pink);
+        }
+
+        /* RESPONSIVE LAYOUT SPACING */
+        .hero-layout-spacing {
+            padding-top: clamp(100px, 15vh, 200px);
+        }
+
+        /* RESPONSIVE TESTIMONIAL CARD WIDTHS */
+        .testimonial-card {
+            width: 280px;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @media (min-width: 768px) {
+            .testimonial-card {
+                width: 380px;
+            }
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-16px) scale(1.02);
+            box-shadow: 0 40px 80px -20px rgba(44, 27, 18, 0.4);
+        }
+
+        /* FORM FIELD RESET */
+        input[type="date"] {
+            min-height: 3.5rem;
+            padding-right: 1.5rem;
+            width: 100%;
+        }
+
+        /* SELECTION HIGHLIGHT */
+        ::selection {
+            background: var(--brand-blue);
+            color: var(--brand-brown);
+        }
+
+        /* DECORATIVE BACKGROUND ELEMENTS */
+        .hero-blob {
+            position: absolute;
+            z-index: 0;
+            filter: blur(80px);
+            opacity: 0.4;
+            border-radius: 50%;
+        }
+
+        /* STAR RATING COMPONENT STYLES */
+        .star-rating svg {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            fill: none;
+            stroke: currentColor;
+        }
+
+        .star-rating svg.active {
+            fill: var(--brand-blue) !important;
+            color: var(--brand-blue) !important;
+            stroke: var(--brand-blue) !important;
+        }
+
+        /* PREVENT OVERFLOW ON MOBILE ANIMATIONS */
+        .overflow-x-clip {
+            overflow-x: clip;
+        }
+    </style>
+</head>
+
+<body class="overflow-x-clip">
+
+    <!-- Confetti Canvas for success triggers -->
+    <canvas id="celebration-canvas" class="fixed inset-0 pointer-events-none z-[3000] w-full h-full"></canvas>
+
+    <!-- 
+     * NAVIGATION SECTION 
+     * Fully responsive navigation with desktop menu and mobile toggle
+     -->
+    <nav id="navbar"
+        class="fixed w-full z-50 nav-transition py-4 bg-brand-pink border-b border-brand-blue/20 shadow-md">
+        <div class="container mx-auto px-4 md:px-6 flex justify-between items-center">
+            <!-- Brand Identity -->
+            <a href="#" class="flex items-center space-x-2 md:space-x-3 group">
+                <div
+                    class="relative w-12 h-12 md:w-16 md:h-16 rounded-full bg-white flex items-center justify-center shadow-lg transition-transform group-hover:scale-105 overflow-hidden">
+                    <img src="./images/Candy_Town_Logo.png" alt="The Candy Town Logo"
+                        class="w-full h-full object-cover">
+                </div>
+                <div class="flex flex-col text-left">
+                    <span
+                        class="font-black text-lg md:text-2xl leading-none text-brand-brown tracking-tighter uppercase">The
+                        Candy Town</span>
+                    <span
+                        class="text-[7px] md:text-[9px] tracking-[0.2em] md:tracking-[0.25em] uppercase font-bold mt-0.5 md:mt-1 font-black text-brand-brown">Making
+                        events sweeter</span>
+                </div>
+            </a>
+
+            <!-- Desktop Menu (Hidden on mobile) -->
+            <div class="hidden lg:flex items-center space-x-12">
+                <a href="#home"
+                    class="text-[11px] font-bold tracking-[0.25em] uppercase text-brand-brown hover:text-brand-blue transition-colors">Home</a>
+                <a href="#about"
+                    class="text-[11px] font-bold tracking-[0.25em] uppercase text-brand-brown hover:text-brand-blue transition-colors">About</a>
+                <a href="#services"
+                    class="text-[11px] font-bold tracking-[0.25em] uppercase text-brand-brown hover:text-brand-blue transition-colors">Services</a>
+                <a href="gallery.html"
+                    class="text-[11px] font-bold tracking-[0.25em] uppercase text-brand-brown hover:text-brand-blue transition-colors">Gallery</a>
+                <a href="#contact"
+                    class="px-10 py-3.5 rounded-full bg-brand-brown border border-stone-100 text-white font-bold text-[11px] tracking-[0.2em] uppercase hover:shadow-2xl hover:-translate-y-0.5 transition-all">Get
+                    a Quote</a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="lg:hidden text-brand-brown p-2" onclick="toggleMenu()">
+                <i data-lucide="menu" class="w-7 h-7"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 
+     * MOBILE OVERLAY MENU 
+     * Full-screen navigation for touch devices
+     -->
+    <div id="mobile-menu"
+        class="fixed inset-0 bg-white z-[60] hidden flex-col p-6 md:p-10 space-y-10 animate-in slide-in-from-top duration-300">
+        <div class="flex justify-between items-center border-b pb-6">
+            <span class="font-black text-xl text-brand-brown uppercase">The Candy Town</span>
+            <button onclick="toggleMenu()" class="p-2"><i data-lucide="x" class="w-8 h-8 text-brand-brown"></i></button>
+        </div>
+        <div class="flex flex-col space-y-8 text-left">
+            <a href="#home" onclick="toggleMenu()"
+                class="text-3xl font-black text-brand-brown hover:text-brand-blue">Home</a>
+            <a href="#about" onclick="toggleMenu()"
+                class="text-3xl font-black text-brand-brown hover:text-brand-blue">About</a>
+            <a href="#services" onclick="toggleMenu()"
+                class="text-3xl font-black text-brand-brown hover:text-brand-blue">Services</a>
+            <a href="gallery.html" onclick="toggleMenu()"
+                class="text-3xl font-black text-brand-brown hover:text-brand-blue">Gallery</a>
+            <a href="#contact" onclick="toggleMenu()"
+                class="w-full py-5 bg-brand-brown text-white text-center rounded-2xl font-bold uppercase tracking-widest text-sm shadow-xl">GET
+                A QUOTE</a>
+        </div>
+    </div>
+
+    <!-- 
+     * HERO SECTION 
+     * Optimized for conversion with responsive text scaling and floating assets
+     -->
+
+    <section id="home"
+        class="relative min-h-[85vh] md:min-h-[95vh] flex items-center bg-brand-pink overflow-hidden hero-layout-spacing pt-20 pb-10 md:pt-24 md:pb-16 lg:pt-32 lg:pb-24">
+
+        <div
+            class="hero-blob w-[200px] h-[200px] md:w-[400px] md:h-[400px] bg-brand-blue -top-10 -left-10 md:-top-20 md:-left-20 z-0">
+        </div>
+        <div
+            class="hero-blob w-[150px] h-[150px] md:w-[300px] md:h-[300px] bg-brand-accent-pink -bottom-10 right-0 z-0">
+        </div>
+
+        <div class="absolute inset-0 z-0 lg:hidden">
+            <img src="./images/Hero section Image.jpeg" class="w-full h-full object-cover opacity-40 mix-blend-multiply"
+                alt="Background Decor">
+            <div class="absolute inset-0 bg-brand-pink/40"></div>
+        </div>
+
+        <div class="container mx-auto px-4 md:px-6 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-10 md:gap-16 items-center">
+
+                <div class="space-y-6 md:space-y-10 fade-in-up visible text-left mb-12 lg:mb-0">
+                    <h1
+                        class="text-4xl md:text-6xl lg:text-7xl font-black text-brand-brown leading-tight tracking-tighter drop-shadow-sm">
+
+                        Bringing Live Food Experiences to<br class="hidden sm:block">
+
+                        <span class="text-brand-accent-pink">your Special Moments</span>
+
+                    </h1>
+                    <p
+                        class="text-brand-brown text-base md:text-2xl text-stone-700 max-w-lg leading-relaxed font-bold lg:bg-transparent lg:p-0">
+                        “Elevate your celebrations with professionally managed live food stalls, curated for luxury
+                        weddings
+                        and corporate galas—serving events across <span
+                            class="text-brand-brown font-bold underline decoration-brand-blue decoration-2 underline-offset-4">Maharashtra,
+                            Gujarat, and Rajasthan </span> from our Mumbai and Delhi bases."
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-8">
+                        <a href="#contact"
+                            class="px-8 md:px-12 py-4 md:py-5 bg-white border border-stone-100 text-brand-brown font-bold rounded-full text-[10px] md:text-[11px] tracking-[0.2em] uppercase shadow-md hover:bg-stone-50 hover:-translate-y-1 transition-all text-center">
+                            Secure your date
+                        </a>
+                        <a href="#services"
+                            class="px-8 md:px-12 py-4 md:py-5 bg-white border border-stone-100 text-brand-brown font-bold rounded-full text-[10px] md:text-[11px] tracking-[0.2em] uppercase shadow-md hover:bg-stone-50 hover:-translate-y-1 transition-all text-center">
+                            Explore stalls
+                        </a>
+                    </div>
+                </div>
+
+                <div class="relative fade-in-up visible hidden lg:block">
+                    <div class="absolute inset-0 bg-brand-blue/10 rounded-[4rem] -rotate-6 scale-105"></div>
+                    <div
+                        class="relative rounded-[3rem] md:rounded-[4rem] overflow-hidden shadow-2xl border-4 md:border-8 border-white">
+                        <img src="./images/Hero section Image.jpeg" alt="Premium Catering Event"
+                            class="w-full h-[400px] md:h-[600px] object-cover">
+
+                        <div
+                            class="absolute bottom-6 right-6 md:bottom-10 md:right-10 bg-brand-brown text-white p-5 md:p-8 rounded-2xl md:rounded-3xl shadow-xl border border-white/20 backdrop-blur-sm">
+                            <p class="text-xl md:text-2xl font-black text-brand-blue tracking-tighter">500+</p>
+                            <p class="text-[8px] md:text-[9px] uppercase tracking-widest font-bold opacity-70">Happy
+                                Events</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 
+     * LOCATION MARQUEE 
+     * Continuous scroll banner for regional presence and trust signals
+     -->
+    <div
+        class="bg-brand-brown py-4 md:py-5 overflow-hidden border-y border-white/10 shadow-lg relative z-30 mb-8 md:mb-12">
+        <div class="animate-scroll">
+            <div class="flex items-center space-x-12 md:space-x-24 px-6 md:px-10">
+                <span
+                    class="flex items-center space-x-3 md:space-x-6 text-white font-black tracking-[0.2em] md:tracking-[0.45em] text-[8px] md:text-[10px] uppercase shrink-0"><i
+                        data-lucide="map-pin" class="w-3 h-3 md:w-4 md:h-4"></i> <span>Serving Maharashtra</span></span>
+                <span
+                    class="flex items-center space-x-3 md:space-x-6 text-white font-black tracking-[0.2em] md:tracking-[0.45em] text-[8px] md:text-[10px] uppercase shrink-0"><i
+                        data-lucide="map-pin" class="w-3 h-3 md:w-4 md:h-4"></i> <span>Serving Gujarat</span></span>
+                <span
+                    class="flex items-center space-x-3 md:space-x-6 text-white font-black tracking-[0.2em] md:tracking-[0.45em] text-[8px] md:text-[10px] uppercase shrink-0"><i
+                        data-lucide="map-pin" class="w-3 h-3 md:w-4 md:h-4"></i> <span>Serving Rajasthan</span></span>
+                <span
+                    class="flex items-center space-x-3 md:space-x-6 text-white font-black tracking-[0.2em] md:tracking-[0.45em] text-[8px] md:text-[10px] uppercase shrink-0"><i
+                        data-lucide="clock" class="w-3 h-3 md:w-4 md:h-4"></i> <span>On-Time Services</span></span>
+                <span
+                    class="flex items-center space-x-3 md:space-x-6 text-white font-black tracking-[0.2em] md:tracking-[0.45em] text-[8px] md:text-[10px] uppercase shrink-0"><i
+                        data-lucide="shield-check" class="w-3 h-3 md:w-4 md:h-4"></i> <span>100% Hygiene
+                        Setup</span></span>
+                <span
+                    class="flex items-center space-x-3 md:space-x-6 text-white font-black tracking-[0.2em] md:tracking-[0.45em] text-[8px] md:text-[10px] uppercase shrink-0"><i
+                        data-lucide="award" class="w-3 h-3 md:w-4 md:h-4"></i> <span>FSSAI Compiled</span></span>
+                <!-- Loop duplicates for seamless effect -->
+                <span
+                    class="flex items-center space-x-3 md:space-x-6 text-white font-black tracking-[0.2em] md:tracking-[0.45em] text-[8px] md:text-[10px] uppercase shrink-0"><i
+                        data-lucide="map-pin" class="w-3 h-3 md:w-4 md:h-4"></i> <span>Serving Maharashtra</span></span>
+                <span
+                    class="flex items-center space-x-3 md:space-x-6 text-white font-black tracking-[0.2em] md:tracking-[0.45em] text-[8px] md:text-[10px] uppercase shrink-0"><i
+                        data-lucide="map-pin" class="w-3 h-3 md:w-4 md:h-4"></i> <span>Serving Gujarat</span></span>
+                <span
+                    class="flex items-center space-x-3 md:space-x-6 text-white font-black tracking-[0.2em] md:tracking-[0.45em] text-[8px] md:text-[10px] uppercase shrink-0"><i
+                        data-lucide="map-pin" class="w-3 h-3 md:w-4 md:h-4"></i> <span>Serving Rajasthan</span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+     * ABOUT SECTION 
+     * Brand story and heritage details
+     -->
+    <section id="about" class="py-16 md:py-32 bg-white">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="grid lg:grid-cols-2 gap-12 md:gap-24 items-center">
+                <div class="relative fade-in-up">
+
+                    <!-- About us Photo -->
+
+                    <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&q=80&w=1200"
+                        alt="About Our Professional Stalls"
+                        class="relative z-10 rounded-[2rem] md:rounded-[3rem] shadow-2xl border-[8px] md:border-[12px] border-brand-pink transition-transform hover:scale-[1.02]">
+                    <div
+                        class="absolute -bottom-6 -left-4 md:-bottom-10 md:-left-10 bg-brand-brown p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] text-white shadow-3xl z-20 border border-brand-blue/40">
+                        <p class="text-2xl md:text-4xl font-black text-brand-blue mb-1 tracking-tighter text-left">100%
+                        </p>
+                        <p
+                            class="text-[7px] md:text-[9px] uppercase tracking-[0.2em] md:tracking-[0.3em] font-black opacity-80 leading-tight md:leading-none text-left">
+                            Hygiene <br> Setup</p>
+                    </div>
+                </div>
+                <div class="space-y-6 md:space-y-10 fade-in-up text-left">
+                    <div>
+                        <h2
+                            class="text-brand-blue font-black tracking-widest text-xl md:text-2xl mb-2 md:mb-4 uppercase text-left">
+                            About Us</h2>
+                        <h3
+                            class="text-3xl md:text-5xl lg:text-6xl font-black leading-tight text-brand-brown tracking-tighter text-left">
+                            The Candy Town Stalls</h3>
+                    </div>
+                    <p class="text-stone-500 leading-relaxed text-base md:text-lg font-medium text-left">
+                        The Candy Town provides professionally managed <span class="font-bold text-brand-brown">live
+                            food stall services for weddings, corporate
+                            events, and large public gatherings.</span> Our focus is on operational reliability, quality
+                        control,
+                        and smooth execution across events of all sizes.
+                        <br>
+                        <br>
+                        We have successfully served over <span class="font-bold text-brand-brown">30,000 guests in a
+                            single day</span> and have supported high-footfall
+                        events including Nykaaland and India vs Pakistan match-day celebrations, reflecting our ability
+                        to manage scale without disruption.
+                        <br>
+                        <br>
+                        The Candy Town is built on <span class="font-bold text-brand-brown">Trust, Experience, and
+                            Execution</span>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 
+     * SERVICES GRID 
+     * Displays available live stall configurations
+     -->
+    <section id="services" class="py-16 md:py-32 bg-brand-pink relative">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center max-w-3xl mx-auto mb-12 md:mb-24 space-y-4 md:space-y-6">
+                <h2
+                    class="text-brand-blue font-bold tracking-widest text-[9px] md:text-[11px] mb-2 uppercase text-center">
+                    What we serve</h2>
+                <h3 class="text-3xl md:text-5xl font-black text-brand-brown tracking-tighter">Signature live counters.
+                </h3>
+                <p class="text-stone-500 font-bold text-sm md:text-base">Premium snacking experiences curated for your
+                    unique event theme.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+                <div
+                    class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
+                    <div class="relative w-full h-64 md:h-72 overflow-hidden">
+                        <img src="./images/Chocolate Fountain.PNG" alt="Chocolate Fountain Stall"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+                            <span
+                                class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">5-tier
+                                luxury</span>
+                        </div>
+                    </div>
+                    <div class="p-8 flex flex-col items-center text-center flex-grow">
+                        <h4
+                            class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
+                            Chocolate Fountain</h4>
+                        <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">Imported Belgian
+                            chocolate served with fresh fruit skewers and marshmallows.</p>
+                        <div
+                            class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
+                    <div class="relative w-full h-64 md:h-72 overflow-hidden">
+                        <img src="/images/Live Popcorn.PNG" alt="Live Popcorn Stall"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+                            <span
+                                class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">Vintage
+                                cart</span>
+                        </div>
+                    </div>
+                    <div class="p-8 flex flex-col items-center text-center flex-grow">
+                        <h4
+                            class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
+                            Live Popcorn</h4>
+                        <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">Cinema-style hot
+                            popcorn in custom branded tubs. Sweet & salted options.</p>
+                        <div
+                            class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
+                    <div class="relative w-full h-64 md:h-72 overflow-hidden">
+                        <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1766908751/WhatsApp_Image_2025-12-25_at_1.20.06_PM_zikfo9.jpg"
+                            alt="Cotton Candy Stall"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+                            <span
+                                class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">Organic
+                                sugar</span>
+                        </div>
+                    </div>
+                    <div class="p-8 flex flex-col items-center text-center flex-grow">
+                        <h4
+                            class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
+                            Cotton Candy</h4>
+                        <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">Whimsical clouds of
+                            sugar spun live. Organic sugars and vibrant colors available.</p>
+                        <div
+                            class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
+                    <div class="relative w-full h-64 md:h-72 overflow-hidden">
+                        <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1766909749/icegola_hymloa.jpg"
+                            alt="Ice Gola Stall"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+                            <span
+                                class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">100%
+                                mineral ice</span>
+                        </div>
+                    </div>
+                    <div class="p-8 flex flex-col items-center text-center flex-grow">
+                        <h4
+                            class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
+                            Nostalgic Ice Gola</h4>
+                        <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">Traditional Chuski
+                            made with mineral water ice and premium syrups.</p>
+                        <div
+                            class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
+                    <div class="relative w-full h-64 md:h-72 overflow-hidden">
+                        <img src="./images/Potato Twister.PNG" alt="Potato Twister Stall"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+                            <span
+                                class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">Live
+                                spiral cut</span>
+                        </div>
+                    </div>
+                    <div class="p-8 flex flex-col items-center text-center flex-grow">
+                        <h4
+                            class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
+                            Potato Twisters</h4>
+                        <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">Freshly cut spiral
+                            potatoes fried and dusted with signature masalas.</p>
+                        <div
+                            class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
+                    <div class="relative w-full h-64 md:h-72 overflow-hidden">
+                        <img src="./images/Crunchy Waffles.PNG" alt="Crunchy Waffles Stall"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+                            <span
+                                class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">Gourmet
+                                toppings</span>
+                        </div>
+                    </div>
+                    <div class="p-8 flex flex-col items-center text-center flex-grow">
+                        <h4
+                            class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
+                            Crunchy Waffles</h4>
+                        <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">Freshly baked Belgian
+                            style waffles served with gourmet toppings.</p>
+                        <div
+                            class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
+                    <div class="relative w-full h-64 md:h-72 overflow-hidden">
+                        <img src="./images/Chana Jor Garam.PNG" alt="Chana Jor Garam Stall"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+                            <span
+                                class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">Chatpata
+                                Flashback</span>
+                        </div>
+                    </div>
+                    <div class="p-8 flex flex-col items-center text-center flex-grow">
+                        <h4
+                            class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
+                            Chana Jor Garam</h4>
+                        <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">The snack we shook,
+                            mixed, and shared — straight from childhood streets.</p>
+                        <div
+                            class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
+                    <div class="relative w-full h-64 md:h-72 overflow-hidden">
+                        <img src="./images/Masala Sweet Corn.PNG" alt="Masala Sweet Corn Stall"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+                            <span
+                                class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">Corn
+                                Memories</span>
+                        </div>
+                    </div>
+                    <div class="p-8 flex flex-col items-center text-center flex-grow">
+                        <h4
+                            class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
+                            Masala Sweet Corn</h4>
+                        <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">The timeless street
+                            taste of school days and warm summer evenings.</p>
+                        <div
+                            class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
+                    <div class="relative w-full h-64 md:h-72 overflow-hidden">
+                        <img src="./images/Bachpan ki yaddien.PNG" alt="Bachpan ki Yaadien Stall"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+                            <span
+                                class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">Sweet
+                                Nostalgia</span>
+                        </div>
+                    </div>
+                    <div class="p-8 flex flex-col items-center text-center flex-grow">
+                        <h4
+                            class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
+                            Bachpan ki Yaadien</h4>
+                        <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">A stall that tastes
+                            like childhood — where every candy brings back a story.</p>
+                        <div
+                            class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 
+     * QUALITY ASSURANCE 
+     * Trust signals highlighting hygiene and professional checks
+     -->
+    <section id="quality" class="py-16 md:py-24 bg-white border-t border-stone-100">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-12 md:gap-20 items-center">
+                    <div class="space-y-6 md:space-y-8 fade-in-up text-left">
+                        <div class="space-y-3 md:space-y-4">
+                            <h2
+                                class="text-brand-blue font-black tracking-widest text-[9px] md:text-[11px] uppercase text-left">
+                                The Gold Standard</h2>
+                            <h3
+                                class="text-3xl md:text-5xl font-black text-brand-brown tracking-tighter leading-tight text-left">
+                                Our Sweet Promise: <br>Uncompromising Quality.</h3>
+                        </div>
+                        <p class="text-stone-500 text-base md:text-lg leading-relaxed font-medium text-left">
+                            Before our stalls even arrive at your venue, they undergo a rigorous 4-point quality check.
+                            We believe that a great experience starts with absolute safety and hygiene.
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 pt-4">
+                            <div class="space-y-3">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue">
+                                    <i data-lucide="shield-check" class="w-5 h-5"></i>
+                                </div>
+                                <h4
+                                    class="font-black text-brand-brown uppercase text-sm md:text-base tracking-widest text-left">
+                                    FSSAI Approved
+                                </h4>
+                                <p class="text-stone-400 text-[11px] md:text-xs font-bold leading-relaxed text-left">
+                                    100% compliance with national food safety and hygiene regulations at every event.
+                                </p>
+                            </div>
+                            <div class="space-y-3">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue">
+                                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                                </div>
+                                <h4
+                                    class="font-black text-brand-brown uppercase text-sm md:text-base tracking-widest text-left">
+                                    Premium Grade
+                                </h4>
+                                <p class="text-stone-400 text-[11px] md:text-xs font-bold leading-relaxed text-left">
+                                    Only trusted brands and premium-grade ingredients are used — quality is never
+                                    compromised. No Palm Oil added</p>
+                            </div>
+                            <div class="space-y-3">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue">
+                                    <i data-lucide="thermometer" class="w-5 h-5"></i>
+                                </div>
+                                <h4
+                                    class="font-black text-brand-brown uppercase text-sm md:text-base tracking-widest text-left">
+                                    Hygine Audit
+                                </h4>
+                                <p class="text-stone-400 text-[11px] md:text-xs font-bold leading-relaxed text-left">For
+                                    your safety and peace of mind, All our equipment is meticulously cleaned and
+                                    sanitised before being prepared for the next event.</p>
+                            </div>
+                            <div class="space-y-3">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue">
+                                    <i data-lucide="users" class="w-5 h-5"></i>
+                                </div>
+                                <h4
+                                    class="font-black text-brand-brown uppercase text-sm md:text-base tracking-widest text-left">
+                                    Expert Staff
+                                </h4>
+                                <p class="text-stone-400 text-[11px] md:text-xs font-bold leading-relaxed text-left">
+                                    Professionally trained, uniformed, and impeccably groomed staff to ensure flawless
+                                    service.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Descriptive Image Grid -->
+                    <div class="relative fade-in-up">
+                        <div
+                            class="absolute inset-0 bg-brand-blue/5 rounded-[2rem] md:rounded-[3rem] translate-x-4 translate-y-4">
+                        </div>
+                        <div
+                            class="relative rounded-[2rem] md:rounded-[3rem] overflow-hidden border-4 md:border-8 border-white shadow-2xl">
+                            <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=1000"
+                                alt="Hygiene Standards and Audit" class="w-full h-[350px] md:h-[500px] object-cover">
+                            <div
+                                class="absolute top-4 left-4 md:top-8 md:left-8 bg-white/90 backdrop-blur px-4 md:px-6 py-2 md:py-4 rounded-xl md:rounded-2xl border border-brand-blue/20 shadow-xl">
+                                <div class="flex items-center space-x-2 md:space-x-3">
+                                    <div class="w-2 h-2 md:w-3 md:h-3 rounded-full bg-green-500 animate-pulse"></div>
+                                    <span
+                                        class="text-[8px] md:text-[10px] font-black text-brand-brown uppercase tracking-widest">Quality
+                                        Verified</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 
+     * GALLERY SHOWCASE 
+     * Carousel component for visual proof of work
+     -->
+    <section id="event-showcase" class="py-16 md:py-32 bg-white text-center">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-8 md:mb-16 space-y-3 md:space-y-4">
+                <h2
+                    class="text-brand-blue font-bold tracking-widest text-[9px] md:text-[11px] mb-2 uppercase text-center">
+                    Event gallery</h2>
+                <h3 class="text-3xl md:text-5xl font-black text-brand-brown tracking-tighter text-center">Moments we've
+                    created.</h3>
+                <div class="w-16 md:w-20 h-1 bg-brand-blue mx-auto mt-4 md:mt-6"></div>
+            </div>
+
+            <!-- Responsive Slider Container -->
+            <div class="relative max-w-6xl mx-auto px-2 overflow-hidden group text-center">
+                <div id="carousel-inner" class="flex transition-transform duration-700 ease-in-out">
+                    <div class="min-w-full px-2"><img src="./images/Moments we've created/moment1.JPG"
+                            alt="Luxury Wedding Decor"
+                            class="rounded-2xl md:rounded-[3rem] w-full h-[300px] md:h-[500px] object-cover shadow-2xl">
+                    </div>
+                    <div class="min-w-full px-2"><img src="./images/Moments we've created/moment2.JPG"
+                            alt="Corporate Gala Event"
+                            class="rounded-2xl md:rounded-[3rem] w-full h-[300px] md:h-[500px] object-cover shadow-2xl">
+                    </div>
+                    <div class="min-w-full px-2"><img src="./images/Moments we've created/moment3.JPG"
+                            alt="Theme Birthday Party"
+                            class="rounded-2xl md:rounded-[3rem] w-full h-[300px] md:h-[500px] object-cover shadow-2xl">
+                    </div>
+                    <div class="min-w-full px-2"><img src="./images/Moments we've created/moment4.JPG"
+                            alt="Theme Birthday Party"
+                            class="rounded-2xl md:rounded-[3rem] w-full h-[300px] md:h-[500px] object-cover shadow-2xl">
+                    </div>
+                </div>
+                <!-- Interactive Controls -->
+                <button id="prev-slide"
+                    class="absolute left-2 md:left-10 top-1/2 -translate-y-1/2 bg-white/90 p-3 md:p-4 rounded-full shadow-xl opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all hover:bg-brand-blue border border-brand-blue/20">
+                    <i data-lucide="chevron-left" class="w-5 h-5 md:w-6 md:h-6"></i>
+                </button>
+                <button id="next-slide"
+                    class="absolute right-2 md:right-10 top-1/2 -translate-y-1/2 bg-white/90 p-3 md:p-4 rounded-full shadow-xl opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all hover:bg-brand-blue border border-brand-blue/20">
+                    <i data-lucide="chevron-right" class="w-5 h-5 md:w-6 md:h-6"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 
+     * REVIEWS SECTION 
+     * Dynamic social proof marquee
+     -->
+    <section class="py-16 md:py-32 bg-brand-brown text-white relative overflow-hidden">
+        <div
+            class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')]">
+        </div>
+        <div class="container mx-auto px-4 md:px-6 relative z-10 text-center">
+
+            <div class="flex flex-col items-center mb-12 md:mb-20 space-y-4 md:space-y-6">
+                <div class="space-y-2 text-center">
+                    <h2
+                        class="text-brand-accent-pink font-bold tracking-widest text-[9px] md:text-[11px] mb-2 uppercase">
+                        Verified testimonials</h2>
+                    <h3 class="text-3xl md:text-5xl font-black tracking-tighter">What our clients say.</h3>
+                </div>
+
+                <!-- Aggregated Score -->
+                <div
+                    class="bg-white/5 backdrop-blur-xl border border-white/10 px-8 md:px-10 py-6 md:py-8 rounded-3xl md:rounded-[3rem] flex flex-col items-center space-y-2 md:space-y-3 shadow-2xl">
+                    <div class="flex text-brand-blue space-x-1">
+                        <i data-lucide="star" class="w-4 h-4 md:w-6 md:h-6 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 md:w-6 md:h-6 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 md:w-6 md:h-6 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 md:w-6 md:h-6 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 md:w-6 md:h-6 fill-current"></i>
+                    </div>
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-3xl md:text-5xl font-black text-white">4.9</span>
+                        <span class="text-stone-300 font-bold text-lg md:text-xl">/ 5.0</span>
+                    </div>
+                    <p
+                        class="text-[8px] md:text-[10px] text-stone-400 uppercase tracking-[0.1em] md:tracking-[0.2em] font-black">
+                        Based on 500+ happy clients</p>
+                </div>
+
+                <button onclick="openReviewModal()"
+                    class="px-8 md:px-10 py-3 md:py-4 bg-white border border-stone-100 text-brand-brown font-bold text-[9px] md:text-xs uppercase tracking-widest rounded-full hover:scale-105 active:scale-95 transition-all shadow-xl">
+                    Write a review
+                </button>
+            </div>
+
+            <!-- Marquee Container -->
+            <div class="relative overflow-hidden py-8 md:py-10 -mx-4 md:-mx-6">
+                <div id="testimonial-marquee" class="animate-marquee flex gap-4 md:gap-6">
+                    <!-- Population handled by JavaScript Core -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 
+     * CONTACT & INQUIRY 
+     * High-conversion form with validation
+     -->
+    <section id="contact" class="py-16 md:py-32 bg-brand-pink relative">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="grid lg:grid-cols-2 gap-12 md:gap-24 items-start">
+                <div class="space-y-8 md:space-y-12 fade-in-up">
+                    <div class="space-y-6 md:space-y-8 text-left">
+                        <h3
+                            class="text-4xl md:text-7xl font-black text-brand-brown leading-tight tracking-tighter text-left">
+                            Let's craft your <br class="hidden md:block">experience.</h3>
+                        <p class="text-stone-500 text-lg md:text-xl font-bold leading-relaxed text-left">Planning an
+                            event in <span class="text-brand-brown">Maharashtra, Gujarat, or Rajasthan</span>? We're
+                            ready to make it sweeter.</p>
+                    </div>
+
+                    <!-- Contact Details -->
+                    <div class="space-y-8 md:space-y-10">
+                        <div class="flex items-center space-x-6 md:space-x-8 group">
+                            <div
+                                class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-brand-brown flex items-center justify-center shadow-xl group-hover:bg-brand-blue transition-all">
+                                <i data-lucide="phone" class="text-white w-6 h-6 md:w-8 md:h-8"></i>
+                            </div>
+                            <div>
+                                <p
+                                    class="text-[8px] md:text-[10px] font-bold tracking-widest text-brand-blue mb-1 uppercase text-left">
+                                    Call us on</p>
+                                <p
+                                    class="text-xl md:text-3xl font-black text-brand-brown tracking-tighter uppercase text-left">
+                                    +91 98679 10957</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-6 md:space-x-8 group">
+                            <div
+                                class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-brand-brown flex items-center justify-center shadow-xl group-hover:bg-brand-blue transition-all">
+                                <i data-lucide="mail" class="text-white w-6 h-6 md:w-8 md:h-8"></i>
+                            </div>
+                            <div>
+                                <p
+                                    class="text-[8px] md:text-[10px] font-bold tracking-widest text-brand-blue mb-1 uppercase text-left">
+                                    Email inquiry</p>
+                                <p
+                                    class="text-lg md:text-3xl font-black text-brand-brown tracking-tighter lowercase text-left">
+                                    dcandytown@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <a href="https://wa.me/919867910957" target="_blank"
+                            class="w-full sm:w-auto inline-flex items-center justify-center space-x-4 md:space-x-5 px-8 md:px-12 py-4 md:py-6 bg-green-600 text-white font-black rounded-2xl md:rounded-3xl shadow-xl hover:bg-green-700 transition-all tracking-widest text-[10px] md:text-[11px] uppercase">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                                class="w-5 h-5 md:w-6 md:h-6" alt="WhatsApp Icon"> <span>WhatsApp our team</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Main Submission Form -->
+                <div
+                    class="bg-white p-8 md:p-16 rounded-[2.5rem] md:rounded-[4rem] shadow-2xl border border-stone-50 relative fade-in-up text-left">
+                    <div
+                        class="absolute -top-4 -right-4 md:-top-6 md:-right-6 w-24 h-24 md:w-32 md:h-32 bg-brand-blue rounded-full flex items-center justify-center text-brand-brown text-center p-3 md:p-4 shadow-xl border-4 border-white rotate-12 z-10">
+                        <p class="font-black text-[8px] md:text-[10px] tracking-widest leading-tight uppercase">Best
+                            rates guaranteed</p>
+                    </div>
+                    <form id="inquiryForm" class="space-y-6 md:space-y-10">
+                        <h4
+                            class="text-2xl md:text-3xl font-black text-brand-brown tracking-tighter mb-4 md:mb-8 border-b-2 border-stone-50 pb-4 md:pb-6 capitalize text-left">
+                            Inquiry form</h4>
+
+                        <div class="space-y-6">
+                            <div class="space-y-1 md:space-y-2">
+                                <label
+                                    class="text-[8px] md:text-[10px] font-bold tracking-widest text-stone-400 ml-2 md:ml-4 uppercase">Full
+                                    name</label>
+                                <input type="text" name="FullName"
+                                    class="w-full bg-stone-50 border-b-2 border-stone-100 focus:border-brand-blue px-4 md:px-6 py-3 md:py-4 outline-none transition-all font-bold text-brand-brown uppercase"
+                                    required>
+                            </div>
+                            <div class="space-y-1 md:space-y-2">
+                                <label
+                                    class="text-[8px] md:text-[10px] font-bold tracking-widest text-stone-400 ml-2 md:ml-4 uppercase">Phone
+                                    no.</label>
+                                <input type="tel" name="PhoneNumber"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                    class="w-full bg-stone-50 border-b-2 border-stone-100 focus:border-brand-blue px-4 md:px-6 py-3 md:py-4 outline-none transition-all font-bold text-brand-brown uppercase"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="space-y-1 md:space-y-2">
+                            <label
+                                class="text-[8px] md:text-[10px] font-bold tracking-widest text-stone-400 ml-2 md:ml-4 uppercase text-left">Event
+                                date</label>
+                            <input type="date" name="EventDate"
+                                class="w-full bg-stone-50 border-b-2 border-stone-100 focus:border-brand-blue px-4 md:px-6 py-3 md:py-4 outline-none font-bold text-brand-brown"
+                                required>
+                        </div>
+
+                        <div class="space-y-1 md:space-y-2 text-left">
+                            <label
+                                class="text-[8px] md:text-[10px] font-bold tracking-widest text-stone-400 ml-2 md:ml-4 uppercase text-left">Location</label>
+                            <select id="locationSelect" name="Location"
+                                class="w-full bg-stone-50 border-b-2 border-stone-100 focus:border-brand-blue px-4 md:px-6 py-3 md:py-4 outline-none font-black text-[10px] md:text-xs tracking-widest text-brand-brown uppercase"
+                                required onchange="handleLocationChange(this)">
+                                <option value="" disabled selected>Select Location</option>
+                                <option>Mumbai</option>
+                                <option>Pune</option>
+                                <option>Nagpur</option>
+                                <option>Ahmedabad</option>
+                                <option>Surat</option>
+                                <option>Jaipur</option>
+                                <option>Udaipur</option>
+                                <option>Delhi / NCR</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div id="otherLocationWrapper"
+                            class="space-y-2 hidden animate-in fade-in slide-in-from-top-2 duration-300">
+                            <label class="text-[10px] font-bold tracking-widest text-stone-400 ml-4 uppercase">Specify
+                                Location</label>
+                            <input type="text" name="OtherLocation"
+                                class="w-full bg-stone-50 border-b-2 border-stone-100 focus:border-brand-blue px-6 py-4 outline-none transition-all font-bold text-brand-brown uppercase"
+                                placeholder="Enter your city/area">
+                        </div>
+
+                        <div class="space-y-1 md:space-y-2 text-left">
+                            <label
+                                class="text-[8px] md:text-[10px] font-bold tracking-widest text-stone-400 ml-2 md:ml-4 uppercase text-left">Number
+                                of guests</label>
+                            <input type="number" name="GuestCount" min="1"
+                                class="w-full bg-stone-50 border-b-2 border-stone-100 focus:border-brand-blue px-4 md:px-6 py-3 md:py-4 outline-none font-bold text-brand-brown placeholder:text-stone-300 uppercase"
+                                required>
+                        </div>
+
+                        <div
+                            class="space-y-4 md:space-y-6 bg-brand-pink/30 p-6 md:p-8 rounded-3xl md:rounded-[2.5rem] border border-brand-pink text-left">
+                            <label
+                                class="text-[10px] md:text-[11px] font-black tracking-widest text-brand-brown ml-2 uppercase flex items-center"><i
+                                    data-lucide="check-square" class="w-4 h-4 mr-2 text-brand-blue"></i> Select your
+                                stalls</label>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 md:gap-y-3">
+                                <label
+                                    class="flex items-center space-x-3 p-3 bg-white rounded-xl cursor-pointer hover:bg-brand-blue/5 border border-stone-200 transition-all group">
+                                    <input type="checkbox" name="Stalls" value="Potato Twisters"
+                                        class="accent-brand-blue w-4 h-4 md:w-5 md:h-5">
+                                    <span class="text-[9px] md:text-[11px] font-bold text-stone-600 capitalize">Potato
+                                        twisters</span>
+                                </label>
+                                <label
+                                    class="flex items-center space-x-3 p-3 bg-white rounded-xl cursor-pointer hover:bg-brand-blue/5 border border-stone-200 transition-all group">
+                                    <input type="checkbox" name="Stalls" value="Crunchy Waffles"
+                                        class="accent-brand-blue w-4 h-4 md:w-5 md:h-5">
+                                    <span class="text-[9px] md:text-[11px] font-bold text-stone-600 capitalize">Crunchy
+                                        waffles</span>
+                                </label>
+                                <label
+                                    class="flex items-center space-x-3 p-3 bg-white rounded-xl cursor-pointer hover:bg-brand-blue/5 border border-stone-200 transition-all group">
+                                    <input type="checkbox" name="Stalls" value="Ice Gola"
+                                        class="accent-brand-blue w-4 h-4 md:w-5 md:h-5">
+                                    <span class="text-[9px] md:text-[11px] font-bold text-stone-600 capitalize">Ice
+                                        gola</span>
+                                </label>
+                                <label
+                                    class="flex items-center space-x-3 p-3 bg-white rounded-xl cursor-pointer hover:bg-brand-blue/5 border border-stone-200 transition-all group">
+                                    <input type="checkbox" name="Stalls" value="Sweet Corn"
+                                        class="accent-brand-blue w-4 h-4 md:w-5 md:h-5">
+                                    <span class="text-[9px] md:text-[11px] font-bold text-stone-600 capitalize">Sweet
+                                        corn</span>
+                                </label>
+                                <label
+                                    class="flex items-center space-x-3 p-3 bg-white rounded-xl cursor-pointer hover:bg-brand-blue/5 border border-stone-200 transition-all group">
+                                    <input type="checkbox" name="Stalls" value="Chocolate Fountain"
+                                        class="accent-brand-blue w-4 h-4 md:w-5 md:h-5">
+                                    <span
+                                        class="text-[9px] md:text-[11px] font-bold text-stone-600 capitalize">Chocolate
+                                        fountain</span>
+                                </label>
+                                <label
+                                    class="flex items-center space-x-3 p-3 bg-white rounded-xl cursor-pointer hover:bg-brand-blue/5 border border-stone-200 transition-all group">
+                                    <input type="checkbox" name="Stalls" value="Bachpan Ki Yaadien"
+                                        class="accent-brand-blue w-4 h-4 md:w-5 md:h-5">
+                                    <span class="text-[9px] md:text-[11px] font-bold text-stone-600 capitalize">Bachpan
+                                        ki yaadien</span>
+                                </label>
+                                <label
+                                    class="flex items-center space-x-3 p-3 bg-white rounded-xl cursor-pointer hover:bg-brand-blue/5 border border-stone-200 transition-all group">
+                                    <input type="checkbox" name="Stalls" value="Popcorn Stall"
+                                        class="accent-brand-blue w-4 h-4 md:w-5 md:h-5">
+                                    <span class="text-[9px] md:text-[11px] font-bold text-stone-600 capitalize">Popcorn
+                                        stall</span>
+                                </label>
+                                <label
+                                    class="flex items-center space-x-3 p-3 bg-white rounded-xl cursor-pointer hover:bg-brand-blue/5 border border-stone-200 transition-all group">
+                                    <input type="checkbox" name="Stalls" value="Candy Floss"
+                                        class="accent-brand-blue w-4 h-4 md:w-5 md:h-5">
+                                    <span class="text-[9px] md:text-[11px] font-bold text-stone-600 capitalize">Candy
+                                        floss</span>
+                                </label>
+                                <label
+                                    class="flex items-center space-x-3 p-3 bg-white rounded-xl cursor-pointer hover:bg-brand-blue/5 border border-stone-200 transition-all group">
+                                    <input type="checkbox" name="Stalls" value="Pancakes"
+                                        class="accent-brand-blue w-4 h-4 md:w-5 md:h-5">
+                                    <span
+                                        class="text-[9px] md:text-[11px] font-bold text-stone-600 capitalize">Pancakes</span>
+                                </label>
+                                <label
+                                    class="flex items-center space-x-3 p-3 bg-white rounded-xl cursor-pointer hover:bg-brand-blue/5 border border-stone-200 transition-all group">
+                                    <input type="checkbox" name="Stalls" value="French Fries"
+                                        class="accent-brand-blue w-4 h-4 md:w-5 md:h-5">
+                                    <span class="text-[9px] md:text-[11px] font-bold text-stone-600 capitalize">French
+                                        Fries</span>
+                                </label>
+                                <label
+                                    class="flex items-center space-x-3 p-3 bg-white rounded-xl cursor-pointer hover:bg-brand-blue/5 border border-stone-200 transition-all group">
+                                    <input type="checkbox" name="Stalls" value="Maggie"
+                                        class="accent-brand-blue w-4 h-4 md:w-5 md:h-5">
+                                    <span
+                                        class="text-[9px] md:text-[11px] font-bold text-stone-600 capitalize">Maggie</span>
+                                </label>
+                                <label
+                                    class="flex items-center space-x-3 p-3 bg-white rounded-xl cursor-pointer hover:bg-brand-blue/5 border border-stone-200 transition-all group">
+                                    <input type="checkbox" name="Stalls" value="Chana Jor Garam"
+                                        class="accent-brand-blue w-4 h-4 md:w-5 md:h-5">
+                                    <span class="text-[9px] md:text-[11px] font-bold text-stone-600 capitalize">Chana
+                                        Jor Garam</span>
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <button type="submit" id="submitBtn"
+                            class="w-full py-5 md:py-7 bg-white border border-stone-100 text-brand-brown font-bold rounded-2xl md:rounded-[3rem] shadow-2xl hover:shadow-brand-blue/40 hover:-translate-y-1 transition-all flex items-center justify-center space-x-4 uppercase text-[10px] md:text-xs">
+                            <span id="btnText">Get pricing details</span>
+                            <i data-lucide="send" class="w-4 h-4 md:w-5 md:h-5 text-brand-brown"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 
+     * FOOTER 
+     * Detailed branding and site index
+     -->
+    <footer class="pt-16 md:pt-32 pb-12 md:pb-16 bg-brand-brown text-white border-t border-brand-blue/10">
+        <div class="container mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-20 text-left">
+            <!-- Brand Brief -->
+            <div class="space-y-8 md:space-y-10 col-span-1">
+                <div class="flex items-center space-x-3">
+                    <div
+                        class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white flex items-center justify-center border border-brand-blue shadow-2xl overflow-hidden">
+                        <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1766327154/the_candy_town_gkb8q5.png"
+                            alt="Logo Footer" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <span class="font-black text-xl md:text-2xl tracking-tighter uppercase leading-none">The Candy
+                            Town</span>
+                        <span
+                            class="text-[7px] md:text-[8px] tracking-[0.2em] font-bold text-brand-accent-pink mt-1 uppercase">Making
+                            events sweeter</span>
+                    </div>
+                </div>
+                <p class="text-stone-300 text-xs md:text-sm font-bold leading-relaxed text-left">"India's finest live
+                    stall services across Maharashtra, Gujarat and Rajasthan."</p>
+                <div class="flex space-x-4 md:space-x-6">
+                    <a href="https://www.instagram.com/thecandytown_/" target="_blank"
+                        class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-blue transition-all border border-white/10 group">
+                        <i data-lucide="instagram" class="group-hover:scale-110"></i>
+                    </a>
+
+                    <a href="https://wa.me/919867910957" target="_blank"
+                        class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-blue transition-all border border-white/10 group">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                            class="w-5 h-5 md:w-6 md:h-6 group-hover:scale-110" alt="WhatsApp Link">
+                    </a>
+
+                    <a href="https://youtube.com/@thecandytown1?si=PW0irRAAM9STwHj2" target="_blank"
+                        class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-blue transition-all border border-white/10 group">
+                        <i data-lucide="youtube" class="group-hover:scale-110"></i>
+                    </a>
+
+                    <a href="INSERT_LINKEDIN_LINK_HERE" target="_blank"
+                        class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-blue transition-all border border-white/10 group">
+                        <i data-lucide="linkedin" class="group-hover:scale-110"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="space-y-6 md:space-y-10 uppercase text-left">
+                <h5 class="text-brand-blue font-bold tracking-widest text-[10px] md:text-[11px] text-left">The journey
+                </h5>
+                <ul class="space-y-4 md:space-y-5 text-[10px] md:text-xs font-bold tracking-wide text-stone-300">
+                    <li><a href="#home" class="hover:text-white transition-colors">Home</a></li>
+                    <li><a href="#about" class="hover:text-white transition-colors">Experience</a></li>
+                    <li><a href="#services" class="hover:text-white transition-colors">Services</a></li>
+                    <li><a href="#contact" class="hover:text-white transition-colors">Book now</a></li>
+                </ul>
+            </div>
+
+            <!-- Reach (Regional Hubs) -->
+            <div class="space-y-6 md:space-y-10 uppercase col-span-1 md:col-span-2 text-left">
+                <h5 class="text-brand-blue font-bold tracking-widest text-[10px] md:text-[11px] text-left">Regional hubs
+                </h5>
+                <ul
+                    class="grid grid-cols-2 md:grid-cols-3 gap-y-4 md:gap-y-4 text-[10px] md:text-sm font-semibold tracking-wide text-stone-300">
+                    <li class="flex items-center space-x-3"><i data-lucide="map-pin"
+                            class="text-brand-accent-pink w-3 h-3 md:w-4 md:h-4"></i> <span>Mumbai</span></li>
+                    <li class="flex items-center space-x-3"><i data-lucide="map-pin"
+                            class="text-brand-accent-pink w-3 h-3 md:w-4 md:h-4"></i> <span>Pune</span></li>
+                    <li class="flex items-center space-x-3"><i data-lucide="map-pin"
+                            class="text-brand-accent-pink w-3 h-3 md:w-4 md:h-4"></i> <span>Nagpur</span></li>
+                    <li class="flex items-center space-x-3"><i data-lucide="map-pin"
+                            class="text-brand-accent-pink w-3 h-3 md:w-4 md:h-4"></i> <span>Delhi / NCR</span></li>
+                    <li class="flex items-center space-x-3"><i data-lucide="map-pin"
+                            class="text-brand-accent-pink w-3 h-3 md:w-4 md:h-4"></i> <span>Jaipur</span></li>
+                    <li class="flex items-center space-x-3"><i data-lucide="map-pin"
+                            class="text-brand-accent-pink w-3 h-3 md:w-4 md:h-4"></i> <span>Udaipur</span></li>
+                    <li class="flex items-center space-x-3"><i data-lucide="map-pin"
+                            class="text-brand-accent-pink w-3 h-3 md:w-4 md:h-4"></i> <span>Ahmedabad</span></li>
+                    <li class="flex items-center space-x-3"><i data-lucide="map-pin"
+                            class="text-brand-accent-pink w-3 h-3 md:w-4 md:h-4"></i> <span>Surat</span></li>
+                    <li class="flex items-center space-x-3"><i data-lucide="map-pin"
+                            class="text-brand-accent-pink w-3 h-3 md:w-4 md:h-4"></i> <span>Bangalore</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Copyright Line -->
+        <div
+            class="container mx-auto px-6 pt-10 md:pt-12 mt-10 md:mt-12 border-t border-white/5 text-[9px] md:text-[11px] text-stone-500 tracking-[0.2em] font-black uppercase text-center">
+            The Candy Town. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- FLOATERS: WhatsApp & Bottom Fixed CTA -->
+    <a href="https://wa.me/919867910957" target="_blank"
+        class="fixed bottom-6 right-6 md:bottom-10 md:right-10 w-14 h-14 md:w-16 md:h-16 bg-brand-blue text-white rounded-full flex items-center justify-center shadow-2xl z-[100] hover:scale-110 active:scale-95 transition-all border-4 border-white group">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-7 h-7 md:w-8 md:h-8"
+            alt="WhatsApp Icon Button">
+    </a>
+
+    <!-- 
+     * REVIEW MODAL 
+     * User feedback interface with star rating
+     -->
+    <div id="reviewModal"
+        class="fixed inset-0 z-[1500] hidden items-center justify-center p-4 md:p-6 bg-brand-brown/80 backdrop-blur-md">
+        <div
+            class="bg-white p-8 md:p-12 rounded-[2.5rem] md:rounded-[4rem] w-full max-w-lg shadow-2xl relative text-left">
+            <button onclick="closeReviewModal()"
+                class="absolute top-6 right-6 text-stone-400 hover:text-brand-brown p-2"><i data-lucide="x"
+                    class="w-6 h-6"></i></button>
+            <h4 class="text-2xl md:text-3xl font-black text-brand-brown tracking-tighter capitalize mb-4 text-center">
+                Share your experience</h4>
+            <form id="reviewForm" class="space-y-4 md:space-y-6">
+                <!-- Star Input -->
+                <div class="flex flex-col items-center space-y-2">
+                    <p class="text-[9px] md:text-[11px] font-bold tracking-widest text-stone-400 uppercase">Your Rating
+                    </p>
+                    <div id="starRating" class="star-rating flex space-x-2 text-stone-300">
+                        <i data-lucide="star" data-idx="1" class="w-7 h-7 md:w-8 md:h-8"></i>
+                        <i data-lucide="star" data-idx="2" class="w-7 h-7 md:w-8 md:h-8"></i>
+                        <i data-lucide="star" data-idx="3" class="w-7 h-7 md:w-8 md:h-8"></i>
+                        <i data-lucide="star" data-idx="4" class="w-7 h-7 md:w-8 md:h-8"></i>
+                        <i data-lucide="star" data-idx="5" class="w-7 h-7 md:w-8 md:h-8"></i>
+                    </div>
+                    <input type="hidden" name="RatingValue" id="ratingValue" value="5">
+                </div>
+                <!-- Text Inputs -->
+                <input type="text" name="ReviewerName"
+                    class="w-full bg-stone-50 border-b-2 border-stone-100 focus:border-brand-blue px-4 md:px-6 py-3 md:py-4 outline-none font-bold uppercase text-sm"
+                    placeholder="Name" required>
+                <textarea name="ReviewText" rows="3"
+                    class="w-full bg-stone-50 border-b-2 border-stone-100 focus:border-brand-blue px-4 md:px-6 py-3 md:py-4 outline-none font-bold text-sm"
+                    placeholder="How was our service?" required></textarea>
+                <button type="submit"
+                    class="w-full py-4 bg-brand-brown text-white font-bold rounded-full text-[10px] md:text-xs uppercase tracking-widest hover:bg-sky-400 transition-all shadow-xl">Post
+                    experience</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 
+     * SUCCESS MODAL 
+     * User confirmation feedback
+     -->
+    <div id="successModal"
+        class="fixed inset-0 z-[1800] hidden items-center justify-center p-4 md:p-6 bg-brand-brown/80 backdrop-blur-md">
+        <div class="bg-white p-8 md:p-12 rounded-[2.5rem] md:rounded-[4rem] text-center max-w-md shadow-2xl">
+            <div
+                class="w-16 h-16 md:w-20 md:h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
+                <i data-lucide="check-circle" class="w-8 h-8 md:w-10 md:h-10"></i>
+            </div>
+            <h5 class="text-xl md:text-2xl font-black text-brand-brown mb-2 md:mb-4 tracking-tighter uppercase">Message
+                sent!</h5>
+            <p id="successMsg" class="text-stone-500 text-sm md:text-base font-medium mb-6 md:mb-8 leading-relaxed"></p>
+            <button onclick="closeModal()"
+                class="w-full py-4 bg-brand-brown text-white font-black rounded-full text-[10px] md:text-xs uppercase tracking-widest hover:bg-brand-gold transition-all shadow-xl">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        /*
+         * UI CONTROLLERS 
+         * Logic for sticky navigation and mobile toggle
+         */
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) nav.classList.add('scrolled-nav');
+            else nav.classList.remove('scrolled-nav');
+        }, { passive: true });
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        }
+
+        /*
+         * FORM COMPONENT CONTROLLERS 
+         * Logic for location selection and visibility toggles
+         */
+        function handleLocationChange(select) {
+            const wrapper = document.getElementById('otherLocationWrapper');
+            const otherInput = wrapper.querySelector('input');
+            if (select.value === 'Other') {
+                wrapper.classList.remove('hidden');
+                otherInput.setAttribute('required', 'true');
+            } else {
+                wrapper.classList.add('hidden');
+                otherInput.removeAttribute('required');
+                otherInput.value = '';
+            }
+        }
+
+        /*
+         * ANIMATION CONTROLLERS 
+         * Trigger fade-in animations on scroll entry
+         */
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+
+        /*
+         * TESTIMONIAL DATA & MARQUEE CORE
+         * Hardcoded verified review data with dynamic injection
+         */
+        let reviewsData = [
+            { name: "Ananya Mehta", text: "The Chocolate Fountain was the highlight of our South Mumbai reception.", rating: 5, date: "Dec 15, 2024" },
+            { name: "Rajesh Khanna", text: "Extremely professional staff. The popcorn stall was a hit with everyone.", rating: 5, date: "Nov 22, 2024" },
+            { name: "Priya Sharma", text: "Kids loved the candy floss! Setup was very premium and clean.", rating: 4, date: "Oct 05, 2024" },
+            { name: "Vikram Malhotra", text: "Potato twisters were crispy and delicious. Made our event sweeter!", rating: 5, date: "Sep 28, 2024" },
+            { name: "Sanya Iyer", text: "Moving chana jor garam was a unique touch. Guests loved it.", rating: 5, date: "Aug 14, 2024" },
+            { name: "Rohan Gupta", text: "Crunchy waffles were amazing. Perfect corporate branding.", rating: 5, date: "Jul 20, 2024" },
+            { name: "Nisha Verma", text: "The quality syrups in ice gola were a game changer.", rating: 4, date: "Jun 10, 2024" },
+            { name: "Arjun Kapoor", text: "Most hygienic live counter service we have ever used.", rating: 5, date: "May 15, 2024" }
+        ];
+
+        const marquee = document.getElementById('testimonial-marquee');
+        function createCard(r) {
+            const stars = Array(5).fill(0).map((_, i) =>
+                `<i data-lucide="star" class="w-4 h-4 ${i < r.rating ? 'fill-current text-sky-400' : 'opacity-20'}"></i>`
+            ).join('');
+
+            return `<div class="testimonial-card p-8 md:p-10 rounded-[2.5rem] md:rounded-[3rem] bg-white/5 backdrop-blur-sm border border-white/10 space-y-4 md:space-y-6 text-left shadow-2xl shrink-0">
+                <div class="flex text-brand-blue space-x-1">${stars}</div>
+                <p class="text-stone-200 text-sm md:text-base italic font-medium leading-relaxed">"${r.text}"</p>
+                <div class="flex justify-between items-end">
+                    <div>
+                        <p class="font-bold text-brand-blue tracking-tight text-[10px] md:text-xs uppercase">${r.name}</p>
+                        <p class="text-[8px] md:text-[9px] text-white/50 tracking-widest font-black uppercase">Verified Hub</p>
+                    </div>
+                    <p class="text-[8px] md:text-[9px] text-white/30 uppercase font-bold tracking-widest">${r.date}</p>
+                </div>
+            </div>`;
+        }
+
+        function renderReviews() {
+            // Triple the data for continuous marquee effect
+            marquee.innerHTML = [...reviewsData, ...reviewsData, ...reviewsData].map(createCard).join('');
+            lucide.createIcons();
+        }
+        renderReviews();
+
+        /*
+         * MODAL STAR RATING CONTROLLER
+         * Handlers for interactive review rating selection
+         */
+        const starContainer = document.getElementById('starRating');
+        const ratingInput = document.getElementById('ratingValue');
+        starContainer.addEventListener('click', (e) => {
+            const target = e.target.closest('[data-idx]');
+            if (!target) return;
+            const val = parseInt(target.getAttribute('data-idx'));
+            ratingInput.value = val;
+            starContainer.querySelectorAll('[data-idx]').forEach(star => {
+                const sIdx = parseInt(star.getAttribute('data-idx'));
+                const svg = star.tagName === 'svg' ? star : star.querySelector('svg');
+                if (svg) {
+                    if (sIdx <= val) svg.classList.add('active');
+                    else svg.classList.remove('active');
+                }
+            });
+        });
+
+        /*
+         * CELEBRATION CORE
+         * Logic for triggering success visual effects
+         */
+        const canvas = document.getElementById('celebration-canvas');
+        const myConfetti = confetti.create(canvas, { resize: true, useWorker: true });
+        function launchSuccess() {
+            const end = Date.now() + 2000;
+            (function frame() {
+                myConfetti({ particleCount: 7, angle: 60, spread: 55, origin: { x: 0 }, colors: ['rgb(89, 227, 230)', '#2C1B12', '#F472B6'] });
+                myConfetti({ particleCount: 7, angle: 120, spread: 55, origin: { x: 1 }, colors: ['rgb(89, 227, 230)', '#2C1B12', '#F472B6'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+        }
+
+        /*
+         * MODAL ACTIONS
+         * Open and close state handlers for popups
+         */
+        function openReviewModal() {
+            const modal = document.getElementById('reviewModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+        function closeReviewModal() {
+            const modal = document.getElementById('reviewModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+        function closeModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        /*
+         * FORM SUBMISSION HANDLERS
+         * Logic for inquiry and review form processing
+         */
+        document.getElementById('inquiryForm').onsubmit = async (e) => {
+            e.preventDefault();
+
+            // modal success animation
+            launchSuccess();
+            document.getElementById('successMsg').innerText =
+                "Thank You for reaching out! Our team will contact you on WhatsApp as soon as possible with details.";
+            document.getElementById('successModal').classList.remove('hidden');
+            document.getElementById('successModal').classList.add('flex');
+
+            // collect form data
+            const fd = new FormData(e.target);
+            const selectedLocation = fd.get("Location");
+
+            const payload = {
+                FullName: fd.get("FullName"),
+                PhoneNumber: fd.get("PhoneNumber"),
+                EventDate: fd.get("EventDate"),
+                Location: selectedLocation === "Other" ? "" : selectedLocation,
+                OtherLocation: selectedLocation === "Other" ? fd.get("OtherLocation") : "",
+                GuestCount: fd.get("GuestCount"),
+                Stalls: fd.getAll("Stalls").join(", "),
+                Timestamp: new Date().toISOString()
+            };
+
+            // send to Google Sheet
+            const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycby078-gVpwyhqcEb2kAGqv4L5osxns0e2Y5beh2LUX22WkGPO8WJgfAautrHs740uHugA/exec";
+            // Updated fetch part of your code
+            await fetch(WEBHOOK_URL, {
+                method: "POST",
+                mode: "no-cors", // 👈 Change to no-cors if you get errors
+                body: JSON.stringify(payload)
+                // headers are usually not needed with no-cors
+            });
+            e.target.reset();
+        };
+
+
+        /*
+         * CAROUSEL COMPONENT CORE
+         * Slider logic for the image gallery
+         */
+        let curSlide = 0;
+        const slides = document.querySelectorAll('#carousel-inner > div');
+        const totalSlides = slides.length;
+        function updateCarousel() {
+            document.getElementById('carousel-inner').style.transform = `translateX(-${curSlide * 100}%)`;
+        }
+        document.getElementById('next-slide').onclick = () => { curSlide = (curSlide + 1) % totalSlides; updateCarousel(); };
+        document.getElementById('prev-slide').onclick = () => { curSlide = (curSlide - 1 + totalSlides) % totalSlides; updateCarousel(); };
+
+        // Auto-advance gallery
+        setInterval(() => { curSlide = (curSlide + 1) % totalSlides; updateCarousel(); }, 6000);
+    </script>
+</body>
+
+</html>
