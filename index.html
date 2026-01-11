@@ -99,6 +99,36 @@
             border-color: var(--brand-blue);
         }
 
+        /* 1. Prevent the HTML and Body from ever growing wider than the screen */
+        html,
+        body {
+            max-width: 100%;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 2. Contain the Marquee */
+        /* Wrap the parent div of .animate-scroll with overflow-hidden if not already there */
+        .animate-scroll {
+            display: flex;
+            width: fit-content;
+            /* More stable than fit-content for animations */
+        }
+
+        /* 3. Clip the Hero and About sections */
+        /* This ensures the 'hero-blobs' don't create invisible white space outside the site */
+        #home,
+        #about,
+        #services {
+            overflow: hidden;
+        }
+
+        /* 4. Fix for Mobile Flexbox */
+        #carousel-inner {
+            display: flex;
+            will-change: transform;
+        }
+
         .border-brand-pink {
             border-color: var(--brand-accent-pink);
         }
@@ -427,8 +457,8 @@
      * Continuous scroll banner for regional presence and trust signals
      -->
     <div
-        class="bg-brand-brown py-4 md:py-5 overflow-hidden border-y border-white/10 shadow-lg relative z-30 mb-8 md:mb-12">
-        <div class="animate-scroll">
+        class="bg-brand-brown py-4 md:py-5 overflow-hidden border-y border-white/10 shadow-lg relative z-30 mb-8 md:mb-12 w-full overflow-hidden">
+        <div class="animate-scroll whitespace-nowrap flex">
             <div class="flex items-center space-x-12 md:space-x-24 px-6 md:px-10">
                 <span
                     class="flex items-center space-x-3 md:space-x-6 text-white font-black tracking-[0.2em] md:tracking-[0.45em] text-[8px] md:text-[10px] uppercase shrink-0"><i
@@ -474,8 +504,7 @@
 
                     <!-- About us Photo -->
 
-                    <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&q=80&w=1200"
-                        alt="About Our Professional Stalls"
+                    <img src="./images/About us Candy town image.png" alt="About Our Professional Stalls"
                         class="relative z-10 rounded-[2rem] md:rounded-[3rem] shadow-2xl border-[8px] md:border-[12px] border-brand-pink transition-transform hover:scale-[1.02]">
                     <div
                         class="absolute -bottom-6 -left-4 md:-bottom-10 md:-left-10 bg-brand-brown p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] text-white shadow-3xl z-20 border border-brand-blue/40">
@@ -892,6 +921,26 @@
                             alt="Theme Birthday Party"
                             class="rounded-2xl md:rounded-[3rem] w-full h-[300px] md:h-[500px] object-cover shadow-2xl">
                     </div>
+                    <div class="min-w-full px-2"><img src="./images/Moments we've created/moment5.JPG"
+                            alt="Luxury Wedding Decor"
+                            class="rounded-2xl md:rounded-[3rem] w-full h-[300px] md:h-[500px] object-cover shadow-2xl">
+                    </div>
+                    <div class="min-w-full px-2"><img src="./images/Moments we've created/moment6.JPG"
+                            alt="Corporate Gala Event"
+                            class="rounded-2xl md:rounded-[3rem] w-full h-[300px] md:h-[500px] object-cover shadow-2xl">
+                    </div>
+                    <div class="min-w-full px-2"><img src="./images/Moments we've created/moment7.JPG"
+                            alt="Theme Birthday Party"
+                            class="rounded-2xl md:rounded-[3rem] w-full h-[300px] md:h-[500px] object-cover shadow-2xl">
+                    </div>
+                    <div class="min-w-full px-2"><img src="./images/Moments we've created/moment8.JPG"
+                            alt="Theme Birthday Party"
+                            class="rounded-2xl md:rounded-[3rem] w-full h-[300px] md:h-[500px] object-cover shadow-2xl">
+                    </div>
+                    <div class="min-w-full px-2"><img src="./images/Moments we've created/moment9.JPG"
+                            alt="Theme Birthday Party"
+                            class="rounded-2xl md:rounded-[3rem] w-full h-[300px] md:h-[500px] object-cover shadow-2xl">
+                    </div>
                 </div>
                 <!-- Interactive Controls -->
                 <button id="prev-slide"
@@ -1000,8 +1049,8 @@
                                 <p
                                     class="text-[8px] md:text-[10px] font-bold tracking-widest text-brand-blue mb-1 uppercase text-left">
                                     Email inquiry</p>
-                                <p class="text-lg md:text-3xl font-black text-brand-brown tracking-tighter lowercase text-left"
-                                    href="support@thecandytown.co.in">
+                                <p
+                                    class="text-lg md:text-3xl font-black text-brand-brown tracking-tighter lowercase text-left">
                                     support@thecandytown.co.in</p>
                             </div>
                         </div>
@@ -1354,41 +1403,6 @@
                         class="w-full h-32 md:h-40 object-cover rounded-2xl mb-3 shadow-sm" alt="Aqua Stall">
                     <p class="font-black text-xs md:text-sm text-brand-brown text-center uppercase tracking-tighter">
                         Popcorn Cart</p>
-                    <div
-                        class="check-badge absolute top-2 right-2 w-6 h-6 bg-brand-blue text-white rounded-full hidden items-center justify-center shadow-md">
-                        <i data-lucide="check" class="w-4 h-4"></i>
-                    </div>
-                </div>
-                <!-- Cart Item 4 -->
-                <div class="cart-option bg-stone-50 p-4 rounded-3xl relative" onclick="selectCart(this, 'Waffle Cart')">
-                    <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80&w=400"
-                        class="w-full h-32 md:h-40 object-cover rounded-2xl mb-3 shadow-sm" alt="Pink Cart">
-                    <p class="font-black text-xs md:text-sm text-brand-brown text-center uppercase tracking-tighter">
-                        Waffle Cart</p>
-                    <div
-                        class="check-badge absolute top-2 right-2 w-6 h-6 bg-brand-blue text-white rounded-full hidden items-center justify-center shadow-md">
-                        <i data-lucide="check" class="w-4 h-4"></i>
-                    </div>
-                </div>
-                <!-- Cart Item 5 -->
-                <div class="cart-option bg-stone-50 p-4 rounded-3xl relative"
-                    onclick="selectCart(this, 'Masala Sweetcorn Cart')">
-                    <img src="./images/Masala Sweet Corn Cart.jpeg"
-                        class="w-full h-32 md:h-40 object-cover rounded-2xl mb-3 shadow-sm" alt="Golden Stall">
-                    <p class="font-black text-xs md:text-sm text-brand-brown text-center uppercase tracking-tighter">
-                        Masala Sweetcorn Cart</p>
-                    <div
-                        class="check-badge absolute top-2 right-2 w-6 h-6 bg-brand-blue text-white rounded-full hidden items-center justify-center shadow-md">
-                        <i data-lucide="check" class="w-4 h-4"></i>
-                    </div>
-                </div>
-                <!-- Cart Item 6 -->
-                <div class="cart-option bg-stone-50 p-4 rounded-3xl relative"
-                    onclick="selectCart(this, 'Potato Twister Cart')">
-                    <img src="https://images.unsplash.com/photo-1555505019-8c3f1c4aba5f?auto=format&fit=crop&q=80&w=400"
-                        class="w-full h-32 md:h-40 object-cover rounded-2xl mb-3 shadow-sm" alt="Rustic Cart">
-                    <p class="font-black text-xs md:text-sm text-brand-brown text-center uppercase tracking-tighter">
-                        Potato Twister Cart</p>
                     <div
                         class="check-badge absolute top-2 right-2 w-6 h-6 bg-brand-blue text-white rounded-full hidden items-center justify-center shadow-md">
                         <i data-lucide="check" class="w-4 h-4"></i>
