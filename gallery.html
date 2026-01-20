@@ -8,6 +8,16 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- External Dependencies -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font family: Inter (Sans-serif) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <!-- Icon Library -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Animation Library for success events -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 
     <style>
         :root {
@@ -15,6 +25,16 @@
             --brand-blue: rgb(89, 227, 230);
             --brand-pink: #fdf2f8;
             --brand-accent-pink: #db2777;
+            --brand-blue2: rgb(14, 91, 179);
+            --brand-text: #1A1310;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+            color: var(--brand-text);
+            overflow-x: hidden;
+            width: 100%;
         }
 
         .bg-brand-pink {
@@ -35,13 +55,17 @@
 
         .modal-bg {
             backdrop-filter: blur(12px);
-            background: rgba(44, 27, 18, 0.6);
+            background: rgba(44, 27, 18, 0.7);
+        }
+
+        .bg-brand-brown {
+            background-color: var(--brand-brown);
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: scale(0.98);
+                transform: scale(0.95);
             }
 
             to {
@@ -54,128 +78,7 @@
             animation: fadeIn 0.3s ease-out forwards;
         }
 
-        /* Mobile Touch Optimization */
-        @media (max-width: 640px) {
-            .gallery-card:active {
-                transform: scale(0.98);
-            }
-        }
-
-        :root {
-            --brand-brown: #2C1B12;
-            --brand-blue: rgb(89, 227, 230);
-            --brand-blue2: rgb(14, 91, 179);
-            /* darker shade for blue */
-            /* Signature Aqua */
-            --brand-blue-hover: rgb(70, 210, 213);
-            --brand-pink: #fdf2f8;
-            /* Requested Light Pink Background */
-            --brand-accent-pink: #F472B6;
-            --brand-text: #1A1310;
-        }
-
-        /* RESET & BASE STYLES */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: white;
-            color: var(--brand-text);
-            overflow-x: hidden;
-            width: 100%;
-        }
-
-        /* TYPOGRAPHY ENFORCEMENT */
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        button,
-        a,
-        span,
-        p,
-        label,
-        input,
-        select,
-        textarea {
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* BRAND UTILITIES */
-        .bg-brand-brown {
-            background-color: var(--brand-brown);
-        }
-
-        .bg-brand-blue {
-            background-color: var(--brand-blue);
-        }
-
-        .bg-brand-pink {
-            background-color: var(--brand-pink);
-        }
-
-        .text-brand-blue {
-            color: var(--brand-blue);
-        }
-
-        .text-darker-blue {
-            color: var(--brand-blue2);
-        }
-
-        .text-brand-brown {
-            color: var(--brand-brown);
-        }
-
-        .text-brand-pink {
-            color: var(--brand-accent-pink);
-        }
-
-        .border-brand-blue {
-            border-color: var(--brand-blue);
-        }
-
-        /* 1. Prevent the HTML and Body from ever growing wider than the screen */
-        html,
-        body {
-            max-width: 100%;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* 2. Contain the Marquee */
-        /* Wrap the parent div of .animate-scroll with overflow-hidden if not already there */
-        .animate-scroll {
-            display: flex;
-            width: fit-content;
-            /* More stable than fit-content for animations */
-        }
-
-        /* 3. Clip the Hero and About sections */
-        /* This ensures the 'hero-blobs' don't create invisible white space outside the site */
-        #home,
-        #about,
-        #services {
-            overflow: hidden;
-        }
-
-        /* 4. Fix for Mobile Flexbox */
-        #carousel-inner {
-            display: flex;
-            will-change: transform;
-        }
-
-        .border-brand-pink {
-            border-color: var(--brand-accent-pink);
-        }
-
-        /* NAVIGATION ANIMATIONS */
-        .nav-transition {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* RIBBON SCROLL ANIMATION
-        * Pace maintained at 15s for a fast scroll
-        */
+        /* RIBBON SCROLL ANIMATION */
         @keyframes scroll {
             0% {
                 transform: translateX(0);
@@ -192,76 +95,19 @@
             animation: scroll 15s linear infinite;
         }
 
-        /* TESTIMONIAL MARQUEE ANIMATION
-        * Smooth side-scrolling reviews
-        */
-        @keyframes marquee {
-            0% {
-                transform: translateX(0);
+        /* For the specific Modal logic you requested */
+        @media (min-width: 1024px) {
+            .modal-content-container {
+                max-width: 50rem;
+                /* Reduced width for desktop so images don't stretch */
             }
 
-            100% {
-                transform: translateX(-50%);
+            .modal-image-wrapper {
+                height: 70vh;
+                /* Taller height for a more elegant vertical look */
             }
         }
 
-        .animate-marquee {
-            display: flex;
-            width: max-content;
-            animation: marquee 50s linear infinite;
-        }
-
-        .animate-marquee:hover {
-            animation-play-state: paused;
-        }
-
-        /* INTERSECTION OBSERVER ANIMATIONS */
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .fade-in-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* CARD HOVER EFFECTS */
-        .service-card {
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px -12px rgba(89, 227, 230, 0.3);
-        }
-
-        /* STICKY NAV SCROLL STATE */
-        .scrolled-nav {
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
-            border-bottom: 1px solid rgba(89, 227, 230, 0.2);
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
-            background-color: var(--brand-pink);
-        }
-
-        /* RESPONSIVE LAYOUT SPACING */
-        .hero-layout-spacing {
-            padding-top: clamp(100px, 15vh, 200px);
-        }
-
-        /* RESPONSIVE TESTIMONIAL CARD WIDTHS */
-        .testimonial-card {
-            width: 280px;
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        @media (min-width: 768px) {
-            .testimonial-card {
-                width: 380px;
-            }
-        }
 
         .testimonial-card:hover {
             transform: translateY(-16px) scale(1.02);
@@ -360,7 +206,7 @@
                 <a href="index.html#services"
                     class="text-[11px] font-bold tracking-[0.25em] uppercase text-brand-brown hover:text-brand-blue transition-colors">Services</a>
                 <a href="gallery.html"
-                    class="text-[11px] font-bold tracking-[0.25em] uppercase text-brand-brown hover:text-brand-blue transition-colors">Gallery</a>
+                    class="text-[11px] font-bold tracking-[0.25em] uppercase text-brand-brown hover:text-brand-blue transition-colors border-b-2 border-brand-blue">Gallery</a>
                 <button onclick="openCartModal()"
                     class="text-[11px] font-bold tracking-[0.25em] uppercase text-brand-brown hover:text-brand-blue transition-colors">Rent
                     a Cart</button>
@@ -408,7 +254,6 @@
 
     <div id="gallery"
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8 px-4 sm:px-12 mb-20">
-
         <div onclick="openModal('ahmedabad')"
             class="gallery-card group cursor-pointer bg-white rounded-2xl md:rounded-3xl shadow-lg overflow-hidden transition-all duration-500 hover:-translate-y-2">
             <div class="h-56 md:h-72 overflow-hidden">
@@ -421,7 +266,6 @@
                     Wedding Celebrations</p>
             </div>
         </div>
-
         <div onclick="openModal('surat')"
             class="gallery-card group cursor-pointer bg-white rounded-2xl md:rounded-3xl shadow-lg overflow-hidden transition-all duration-500 hover:-translate-y-2">
             <div class="h-56 md:h-72 overflow-hidden">
@@ -434,7 +278,6 @@
                     Corporate Mixers</p>
             </div>
         </div>
-
         <div onclick="openModal('mumbai')"
             class="gallery-card group cursor-pointer bg-white rounded-2xl md:rounded-3xl shadow-lg overflow-hidden transition-all duration-500 hover:-translate-y-2">
             <div class="h-56 md:h-72 overflow-hidden">
@@ -447,7 +290,6 @@
                     Theme Parties</p>
             </div>
         </div>
-
         <div onclick="openModal('delhi')"
             class="gallery-card group cursor-pointer bg-white rounded-2xl md:rounded-3xl shadow-lg overflow-hidden transition-all duration-500 hover:-translate-y-2">
             <div class="h-56 md:h-72 overflow-hidden">
@@ -462,46 +304,108 @@
         </div>
     </div>
 
-    <div id="event-modal" class="fixed inset-0 z-[200] hidden items-center justify-center p-2 md:p-4 modal-bg">
+    <div id="event-modal" class="fixed inset-0 z-[200] hidden items-center justify-center p-4 md:p-6 modal-bg">
         <div id="modal-box"
-            class="bg-white rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden max-w-5xl w-full relative shadow-2xl animate-fadeIn">
+            class="bg-white rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden w-full max-w-full md:max-w-3xl relative shadow-2xl animate-fadeIn">
 
-            <button onclick="closeModal()" class="absolute top-4 right-4 z-30 bg-white/90 p-2 rounded-full shadow-lg">
+            <button onclick="closeModal()"
+                class="absolute top-4 right-4 z-30 bg-white/90 p-2 rounded-full shadow-lg hover:bg-brand-blue transition-colors">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
 
             <div
-                class="relative group h-[40vh] md:h-[65vh] bg-gray-100 flex items-center justify-center overflow-hidden">
-                <img id="carousel-image" src="" class="w-full h-full object-contain md:object-cover">
+                class="relative group h-[50vh] md:h-[75vh] bg-stone-100 flex items-center justify-center overflow-hidden">
+                <img id="carousel-image" src=""
+                    class="w-full h-full object-contain md:object-cover transition-opacity duration-300">
 
-                <div class="absolute inset-0 flex items-center justify-between px-2 md:px-6">
-                    <button onclick="prevImage()" class="bg-white/80 p-3 rounded-full shadow-md"><i
-                            data-lucide="chevron-left" class="w-5 h-5 md:w-8 md:h-8"></i></button>
-                    <button onclick="nextImage()" class="bg-white/80 p-3 rounded-full shadow-md"><i
-                            data-lucide="chevron-right" class="w-5 h-5 md:w-8 md:h-8"></i></button>
+                <div class="absolute inset-0 flex items-center justify-between px-2 md:px-4">
+                    <button onclick="prevImage()"
+                        class="bg-white/80 p-2 md:p-3 rounded-full shadow-md hover:bg-white transition-all transform hover:scale-110">
+                        <i data-lucide="chevron-left" class="w-5 h-5 md:w-8 md:h-8"></i>
+                    </button>
+                    <button onclick="nextImage()"
+                        class="bg-white/80 p-2 md:p-3 rounded-full shadow-md hover:bg-white transition-all transform hover:scale-110">
+                        <i data-lucide="chevron-right" class="w-5 h-5 md:w-8 md:h-8"></i>
+                    </button>
                 </div>
             </div>
 
-            <div class="bg-white p-6 md:p-10 flex flex-col md:flex-row md:items-center justify-between">
+            <div class="bg-white p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between">
                 <div>
                     <h3 id="modal-event-title"
-                        class="text-xl md:text-5xl font-black text-brand-brown uppercase tracking-tighter"></h3>
-                    <p
-                        class="text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] text-pink-600 mt-1 md:mt-3">
-                        Event Highlights Showcase</p>
+                        class="text-xl md:text-4xl font-black text-brand-brown uppercase tracking-tighter"></h3>
+                    <p class="text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] text-pink-600 mt-1">Event
+                        Highlights Showcase</p>
                 </div>
                 <div id="image-counter"
-                    class="text-[10px] md:text-[12px] font-black text-brand-brown/20 uppercase tracking-[0.2em] md:tracking-[0.4em] mt-4 md:mt-0">
+                    class="text-[10px] md:text-[12px] font-black text-brand-brown/30 uppercase tracking-[0.2em] mt-4 md:mt-0">
                     01 / 03
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Rent a cart model -->
+
+    <div id="cartModal"
+        class="fixed inset-0 z-[2000] hidden items-center justify-center p-4 md:p-6 bg-brand-brown/80 backdrop-blur-md">
+        <div
+            class="bg-white p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] w-full max-w-4xl shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeCartModal()" class="absolute top-6 right-6 text-stone-400 hover:text-brand-brown p-2">
+                <i data-lucide="x" class="w-7 h-7"></i>
+            </button>
+            <div class="text-center mb-8">
+                <h4 class="text-2xl md:text-4xl font-black text-brand-brown tracking-tighter uppercase mb-2">Rent a
+                    Premium Cart</h4>
+                <p class="text-stone-500 text-sm md:text-base font-bold">Select a cart style for your event to get more
+                    details</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-10">
+                <!-- Updated Cart Option 1 -->
+                <div class="cart-option bg-stone-50 p-4 rounded-3xl relative"
+                    onclick="selectCart(this, 'Wooden Cart 1')">
+                    <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768802231/IMG_7237_ihvage.png"
+                        class="w-full h-32 md:h-40 object-contain rounded-2xl mb-3" alt="Cart 1">
+                    <p class="font-black text-xs text-brand-brown text-center uppercase">Wooden Cart 1</p>
+                    <div
+                        class="check-badge absolute top-2 right-2 w-6 h-6 bg-brand-blue text-white rounded-full hidden items-center justify-center">
+                        <i data-lucide="check" class="w-4 h-4"></i>
+                    </div>
+                </div>
+                <!-- Added Cart Option 2 -->
+                <div class="cart-option bg-stone-50 p-4 rounded-3xl relative"
+                    onclick="selectCart(this, 'Wooden Cart 2')">
+                    <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768803249/IMG_7242_wu0jr4.png"
+                        class="w-full h-32 md:h-40 object-contain rounded-2xl mb-3" alt="Cart 2">
+                    <p class="font-black text-xs text-brand-brown text-center uppercase">Wooden Cart 2</p>
+                    <div
+                        class="check-badge absolute top-2 right-2 w-6 h-6 bg-brand-blue text-white rounded-full hidden items-center justify-center">
+                        <i data-lucide="check" class="w-4 h-4"></i>
+                    </div>
+                </div>
+                <!-- Added Cart Option 3 -->
+                <div class="cart-option bg-stone-50 p-4 rounded-3xl relative"
+                    onclick="selectCart(this, 'Wooden Cart 3')">
+                    <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768804141/IMG_7246_e7gpuz.png"
+                        class="w-full h-32 md:h-40 object-contain rounded-2xl mb-3" alt="Cart 3">
+                    <p class="font-black text-xs text-brand-brown text-center uppercase">Wooden Cart 3</p>
+                    <div
+                        class="check-badge absolute top-2 right-2 w-6 h-6 bg-brand-blue text-white rounded-full hidden items-center justify-center">
+                        <i data-lucide="check" class="w-4 h-4"></i>
+                    </div>
+                </div>
+            </div>
+            <button id="cartInquiryBtn" disabled onclick="sendCartInquiry()"
+                class="w-full py-6 bg-stone-200 text-stone-400 font-black rounded-full text-xs uppercase cursor-not-allowed">Get
+                Rental Details</button>
+        </div>
+    </div>
+
     <script>
         lucide.createIcons();
 
-        // Scroll Navbar
+        // Scroll Navbar Effect
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             if (window.scrollY > 30) {
@@ -536,25 +440,29 @@
         function openModal(event) {
             currentEvent = event;
             currentIndex = 0;
-            document.getElementById("event-modal").classList.remove("hidden");
-            document.getElementById("event-modal").classList.add("flex");
+            const modal = document.getElementById("event-modal");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            document.body.style.overflow = "hidden"; // Prevent background scroll
             document.getElementById("modal-event-title").innerText = `${event} Highlights`;
             showImage();
         }
 
         function closeModal() {
             document.getElementById("event-modal").classList.add("hidden");
+            document.body.style.overflow = "auto";
         }
 
         function showImage() {
             const img = document.getElementById("carousel-image");
             const counter = document.getElementById("image-counter");
-            img.style.opacity = "0.5";
+            img.style.opacity = "0";
+
             setTimeout(() => {
                 img.src = eventImages[currentEvent][currentIndex];
                 img.style.opacity = "1";
-                counter.innerText = `${currentIndex + 1} / ${eventImages[currentEvent].length}`;
-            }, 50);
+                counter.innerText = `${String(currentIndex + 1).padStart(2, '0')} / ${String(eventImages[currentEvent].length).padStart(2, '0')}`;
+            }, 150);
         }
 
         function nextImage() {
@@ -567,9 +475,60 @@
             showImage();
         }
 
+        // Close on clicking backdrop
         document.getElementById('event-modal').addEventListener('click', function (e) {
             if (e.target === this) closeModal();
         });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById("event-modal").classList.contains("hidden")) return;
+            if (e.key === "ArrowRight") nextImage();
+            if (e.key === "ArrowLeft") prevImage();
+            if (e.key === "Escape") closeModal();
+        });
+
+
+        // Rent a cart model script
+
+        /*
+  * RENT A CART CONTROLLERS
+  */
+        let selectedCartName = "";
+
+        function openCartModal() {
+            document.getElementById('cartModal').classList.remove('hidden');
+            document.getElementById('cartModal').classList.add('flex');
+        }
+
+        function closeCartModal() {
+            document.getElementById('cartModal').classList.add('hidden');
+            document.getElementById('cartModal').classList.remove('flex');
+        }
+
+        function selectCart(element, name) {
+            // Clear existing selection
+            document.querySelectorAll('.cart-option').forEach(el => el.classList.remove('selected'));
+
+            // Set new selection
+            element.classList.add('selected');
+            selectedCartName = name;
+
+            // Activate button
+            const btn = document.getElementById('cartInquiryBtn');
+            btn.disabled = false;
+            btn.classList.remove('bg-stone-200', 'text-stone-400', 'cursor-not-allowed');
+            btn.classList.add('bg-brand-brown', 'text-white', 'hover:bg-brand-blue');
+        }
+
+        function sendCartInquiry() {
+            if (!selectedCartName) return;
+            const message = `Hello The Candy Town! I am interested in renting the *${selectedCartName}* for my upcoming event. Could you please share the availability and rental pricing details?`;
+            const encoded = encodeURIComponent(message);
+            window.open(`https://wa.me/+919867910957?text=${encoded}`, '_blank');
+        }
+
+
     </script>
 </body>
 
