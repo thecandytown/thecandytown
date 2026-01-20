@@ -7,138 +7,527 @@
     <title>Gallery | The Candy Town</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/framer-motion@10/dist/framer-motion.umd.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
+        :root {
+            --brand-brown: #2C1B12;
+            --brand-blue: rgb(89, 227, 230);
+            --brand-pink: #fdf2f8;
+            --brand-accent-pink: #db2777;
+        }
+
+        .bg-brand-pink {
+            background-color: var(--brand-pink);
+        }
+
+        .text-brand-brown {
+            color: var(--brand-brown);
+        }
+
+        .text-brand-blue {
+            color: var(--brand-blue);
+        }
+
+        .nav-transition {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         .modal-bg {
-            backdrop-filter: blur(6px);
-            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            background: rgba(44, 27, 18, 0.6);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        /* Mobile Touch Optimization */
+        @media (max-width: 640px) {
+            .gallery-card:active {
+                transform: scale(0.98);
+            }
+        }
+
+        :root {
+            --brand-brown: #2C1B12;
+            --brand-blue: rgb(89, 227, 230);
+            --brand-blue2: rgb(14, 91, 179);
+            /* darker shade for blue */
+            /* Signature Aqua */
+            --brand-blue-hover: rgb(70, 210, 213);
+            --brand-pink: #fdf2f8;
+            /* Requested Light Pink Background */
+            --brand-accent-pink: #F472B6;
+            --brand-text: #1A1310;
+        }
+
+        /* RESET & BASE STYLES */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+            color: var(--brand-text);
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* TYPOGRAPHY ENFORCEMENT */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        button,
+        a,
+        span,
+        p,
+        label,
+        input,
+        select,
+        textarea {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* BRAND UTILITIES */
+        .bg-brand-brown {
+            background-color: var(--brand-brown);
+        }
+
+        .bg-brand-blue {
+            background-color: var(--brand-blue);
+        }
+
+        .bg-brand-pink {
+            background-color: var(--brand-pink);
+        }
+
+        .text-brand-blue {
+            color: var(--brand-blue);
+        }
+
+        .text-darker-blue {
+            color: var(--brand-blue2);
+        }
+
+        .text-brand-brown {
+            color: var(--brand-brown);
+        }
+
+        .text-brand-pink {
+            color: var(--brand-accent-pink);
+        }
+
+        .border-brand-blue {
+            border-color: var(--brand-blue);
+        }
+
+        /* 1. Prevent the HTML and Body from ever growing wider than the screen */
+        html,
+        body {
+            max-width: 100%;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 2. Contain the Marquee */
+        /* Wrap the parent div of .animate-scroll with overflow-hidden if not already there */
+        .animate-scroll {
+            display: flex;
+            width: fit-content;
+            /* More stable than fit-content for animations */
+        }
+
+        /* 3. Clip the Hero and About sections */
+        /* This ensures the 'hero-blobs' don't create invisible white space outside the site */
+        #home,
+        #about,
+        #services {
+            overflow: hidden;
+        }
+
+        /* 4. Fix for Mobile Flexbox */
+        #carousel-inner {
+            display: flex;
+            will-change: transform;
+        }
+
+        .border-brand-pink {
+            border-color: var(--brand-accent-pink);
+        }
+
+        /* NAVIGATION ANIMATIONS */
+        .nav-transition {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* RIBBON SCROLL ANIMATION
+        * Pace maintained at 15s for a fast scroll
+        */
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .animate-scroll {
+            display: flex;
+            width: fit-content;
+            animation: scroll 15s linear infinite;
+        }
+
+        /* TESTIMONIAL MARQUEE ANIMATION
+        * Smooth side-scrolling reviews
+        */
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 50s linear infinite;
+        }
+
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+
+        /* INTERSECTION OBSERVER ANIMATIONS */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* CARD HOVER EFFECTS */
+        .service-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(89, 227, 230, 0.3);
+        }
+
+        /* STICKY NAV SCROLL STATE */
+        .scrolled-nav {
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(89, 227, 230, 0.2);
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            background-color: var(--brand-pink);
+        }
+
+        /* RESPONSIVE LAYOUT SPACING */
+        .hero-layout-spacing {
+            padding-top: clamp(100px, 15vh, 200px);
+        }
+
+        /* RESPONSIVE TESTIMONIAL CARD WIDTHS */
+        .testimonial-card {
+            width: 280px;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @media (min-width: 768px) {
+            .testimonial-card {
+                width: 380px;
+            }
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-16px) scale(1.02);
+            box-shadow: 0 40px 80px -20px rgba(44, 27, 18, 0.4);
+        }
+
+        /* FORM FIELD RESET */
+        input[type="date"] {
+            min-height: 3.5rem;
+            padding-right: 1.5rem;
+            width: 100%;
+        }
+
+        /* SELECTION HIGHLIGHT */
+        ::selection {
+            background: var(--brand-blue);
+            color: var(--brand-brown);
+        }
+
+        /* DECORATIVE BACKGROUND ELEMENTS */
+        .hero-blob {
+            position: absolute;
+            z-index: 0;
+            filter: blur(80px);
+            opacity: 0.4;
+            border-radius: 50%;
+        }
+
+        /* STAR RATING COMPONENT STYLES */
+        .star-rating svg {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            fill: none;
+            stroke: currentColor;
+        }
+
+        .star-rating svg.active {
+            fill: var(--brand-blue) !important;
+            color: var(--brand-blue) !important;
+            stroke: var(--brand-blue) !important;
+        }
+
+        /* PREVENT OVERFLOW ON MOBILE ANIMATIONS */
+        .overflow-x-clip {
+            overflow-x: clip;
+        }
+
+        /* CART SELECTION STYLES */
+        .cart-option {
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+        }
+
+        .cart-option:hover {
+            transform: translateY(-4px);
+        }
+
+        .cart-option.selected {
+            border-color: var(--brand-blue);
+            background-color: rgba(89, 227, 230, 0.05);
+            box-shadow: 0 10px 25px -5px rgba(89, 227, 230, 0.2);
+        }
+
+        .cart-option.selected .check-badge {
+            display: flex;
         }
     </style>
 </head>
 
 <body class="bg-white">
 
-    <section class="text-center pt-24 pb-6 px-4">
-        <h1 class="text-4xl font-black text-[#5A3E2B] uppercase">Our Successful Events</h1>
-        <p class="text-sm font-extrabold text-pink-600 tracking-[0.3em] uppercase mt-2">Sweetness Delivered Across India
-        </p>
+    <nav id="navbar"
+        class="fixed top-0 w-full z-[100] nav-transition py-3 md:py-4 bg-brand-pink border-b border-brand-blue/20 shadow-md">
+        <div class="container mx-auto px-4 md:px-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2 md:space-x-3 group">
+                <div
+                    class="relative w-10 h-10 md:w-16 md:h-16 rounded-full bg-white flex items-center justify-center shadow-lg overflow-hidden">
+                    <img src="./images/Candy_Town_Logo.png" alt="Logo" class="w-full h-full object-cover">
+                </div>
+                <div class="flex flex-col text-left">
+                    <span
+                        class="font-black text-sm md:text-2xl leading-none text-brand-brown uppercase tracking-tighter">The
+                        Candy Town</span>
+                    <span
+                        class="text-[6px] md:text-[9px] tracking-[0.2em] uppercase font-bold mt-0.5 text-brand-brown">Making
+                        events sweeter</span>
+                </div>
+            </a>
+
+            <div class="hidden lg:flex items-center space-x-12">
+                <a href="index.html#home"
+                    class="text-[11px] font-bold tracking-[0.25em] uppercase text-brand-brown hover:text-brand-blue transition-colors">Home</a>
+                <a href="index.html#about"
+                    class="text-[11px] font-bold tracking-[0.25em] uppercase text-brand-brown hover:text-brand-blue transition-colors">About</a>
+                <a href="index.html#services"
+                    class="text-[11px] font-bold tracking-[0.25em] uppercase text-brand-brown hover:text-brand-blue transition-colors">Services</a>
+                <a href="gallery.html"
+                    class="text-[11px] font-bold tracking-[0.25em] uppercase text-brand-brown hover:text-brand-blue transition-colors">Gallery</a>
+                <button onclick="openCartModal()"
+                    class="text-[11px] font-bold tracking-[0.25em] uppercase text-brand-brown hover:text-brand-blue transition-colors">Rent
+                    a Cart</button>
+                <a href="index.html#contact"
+                    class="px-10 py-3.5 rounded-full bg-brand-brown border border-stone-100 text-white font-bold text-[11px] tracking-[0.2em] uppercase hover:shadow-2xl hover:-translate-y-0.5 transition-all">Get
+                    a Quote</a>
+            </div>
+
+            <button class="lg:hidden text-brand-brown p-2" onclick="toggleMenu()">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[110] hidden flex-col p-6 space-y-8">
+        <div class="flex justify-between items-center border-b border-brand-brown/10 pb-6 relative z-10">
+            <div class="flex items-center space-x-3">
+                <img src="./images/Candy_Town_Logo.png" alt="Logo" class="w-10 h-10 rounded-full shadow-md">
+                <span class="font-black text-xl text-brand-brown uppercase tracking-tighter">The Candy Town</span>
+            </div>
+            <button onclick="toggleMenu()"
+                class="p-2 bg-white rounded-full shadow-sm border border-brand-brown/5 text-brand-brown">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <div class="flex flex-col space-y-6 text-left">
+            <a href="index.html#home" onclick="toggleMenu()" class="text-2xl font-black text-brand-brown">Home</a>
+            <a href="index.html#about" onclick="toggleMenu()" class="text-2xl font-black text-brand-brown">About</a>
+            <a href="gallery.html" onclick="toggleMenu()" class="text-2xl font-black text-brand-brown">Gallery</a>
+            <button onclick="openCartModal(); toggleMenu();" class="text-left text-2xl font-black text-brand-brown">Rent
+                a Cart</button>
+            <a href="index.html#contact" class="text-2xl font-black text-brand-brown">Get a Quote</a>
+        </div>
+    </div>
+
+    <section class="text-center pt-28 md:pt-48 pb-8 md:pb-12 px-4">
+        <h2 class="text-brand-blue font-bold tracking-widest text-[9px] md:text-[11px] mb-2 uppercase">Event Portfolio
+        </h2>
+        <h1 class="text-3xl md:text-6xl font-black text-brand-brown uppercase tracking-tighter leading-tight">Our
+            Successful<br class="md:hidden"> Events</h1>
+        <div class="w-12 md:w-20 h-1 md:h-1.5 bg-brand-blue mx-auto mt-4"></div>
+        <p class="text-[8px] md:text-xs font-black text-pink-600 tracking-[0.2em] md:tracking-[0.3em] uppercase mt-6">
+            Sweetness Delivered Across India</p>
     </section>
 
-    <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-6 sm:px-10">
+    <div id="gallery"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8 px-4 sm:px-12 mb-20">
 
-        <div onclick="openModal('ahmedabad')" id="event-modal modal-box"
-            class="gallery-card cursor-pointer rounded-2xl shadow-lg overflow-hidden hover:scale-[1.03] transition relative">
-            <img src="images/Ahmedabad/ahmedabad1.jpg" class="w-full h-52 object-cover">
-            <div class="bg-[#5A3E2B] text-white p-4 text-left">
-                <h3 class="font-extrabold text-lg uppercase">Ahmedabad</h3>
-                <span class="text-xs opacity-80 uppercase">Corporate Event | 2025</span>
+        <div onclick="openModal('ahmedabad')"
+            class="gallery-card group cursor-pointer bg-white rounded-2xl md:rounded-3xl shadow-lg overflow-hidden transition-all duration-500 hover:-translate-y-2">
+            <div class="h-56 md:h-72 overflow-hidden">
+                <img src="images/Ahmedabad/ahmedabad1.jpg"
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            </div>
+            <div class="p-5 md:p-8">
+                <h3 class="font-black text-xl md:text-2xl text-brand-brown uppercase tracking-tighter">Ahmedabad</h3>
+                <p class="text-[9px] md:text-[10px] font-bold text-brand-blue uppercase tracking-[0.1em] mt-1">Grand
+                    Wedding Celebrations</p>
             </div>
         </div>
 
         <div onclick="openModal('surat')"
-            class="gallery-card cursor-pointer rounded-2xl shadow-lg overflow-hidden hover:scale-[1.03] transition relative">
-            <img src="images/Surat/surat1.jpg" class="w-full h-52 object-cover">
-            <div class="bg-[#5A3E2B] text-white p-4 text-left">
-                <h3 class="font-extrabold text-lg uppercase">Surat</h3>
-                <span class="text-xs opacity-80 uppercase">Wedding Setup | 2025</span>
+            class="gallery-card group cursor-pointer bg-white rounded-2xl md:rounded-3xl shadow-lg overflow-hidden transition-all duration-500 hover:-translate-y-2">
+            <div class="h-56 md:h-72 overflow-hidden">
+                <img src="images/Surat/surat1.jpg"
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            </div>
+            <div class="p-5 md:p-8">
+                <h3 class="font-black text-xl md:text-2xl text-brand-brown uppercase tracking-tighter">Surat</h3>
+                <p class="text-[9px] md:text-[10px] font-bold text-brand-blue uppercase tracking-[0.1em] mt-1">Elite
+                    Corporate Mixers</p>
             </div>
         </div>
 
         <div onclick="openModal('mumbai')"
-            class="gallery-card cursor-pointer rounded-2xl shadow-lg overflow-hidden hover:scale-[1.03] transition relative">
-            <img src="images/Mumbai/mumbai1.jpg" class="w-full h-52 object-cover">
-            <div class="bg-[#5A3E2B] text-white p-4 text-left">
-                <h3 class="font-extrabold text-lg uppercase">Mumbai</h3>
-                <span class="text-xs opacity-80 uppercase">Brand Promotion | 2025</span>
+            class="gallery-card group cursor-pointer bg-white rounded-2xl md:rounded-3xl shadow-lg overflow-hidden transition-all duration-500 hover:-translate-y-2">
+            <div class="h-56 md:h-72 overflow-hidden">
+                <img src="images/Mumbai/mumbai1.jpg"
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            </div>
+            <div class="p-5 md:p-8">
+                <h3 class="font-black text-xl md:text-2xl text-brand-brown uppercase tracking-tighter">Mumbai</h3>
+                <p class="text-[9px] md:text-[10px] font-bold text-brand-blue uppercase tracking-[0.1em] mt-1">Bollywood
+                    Theme Parties</p>
             </div>
         </div>
 
         <div onclick="openModal('delhi')"
-            class="gallery-card cursor-pointer rounded-2xl shadow-lg overflow-hidden hover:scale-[1.03] transition relative">
-            <img src="images/Delhi/delhi1.jpg" class="w-full h-52 object-cover">
-            <div class="bg-[#5A3E2B] text-white p-4 text-left">
-                <h3 class="font-extrabold text-lg uppercase">Delhi</h3>
-                <span class="text-xs opacity-80 uppercase">Exhibition Stall | 2025</span>
+            class="gallery-card group cursor-pointer bg-white rounded-2xl md:rounded-3xl shadow-lg overflow-hidden transition-all duration-500 hover:-translate-y-2">
+            <div class="h-56 md:h-72 overflow-hidden">
+                <img src="images/Delhi/delhi1.jpeg"
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            </div>
+            <div class="p-5 md:p-8">
+                <h3 class="font-black text-xl md:text-2xl text-brand-brown uppercase tracking-tighter">Delhi</h3>
+                <p class="text-[9px] md:text-[10px] font-bold text-brand-blue uppercase tracking-[0.1em] mt-1">High-End
+                    Product Launches</p>
             </div>
         </div>
-
-        <div onclick="openModal('lucknow')"
-            class="gallery-card cursor-pointer rounded-2xl shadow-lg overflow-hidden hover:scale-[1.03] transition relative">
-            <img src="images/Lucknow/lucknow1.jpg" class="w-full h-52 object-cover">
-            <div class="bg-[#5A3E2B] text-white p-4 text-left">
-                <h3 class="font-extrabold text-lg uppercase">Lucknow</h3>
-                <span class="text-xs opacity-80 uppercase">Exhibition Stall | 2024</span>
-            </div>
-        </div>
-
-        <div onclick="openModal('rajkot')"
-            class="gallery-card cursor-pointer rounded-2xl shadow-lg overflow-hidden hover:scale-[1.03] transition relative">
-            <img src="images/Rajkot/rajkot1.jpg" class="w-full h-52 object-cover">
-            <div class="bg-[#5A3E2B] text-white p-4 text-left">
-                <h3 class="font-extrabold text-lg uppercase">Rajkot</h3>
-                <span class="text-xs opacity-80 uppercase">Festival Setup | 2024</span>
-            </div>
-        </div>
-
     </div>
 
-    <!-- MODAL BACKGROUND -->
-    <div id="event-modal" class="fixed inset-0 bg-black/40 hidden justify-center items-center z-[150] p-4">
-
-        <!-- MODAL BOX -->
+    <div id="event-modal" class="fixed inset-0 z-[200] hidden items-center justify-center p-2 md:p-4 modal-bg">
         <div id="modal-box"
-            class="bg-white w-[95%] sm:w-[85%] md:w-[70%] lg:w-[55%] xl:w-[45%] max-w-4xl rounded-2xl shadow-2xl p-4 sm:p-6 relative">
+            class="bg-white rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden max-w-5xl w-full relative shadow-2xl animate-fadeIn">
 
-            <!-- CLOSE BUTTON (Always on top) -->
-            <button onclick="closeModal()"
-                class="absolute top-3 right-3 sm:top-4 sm:right-4 z-[200] bg-white/90 p-2 rounded-full shadow-lg hover:scale-110 transition"
-                style="pointer-events:auto;">
-                <i data-lucide="x" class="w-6 h-6 text-[#5A3E2B]"></i>
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-30 bg-white/90 p-2 rounded-full shadow-lg">
+                <i data-lucide="x" class="w-5 h-5"></i>
             </button>
 
-            <!-- CAROUSEL WRAPPER -->
-            <div class="relative w-full overflow-hidden rounded-xl z-[180]">
+            <div
+                class="relative group h-[40vh] md:h-[65vh] bg-gray-100 flex items-center justify-center overflow-hidden">
+                <img id="carousel-image" src="" class="w-full h-full object-contain md:object-cover">
 
-                <!-- CAROUSEL IMAGE -->
-                <img id="carousel-image"
-                    class="w-full h-[260px] sm:h-[300px] md:h-[360px] lg:h-[420px] xl:h-[460px] object-cover rounded-xl">
-
+                <div class="absolute inset-0 flex items-center justify-between px-2 md:px-6">
+                    <button onclick="prevImage()" class="bg-white/80 p-3 rounded-full shadow-md"><i
+                            data-lucide="chevron-left" class="w-5 h-5 md:w-8 md:h-8"></i></button>
+                    <button onclick="nextImage()" class="bg-white/80 p-3 rounded-full shadow-md"><i
+                            data-lucide="chevron-right" class="w-5 h-5 md:w-8 md:h-8"></i></button>
+                </div>
             </div>
 
-            <!-- CONTROLS -->
-            <button onclick="prevImage()"
-                class="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 z-[190] bg-white/70 p-2 sm:p-3 rounded-full shadow-lg hover:scale-110 transition">
-                <i data-lucide="chevron-left" class="w-5 h-5 sm:w-6 sm:h-6"></i>
-            </button>
-
-            <button onclick="nextImage()"
-                class="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-[190] bg-white/70 p-2 sm:p-3 rounded-full shadow-lg hover:scale-110 transition">
-                <i data-lucide="chevron-right" class="w-5 h-5 sm:w-6 sm:h-6"></i>
-            </button>
-
-            <!-- MODAL TEXT -->
-            <div class="text-center mt-4 sm:mt-5">
-                <h2 id="modal-title" class="text-xl sm:text-2xl md:text-3xl font-black text-[#5A3E2B] uppercase"></h2>
-                <p class="text-xs sm:text-sm font-bold text-pink-600 uppercase tracking-widest mt-1">Event Highlights
-                </p>
+            <div class="bg-white p-6 md:p-10 flex flex-col md:flex-row md:items-center justify-between">
+                <div>
+                    <h3 id="modal-event-title"
+                        class="text-xl md:text-5xl font-black text-brand-brown uppercase tracking-tighter"></h3>
+                    <p
+                        class="text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] text-pink-600 mt-1 md:mt-3">
+                        Event Highlights Showcase</p>
+                </div>
+                <div id="image-counter"
+                    class="text-[10px] md:text-[12px] font-black text-brand-brown/20 uppercase tracking-[0.2em] md:tracking-[0.4em] mt-4 md:mt-0">
+                    01 / 03
+                </div>
             </div>
-
         </div>
     </div>
 
     <script>
         lucide.createIcons();
 
-        // Event image sets
+        // Scroll Navbar
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 30) {
+                nav.classList.add('py-2', 'shadow-xl');
+                nav.classList.remove('py-3', 'md:py-4');
+            } else {
+                nav.classList.add('py-3', 'md:py-4');
+                nav.classList.remove('py-2', 'shadow-xl');
+            }
+        });
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        }
+
+        function openCartModal() {
+            window.location.href = "index.html#contact";
+        }
+
         const eventImages = {
-            ahmedabad: ["images/Ahmedabad/ahmedabad1.jpg", "images/Ahmedabad/ahmedabad2.jpg", "images/Ahmedabad/ahmedabad3.jpg", "images/Ahmedabad/ahmedabad4.jpg"],
+            ahmedabad: ["images/Ahmedabad/ahmedabad1.jpg", "images/Ahmedabad/ahmedabad2.jpg", "images/Ahmedabad/ahmedabad3.jpg"],
             surat: ["images/Surat/surat1.jpg", "images/Surat/surat2.jpg", "images/Surat/surat3.jpg"],
             mumbai: ["images/Mumbai/mumbai1.jpg", "images/Mumbai/mumbai2.jpg", "images/Mumbai/mumbai3.jpg"],
-            delhi: ["images/Delhi/delhi1.jpg", "images/Delhi/delhi2.jpg", "images/Delhi/delhi3.jpg"],
-            lucknow: ["images/Lucknow/lucknow1.jpg", "images/Lucknow/lucknow2.jpg", "images/Lucknow/lucknow3.jpg"],
-            rajkot: ["images/Rajkot/rajkot1.jpg", "images/Rajkot/rajkot2.jpg", "images/Rajkot/rajkot3.jpg"]
+            delhi: ["images/Delhi/delhi1.jpeg", "images/Delhi/delhi2.jpeg", "images/Delhi/delhi3.jpeg"]
         };
 
         let currentEvent = "";
@@ -147,22 +536,11 @@
         function openModal(event) {
             currentEvent = event;
             currentIndex = 0;
-
-            const modal = document.getElementById("event-modal");
-            const box = document.getElementById("modal-box");
-
-            modal.classList.remove("hidden");
-            modal.classList.add("flex");
-
-            // Smooth modal animation
-            FramerMotion.animate(box,
-                { opacity: [0, 1], scale: [0.8, 1], y: [20, 0] },
-                { duration: 0.45, ease: "easeOut" }
-            );
-
+            document.getElementById("event-modal").classList.remove("hidden");
+            document.getElementById("event-modal").classList.add("flex");
+            document.getElementById("modal-event-title").innerText = `${event} Highlights`;
             showImage();
         }
-
 
         function closeModal() {
             document.getElementById("event-modal").classList.add("hidden");
@@ -170,8 +548,13 @@
 
         function showImage() {
             const img = document.getElementById("carousel-image");
-            img.src = eventImages[currentEvent][currentIndex];
-            FramerMotion.animate(img, { opacity: [0, 1], scale: [0.95, 1] }, { duration: 0.4 });
+            const counter = document.getElementById("image-counter");
+            img.style.opacity = "0.5";
+            setTimeout(() => {
+                img.src = eventImages[currentEvent][currentIndex];
+                img.style.opacity = "1";
+                counter.innerText = `${currentIndex + 1} / ${eventImages[currentEvent].length}`;
+            }, 50);
         }
 
         function nextImage() {
@@ -183,8 +566,11 @@
             currentIndex = (currentIndex - 1 + eventImages[currentEvent].length) % eventImages[currentEvent].length;
             showImage();
         }
-    </script>
 
+        document.getElementById('event-modal').addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
+    </script>
 </body>
 
 </html>
