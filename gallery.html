@@ -302,6 +302,30 @@
                     Product Launches</p>
             </div>
         </div>
+        <div onclick="openModal('jaipur')"
+            class="gallery-card group cursor-pointer bg-white rounded-2xl md:rounded-3xl shadow-lg overflow-hidden transition-all duration-500 hover:-translate-y-2">
+            <div class="h-56 md:h-72 overflow-hidden">
+                <img src="images/Jaipur/jaipur1.jpg"
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            </div>
+            <div class="p-5 md:p-8">
+                <h3 class="font-black text-xl md:text-2xl text-brand-brown uppercase tracking-tighter">Jaipur</h3>
+                <p class="text-[9px] md:text-[10px] font-bold text-brand-blue uppercase tracking-[0.1em] mt-1">Elite
+                    Corporate Mixers</p>
+            </div>
+        </div>
+    <div onclick="openModal('pune')"
+            class="gallery-card group cursor-pointer bg-white rounded-2xl md:rounded-3xl shadow-lg overflow-hidden transition-all duration-500 hover:-translate-y-2">
+            <div class="h-56 md:h-72 overflow-hidden">
+                <img src="images/Pune/pune1.jpg"
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            </div>
+            <div class="p-5 md:p-8">
+                <h3 class="font-black text-xl md:text-2xl text-brand-brown uppercase tracking-tighter">Pune</h3>
+                <p class="text-[9px] md:text-[10px] font-bold text-brand-blue uppercase tracking-[0.1em] mt-1">Elite
+                    Corporate Mixers</p>
+            </div>
+        </div>
     </div>
 
     <div id="event-modal" class="fixed inset-0 z-[200] hidden items-center justify-center p-4 md:p-6 modal-bg">
@@ -423,72 +447,109 @@
             menu.classList.toggle('flex');
         }
 
-        function openCartModal() {
-            window.location.href = "index.html#contact";
-        }
+const eventImages = {
+    ahmedabad: ["images/Ahmedabad/ahmedabad2.jpg", "images/Ahmedabad/ahmedabad3.jpg", "images/Ahmedabad/ahmedabad4.jpg"],
+    surat: ["images/Surat/surat2.jpg", "images/Surat/surat3.jpg", "images/Surat/surat4.jpg"],
+    mumbai: ["images/Mumbai/Mumbai1.jpg", "images/Mumbai/Mumbai2.jpg", "images/Mumbai/Mumbai3.jpg"],
+    delhi: ["images/Delhi/delhi2.jpeg", "images/Delhi/delhi3.jpeg", "images/Delhi/delhi4.jpeg"],
+    pune: ["images/Pune/Pune1.jpg", "images/Pune/Pune2.jpg", "images/Pune/Pune3.jpg"],
+    jaipur: ["images/Jaipur/Jaipur1.jpg", "images/Jaipur/Jaipur2.jpg", "images/Jaipur/Jaipur3.jpg"]
+};
 
-        const eventImages = {
-            ahmedabad: ["images/Ahmedabad/ahmedabad2.jpg", "images/Ahmedabad/ahmedabad3.jpg", "images/Ahmedabad/ahmedabad4.jpg"],
-            surat: ["images/Surat/surat2.jpg", "images/Surat/surat3.jpg", "images/Surat/surat4.jpg"],
-            mumbai: ["images/Mumbai/mumbai2.jpg", "images/Mumbai/mumbai3.jpg", "images/Mumbai/mumbai4.jpg"],
-            delhi: ["images/Delhi/delhi2.jpeg", "images/Delhi/delhi3.jpeg", "images/Delhi/delhi4.jpeg"]
-        };
+let currentEvent = "";
+let currentIndex = 0;
 
-        let currentEvent = "";
-        let currentIndex = 0;
+const modal = document.getElementById("event-modal");
+const img = document.getElementById("carousel-image");
+const counter = document.getElementById("image-counter");
 
-        function openModal(event) {
-            currentEvent = event;
-            currentIndex = 0;
-            const modal = document.getElementById("event-modal");
-            modal.classList.remove("hidden");
-            modal.classList.add("flex");
-            document.body.style.overflow = "hidden"; // Prevent background scroll
-            document.getElementById("modal-event-title").innerText = `${event} Highlights`;
-            showImage();
-        }
+// ✅ PRELOAD IMAGES (BIGGEST PERFORMANCE BOOST)
+function preload(images) {
+    images.forEach(src => {
+        const i = new Image();
+        i.src = src;
+    });
+}
 
-        function closeModal() {
-            document.getElementById("event-modal").classList.add("hidden");
-            document.body.style.overflow = "auto";
-        }
+function openModal(event) {
 
-        function showImage() {
-            const img = document.getElementById("carousel-image");
-            const counter = document.getElementById("image-counter");
-            img.style.opacity = "0";
+    event = event.toLowerCase();
 
-            setTimeout(() => {
-                img.src = eventImages[currentEvent][currentIndex];
+    if (!eventImages[event]) return;
+
+    currentEvent = event;
+    currentIndex = 0;
+
+    preload(eventImages[event]);
+
+    // FIX DISPLAY
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+
+    document.body.style.overflow = "hidden";
+
+    setImage(true);
+
+    document.getElementById("modal-event-title").innerText =
+        event.charAt(0).toUpperCase() + event.slice(1);
+}
+
+function closeModal() {
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+    document.body.style.overflow = "auto";
+}
+
+// 🔥 CORE FIX (NO FLICKER ENGINE)
+function setImage(firstLoad = false) {
+
+    const loader = new Image();
+    loader.src = eventImages[currentEvent][currentIndex];
+
+    loader.onload = () => {
+
+        img.style.transition = firstLoad ? "none" : "opacity 0.3s ease";
+        img.style.opacity = "0";
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                img.src = loader.src;
                 img.style.opacity = "1";
-                counter.innerText = `${String(currentIndex + 1).padStart(2, '0')} / ${String(eventImages[currentEvent].length).padStart(2, '0')}`;
-            }, 150);
-        }
-
-        function nextImage() {
-            currentIndex = (currentIndex + 1) % eventImages[currentEvent].length;
-            showImage();
-        }
-
-        function prevImage() {
-            currentIndex = (currentIndex - 1 + eventImages[currentEvent].length) % eventImages[currentEvent].length;
-            showImage();
-        }
-
-        // Close on clicking backdrop
-        document.getElementById('event-modal').addEventListener('click', function (e) {
-            if (e.target === this) closeModal();
+            });
         });
 
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (document.getElementById("event-modal").classList.contains("hidden")) return;
-            if (e.key === "ArrowRight") nextImage();
-            if (e.key === "ArrowLeft") prevImage();
-            if (e.key === "Escape") closeModal();
-        });
+        updateCounter();
+    };
+}
 
+function nextImage() {
+    currentIndex = (currentIndex + 1) % eventImages[currentEvent].length;
+    setImage();
+}
 
+function prevImage() {
+    currentIndex = (currentIndex - 1 + eventImages[currentEvent].length) % eventImages[currentEvent].length;
+    setImage();
+}
+
+function updateCounter() {
+    counter.innerText =
+        `${String(currentIndex + 1).padStart(2, '0')} / ${String(eventImages[currentEvent].length).padStart(2, '0')}`;
+}
+
+// BACKDROP CLICK
+modal.addEventListener("click", function (e) {
+    if (e.target === this) closeModal();
+});
+
+// KEYBOARD SUPPORT
+document.addEventListener("keydown", (e) => {
+    if (modal.classList.contains("hidden")) return;
+
+    if (e.key === "ArrowRight") nextImage();
+    if (e.key === "ArrowLeft") prevImage();
+    if (e.key === "Escape") closeModal();
+});
         // Rent a cart model script
 
         /*

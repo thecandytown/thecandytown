@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chocolate Fountain Stall | The Candy Town</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Page Animations -->
+    <style>
+      .bubble {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        border-radius: 9999px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+        transition:
+          transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+          box-shadow 0.35s ease;
+        cursor: pointer;
+      }
+
+      .bubble:hover {
+        transform: translateY(-6px) scale(1.04);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.28);
+      }
+
+      .bubble.burst {
+        animation: bubbleBurst 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      }
+
+      @keyframes bubbleBurst {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        40% {
+          transform: scale(1.18);
+        }
+        70% {
+          transform: scale(0.9);
+          opacity: 0.7;
+        }
+        100% {
+          transform: scale(0);
+          opacity: 0;
+        }
+      }
+
+      #bubbleContent {
+        transform-origin: center;
+      }
+
+      :root {
+        --brand-brown: #2c1b12;
+        --brand-blue: rgb(89, 227, 230);
+        --brand-blue2: rgb(14, 91, 179);
+        /* darker shade for blue  */
+        /* Signature Aqua */
+        --brand-blue-hover: rgb(70, 210, 213);
+        --brand-pink: #fdf2f8;
+        /* Requested Light Pink Background */
+        --brand-accent-pink: #f472b6;
+        --brand-text: #1a1310;
+      }
+      .bg-brand-brown {
+        background-color: var(--brand-brown);
+      }
+
+      .bg-brand-blue {
+        background-color: var(--brand-blue);
+      }
+
+      .bg-brand-pink {
+        background-color: var(--brand-pink);
+      }
+
+      .text-brand-blue {
+        color: var(--brand-blue);
+      }
+
+      .text-darker-blue {
+        color: var(--brand-blue2);
+      }
+
+      .text-brand-brown {
+        color: var(--brand-brown);
+      }
+
+      .text-brand-pink {
+        color: var(--brand-accent-pink);
+      }
+
+      .border-brand-blue {
+        border-color: var(--brand-blue);
+      }
+      .page-fade {
+        animation: pageFadeIn 0.6s ease-out both;
+      }
+      @keyframes pageFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-product {
+        animation: productPop 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+      @keyframes productPop {
+        from {
+          opacity: 0;
+          transform: scale(0.92) translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+
+      .back-anim {
+        animation: backIn 0.5s ease-out both;
+      }
+      @keyframes backIn {
+        from {
+          opacity: 0;
+          transform: translateX(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+    </style>
+  </head>
+
+  <<body class="bg-brand-pink font-[Inter] page-fade">
+
+
+    <!-- NAVBAR (same theme as homepage) -->
+    <nav
+      id="navbar"
+      class="fixed top-0 inset-x-0 z-50 py-4 bg-brand-pink border-b border-brand-blue/20 shadow-md"
+    >
+      <div
+        class="container mx-auto px-4 md:px-6 flex justify-between items-center"
+      >
+        <!-- Brand -->
+        <a href="index.html" class="flex items-center space-x-3">
+          <div class="w-12 h-12 rounded-full bg-white overflow-hidden">
+            <img
+              src="./images/Candy_Town_Logo.png"
+              alt="The Candy Town"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="flex flex-col text-left">
+            <span
+              class="font-black text-lg md:text-2xl leading-none text-brand-brown tracking-tighter uppercase"
+              >The Candy Town</span
+            >
+            <span
+              class="text-[7px] md:text-[9px] tracking-[0.2em] md:tracking-[0.25em] uppercase font-bold mt-0.5 md:mt-1 font-black text-brand-brown"
+              >Making events sweeter</span
+            >
+          </div>
+        </a>
+
+        <!-- Nav links -->
+        <div
+          class="hidden md:flex items-center space-x-8 font-bold tracking-widest text-xs uppercase text-brand-brown"
+        >
+          <a href="index.html#home" class="hover:text-brand-blue transition"
+            >Home</a
+          >
+          <a href="index.html#about" class="hover:text-brand-blue transition"
+            >About</a
+          >
+          <a href="index.html#services" class="hover:text-brand-blue transition"
+            >Services</a
+          >
+          <a href="gallery.html" class="hover:text-brand-blue transition"
+            >Gallery</a
+          >
+          <a href="index.html#contact" class="hover:text-brand-blue transition"
+            >Rent a Cart</a
+          >
+          <a
+            href="index.html#contact"
+            class="px-10 py-3.5 rounded-full bg-brand-brown border border-stone-100 text-white font-bold text-[11px] tracking-[0.2em] uppercase hover:shadow-2xl hover:-translate-y-0.5 transition-all"
+          >
+            Get a Quote
+          </a>
+        </div>
+      </div>
+    </nav>
+    <main class="pt-24 md:pt-32 max-w-7xl mx-auto px-6">
+          </span>
+        </a>
+      </div>
+
+      <!-- CONTENT -->
+      <section class="pt-0 md:pt-2 pb-12 md:pb-16">
+        <div
+          class="max-w-7xl mx-auto px-6 grid md:grid-cols-[1.2fr_1fr] gap-16 items-start"
+        >
+          <!-- LEFT: Image + Bubbles (same grid column) -->
+          <div class="flex flex-col items-center md:items-start">
+            <!-- Main Image -->
+            <div
+              class="w-full h-[280px] md:h-[420px] rounded-3xl overflow-hidden shadow-2xl -mt-3"
+            >
+              <img
+                src="./images/Bachpan Ki Yaadein Stall/Bachpan-ki-yaadein_1.jpg"
+                alt="Bachpan Ki Yaadein Stall"
+                class="w-full h-full object-cover"
+              />
+            </div>
+
+            <!-- Bubble Thumbnails -->
+            <div class="mt-6 grid grid-cols-3 gap-4 w-full md:gap-6">
+              <button
+                class="bubble"
+                onclick="openBubble('./images/Bachpan Ki Yaadein Stall/bachpan-ki-yaadein-bubble-1.PNG', this)"
+              >
+                <img src="./images/Bachpan Ki Yaadein Stall/bachpan-ki-yaadein-bubble-1.jpg" alt="Bubble 1" />
+              </button>
+
+              <button
+                class="bubble"
+                onclick="openBubble('./images/Bachpan Ki Yaadein Stall/bachpan-ki-yaadein-bubble-2.PNG', this)"
+              >
+                <img src="./images/Bachpan Ki Yaadein Stall/bachpan-ki-yaadein-bubble-2.jpg" alt="Bubble 2" />
+              </button>
+
+              <button
+                class="bubble"
+                onclick="openBubble('./images/Bachpan Ki Yaadein Stall/bachpan-ki-yaadein-bubble-3.PNG', this)"
+              >
+                <img src="./images/Bachpan Ki Yaadein Stall/bachpan-ki-yaadein-bubble-3.jpg" alt="Bubble 3" />
+              </button>
+            </div>
+          </div>
+
+          <!-- RIGHT: Details + Pricing -->
+          <div class="space-y-6">
+            <h1 class="text-4xl md:text-5xl font-black text-brand-brown">
+              Bachpan Ki Yaadein Stall
+            </h1>
+
+            <p class="text-stone-600 text-lg leading-relaxed max-w-xl">
+              Our nostalgic “Bachpan Ki Yaadein” stall brings back childhood memories with classic Indian
+               treats and old-school snacks, perfect for adding a fun, retro vibe to weddings, school events, 
+               and themed celebrations. Curated with hygienic setup and served by trained staff to recreate the 
+               joy of old times.
+            </p>
+
+            <div>
+              <h3
+                class="text-brand-blue font-bold tracking-widest uppercase text-sm mb-3"
+              >
+                Best For
+              </h3>
+              <ul class="list-disc pl-5 space-y-2 text-stone-700">
+                <li>Family Get-Togethers & Reunions</li>
+                <li>Society Events & Community Melas</li>
+                <li>Cultural Festivals & School Fairs</li>
+                <li>Nostalgia Corners at Corporate Events</li>
+              </ul>
+            </div>
+
+            <!-- Pricing Card -->
+            <div
+              class="bg-brand-pink/30 p-5 md:p-6 rounded-2xl shadow-lg space-y-4 max-w-sm border border-brand-blue/20"
+            >
+              <p class="text-xl md:text-2xl font-black text-brand-brown">
+                Stalls starting from
+                <span class="text-brand-blue">₹4,999/-</span>
+              </p>
+
+              <a
+                href="index.html#contact"
+                class="inline-block px-8 py-3 bg-brand-brown text-white rounded-full font-bold uppercase tracking-widest text-xs hover:-translate-y-0.5 hover:shadow-xl transition"
+              >
+                Get a Quote
+              </a>
+
+              <p class="text-xs text-stone-500">
+                *Pricing varies based on guest count and city.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- More Products Section -->
+    <section class="mt-10 mb-32 max-w-6xl mx-auto px-6">
+      <h2 class="text-2xl md:text-2xl lg:text-5xl font-black text-brand-brown leading-tight tracking-tight mb-3 text-center">
+  Browse more Live Stalls
+</h2>
+      <p class="text-brown-600 mb-10 text-center">
+        Explore more live stalls to make your event sweeter ✨
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+
+        <!-- Product Card 1 -->
+<a 
+  href="chana-jor-garam-stall.html"
+  class="group rounded-3xl bg-white shadow-xl hover:shadow-2xl transition overflow-hidden"
+>
+  <div class="h-[220px] overflow-hidden">
+    <img 
+      src="./images/Chana jor garam stall/Chana-jor-stall_1.jpg"
+      alt="Chana Jor Garam Stall"
+      class="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+    />
+  </div>
+
+  <div class="p-5">
+    <h3 class="text-xl font-semibold text-brown-900">Chana Jor Garam Stall</h3>
+    <p class="text-sm text-brown-600 mt-1">
+      Tangy, crunchy street-style chana chaat
+    </p>
+  </div>
+</a>
+
+        <!-- Product Card 2 -->
+        <a
+          href="candy-floss.html"
+          class="group rounded-3xl bg-white shadow-xl hover:shadow-2xl transition overflow-hidden"
+        >
+          <div class="h-[220px] overflow-hidden">
+            <img
+              src="https://res.cloudinary.com/dslvuduln/image/upload/v1766908751/WhatsApp_Image_2025-12-25_at_1.20.06_PM_zikfo9.jpg"
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+              alt="Candy Floss Stall"
+            />
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-semibold text-brown-900">
+              Candy Floss Stall
+            </h3>
+            <p class="text-sm text-brown-600 mt-1">
+              Soft, colorful cotton candy for kids & events
+            </p>
+          </div>
+        </a>
+
+        <!-- Product Card 3 -->
+        <a
+          href="waffle-stall.html"
+          class="group rounded-3xl bg-white shadow-xl hover:shadow-2xl transition overflow-hidden"
+        >
+          <div class="h-[220px] overflow-hidden">
+            <img
+              src="./images/Crunchy Waffles.PNG"
+              alt="Crunchy Waffles Stall"
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+              alt="Waffle Stall"
+            />
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-semibold text-brown-900">Waffle Station</h3>
+            <p class="text-sm text-brown-600 mt-1">
+              Hot waffles with premium toppings
+            </p>
+          </div>
+        </a>
+    </section>
+
+    <!-- Bubble Popup Modal -->
+    <div
+      id="bubbleModal"
+      class="fixed inset-0 z-[999] hidden items-center justify-center bg-black/40 backdrop-blur-sm"
+    >
+      <div
+        id="bubbleContent"
+        class="relative scale-90 opacity-0 transition-all duration-300 ease-out"
+      >
+        <img
+          id="bubbleImage"
+          src=""
+          class="w-[360px] h-[360px] object-cover rounded-2xl shadow-2xl bg-white"
+        />
+
+        <button
+          onclick="closeBubble()"
+          class="absolute -top-4 -right-4 bg-white rounded-full p-2 shadow-lg"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+
+    <script>
+      function openBubble(button) {
+        const modal = document.getElementById("bubbleModal");
+        const content = document.getElementById("bubbleContent");
+        const popupImg = document.getElementById("bubbleImage");
+
+        const clickedImg = button.querySelector("img").src;
+        popupImg.src = clickedImg;
+
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+
+        setTimeout(() => {
+          content.classList.remove("scale-90", "opacity-0");
+          content.classList.add("scale-100", "opacity-100");
+        }, 10);
+      }
+
+      function closeBubble() {
+        const modal = document.getElementById("bubbleModal");
+        const content = document.getElementById("bubbleContent");
+
+        content.classList.remove("scale-100", "opacity-100");
+        content.classList.add("scale-90", "opacity-0");
+
+        setTimeout(() => {
+          modal.classList.add("hidden");
+          modal.classList.remove("flex");
+        }, 200);
+      }
+    </script>
+
+    <script>
+      // Disable browser's automatic scroll restoration
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+
+      // Force page to start at top on load
+      window.addEventListener("load", () => {
+        window.scrollTo(0, 0);
+      });
+
+      // Fix smooth-scroll causing initial jump
+      document.documentElement.classList.remove("scroll-smooth");
+      window.addEventListener("load", () => {
+        document.documentElement.classList.add("scroll-smooth");
+      });
+    </script>
+    <!-- Bubble Popup Modal -->
+    <div
+      id="bubbleModal"
+      class="fixed inset-0 z-[999] hidden items-center justify-center bg-black/40 backdrop-blur-sm"
+    >
+      <div
+        id="bubbleContent"
+        class="relative scale-90 opacity-0 transition-all duration-300 ease-out"
+      >
+        <img
+          id="bubbleImage"
+          src=""
+          class="w-[360px] h-[360px] object-cover rounded-2xl shadow-2xl bg-white"
+        />
+
+        <button
+          onclick="closeBubble()"
+          class="absolute -top-4 -right-4 bg-white rounded-full p-2 shadow-lg hover:scale-110 transition"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+
+    <style>
+      #bubbleModal {
+        display: none;
+      }
+      #bubbleModal.flex {
+        display: flex;
+      }
+    </style>
+    <script>
+      window.addEventListener("load", () => {
+        window.scrollTo(0, 0);
+      });
+    </script>
+
+    <footer class="bg-[#2b170c] text-white pt-20 pb-10">
+      <div
+        class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12"
+      >
+        <!-- Brand Brief -->
+        <div class="space-y-5">
+          <div class="flex items-center gap-3">
+            <div
+              class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white flex items-center justify-center border border-brand-blue shadow-2xl overflow-hidden"
+            >
+              <img
+                src="https://res.cloudinary.com/dslvuduln/image/upload/v1766327154/the_candy_town_gkb8q5.png"
+                alt="Logo Footer"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="flex flex-col text-left">
+              <span
+                class="font-black text-xl md:text-2xl tracking-tighter uppercase leading-none"
+                >The Candy Town</span
+              >
+              <span
+                class="text-[7px] md:text-[8px] tracking-[0.2em] font-bold text-brand-accent-pink mt-1 uppercase"
+                >Making events sweeter</span
+              >
+            </div>
+          </div>
+          <p
+            class="text-stone-300 text-xs md:text-sm font-bold leading-relaxed text-left"
+          >
+            "India's finest live stall services across Maharashtra ,Delhi,
+            Gujarat and Rajasthan."
+          </p>
+          <div class="flex space-x-4 md:space-x-6">
+            <a
+              href="https://www.instagram.com/thecandytown_/"
+              target="_blank"
+              class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-blue transition-all border border-white/10 group"
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/5/58/Instagram-Icon.png"
+                class="w-5 h-5 md:w-6 md:h-6 group-hover:scale-110"
+                alt="Instagram Link"
+              />
+            </a>
+
+            <a
+              href="https://wa.me/919867910957"
+              target="_blank"
+              class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-blue transition-all border border-white/10 group"
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                class="w-5 h-5 md:w-6 md:h-6 group-hover:scale-110"
+                alt="WhatsApp Link"
+              />
+            </a>
+
+            <a
+              href="https://youtube.com/@thecandytown1?si=PW0irRAAM9STwHj2"
+              target="_blank"
+              class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-blue transition-all border border-white/10 group"
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg"
+                class="w-5 h-5 md:w-6 md:h-6 group-hover:scale-110"
+                alt="YouTube Link"
+              />
+            </a>
+
+            <a
+              href="INSERT_LINKEDIN_LINK_HERE"
+              target="_blank"
+              class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-blue transition-all border border-white/10 group"
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg"
+                class="w-5 h-5 md:w-6 md:h-6 group-hover:scale-110"
+                alt="LinkedIn Link"
+              />
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="space-y-6 md:space-y-10 uppercase text-left">
+          <h5
+            class="text-brand-blue font-bold tracking-widest text-[10px] md:text-[11px] text-left"
+          >
+            The journey
+          </h5>
+          <ul
+            class="space-y-4 md:space-y-5 text-[10px] md:text-xs font-bold tracking-wide text-stone-300"
+          >
+            <li>
+              <a
+                href="index.html#home"
+                class="hover:text-white transition-colors"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="index.html#about"
+                class="hover:text-white transition-colors"
+                >Experience</a
+              >
+            </li>
+            <li>
+              <a
+                href="index.html#services"
+                class="hover:text-white transition-colors"
+                >Services</a
+              >
+            </li>
+            <li>
+              <a
+                href="index.html#contact"
+                class="hover:text-white transition-colors"
+                >Book now</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- Reach (Regional Hubs) -->
+        <div
+          class="space-y-6 md:space-y-10 uppercase col-span-1 md:col-span-2 text-left"
+        >
+          <h5
+            class="text-brand-blue font-bold tracking-widest text-[10px] md:text-[11px] text-left pl-6"
+          >
+            Regional hubs
+          </h5>
+
+          <ul
+            class="grid grid-cols-2 md:grid-cols-3 gap-y-4 md:gap-y-4 text-[10px] md:text-sm font-semibold tracking-wide text-stone-300"
+          >
+            <li class="flex items-center space-x-3">
+              <i
+                data-lucide="map-pin"
+                class="text-brand-accent-pink w-3 h-3 md:w-4 md:h-4"
+              ></i>
+              <span>Mumbai</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i
+                data-lucide="map-pin"
+                class="text-brand-accent-pink w-3 h-3 md:w-4 md:h-4"
+              ></i>
+              <span>Pune</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i
+                data-lucide="map-pin"
+                class="text-brand-accent-pink w-3 h-3 md:w-4 md:h-4"
+              ></i>
+              <span>Nagpur</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i
+                data-lucide="map-pin"
+                class="text-brand-accent-pink w-3 h-3 md:w-4 md:h-4"
+              ></i>
+              <span>Delhi / NCR</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i
+                data-lucide="map-pin"
+                class="text-brand-accent-pink w-3 h-3 md:w-4 md:h-4"
+              ></i>
+              <span>Jaipur</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i
+                data-lucide="map-pin"
+                class="text-brand-accent-pink w-3 h-3 md:w-4 md:h-4"
+              ></i>
+              <span>Udaipur</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i
+                data-lucide="map-pin"
+                class="text-brand-accent-pink w-3 h-3 md:w-4 md:h-4"
+              ></i>
+              <span>Ahmedabad</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i
+                data-lucide="map-pin"
+                class="text-brand-accent-pink w-3 h-3 md:w-4 md:h-4"
+              ></i>
+              <span>Surat</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i
+                data-lucide="map-pin"
+                class="text-brand-accent-pink w-3 h-3 md:w-4 md:h-4"
+              ></i>
+              <span>Bangalore</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Copyright Line -->
+      <div
+        class="container mx-auto px-6 pt-10 md:pt-12 mt-10 md:mt-12 border-t border-white/5 text-[9px] md:text-[11px] text-stone-500 tracking-[0.2em] font-black uppercase text-center"
+      >
+        © 2022 The Candy Town® — All Rights Reserved.
+      </div>
+    </footer>
+  </body>
+</html>

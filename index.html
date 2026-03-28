@@ -9,6 +9,8 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="stylesheet" href="index.css">
+    
     <meta name="description"
         content="The Candy Town provides premium live food counters. FSSAI approved Chocolate Fountains, Popcorn, and Candy Floss stalls in Mumbai, Pune, and Bangalore. Making events sweeter.">
 
@@ -22,279 +24,6 @@
     <!-- Animation Library for success events -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-    <style>
-        /* * BRAND COLOR TOKENS 
-         * Custom aqua and pink theme configuration
-         */
-        :root {
-            --brand-brown: #2C1B12;
-            --brand-blue: rgb(89, 227, 230);
-            --brand-blue2: rgb(14, 91, 179);
-            /* darker shade for blue  */
-            /* Signature Aqua */
-            --brand-blue-hover: rgb(70, 210, 213);
-            --brand-pink: #fdf2f8;
-            /* Requested Light Pink Background */
-            --brand-accent-pink: #F472B6;
-            --brand-text: #1A1310;
-        }
-
-        /* RESET & BASE STYLES */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: white;
-            color: var(--brand-text);
-            overflow-x: hidden;
-            width: 100%;
-        }
-
-        /* TYPOGRAPHY ENFORCEMENT */
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        button,
-        a,
-        span,
-        p,
-        label,
-        input,
-        select,
-        textarea {
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* BRAND UTILITIES */
-        .bg-brand-brown {
-            background-color: var(--brand-brown);
-        }
-
-        .bg-brand-blue {
-            background-color: var(--brand-blue);
-        }
-
-        .bg-brand-pink {
-            background-color: var(--brand-pink);
-        }
-
-        .text-brand-blue {
-            color: var(--brand-blue);
-        }
-
-        .text-darker-blue {
-            color: var(--brand-blue2);
-        }
-
-        .text-brand-brown {
-            color: var(--brand-brown);
-        }
-
-        .text-brand-pink {
-            color: var(--brand-accent-pink);
-        }
-
-        .border-brand-blue {
-            border-color: var(--brand-blue);
-        }
-
-        /* 1. Prevent the HTML and Body from ever growing wider than the screen */
-        html,
-        body {
-            max-width: 100%;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* 2. Contain the Marquee */
-        /* Wrap the parent div of .animate-scroll with overflow-hidden if not already there */
-        .animate-scroll {
-            display: flex;
-            width: fit-content;
-            /* More stable than fit-content for animations */
-        }
-
-        /* 3. Clip the Hero and About sections */
-        /* This ensures the 'hero-blobs' don't create invisible white space outside the site */
-        #home,
-        #about,
-        #services {
-            overflow: hidden;
-        }
-
-        /* 4. Fix for Mobile Flexbox */
-        #carousel-inner {
-            display: flex;
-            will-change: transform;
-        }
-
-        .border-brand-pink {
-            border-color: var(--brand-accent-pink);
-        }
-
-        /* NAVIGATION ANIMATIONS */
-        .nav-transition {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* RIBBON SCROLL ANIMATION 
-         * Pace maintained at 15s for a fast scroll
-         */
-        @keyframes scroll {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        .animate-scroll {
-            display: flex;
-            width: fit-content;
-            animation: scroll 15s linear infinite;
-        }
-
-        /* TESTIMONIAL MARQUEE ANIMATION 
-         * Smooth side-scrolling reviews
-         */
-        @keyframes marquee {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        .animate-marquee {
-            display: flex;
-            width: max-content;
-            animation: marquee 50s linear infinite;
-        }
-
-        .animate-marquee:hover {
-            animation-play-state: paused;
-        }
-
-        /* INTERSECTION OBSERVER ANIMATIONS */
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .fade-in-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* CARD HOVER EFFECTS */
-        .service-card {
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px -12px rgba(89, 227, 230, 0.3);
-        }
-
-        /* STICKY NAV SCROLL STATE */
-        .scrolled-nav {
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
-            border-bottom: 1px solid rgba(89, 227, 230, 0.2);
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
-            background-color: var(--brand-pink);
-        }
-
-        /* RESPONSIVE LAYOUT SPACING */
-        .hero-layout-spacing {
-            padding-top: clamp(100px, 15vh, 200px);
-        }
-
-        /* RESPONSIVE TESTIMONIAL CARD WIDTHS */
-        .testimonial-card {
-            width: 280px;
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        @media (min-width: 768px) {
-            .testimonial-card {
-                width: 380px;
-            }
-        }
-
-        .testimonial-card:hover {
-            transform: translateY(-16px) scale(1.02);
-            box-shadow: 0 40px 80px -20px rgba(44, 27, 18, 0.4);
-        }
-
-        /* FORM FIELD RESET */
-        input[type="date"] {
-            min-height: 3.5rem;
-            padding-right: 1.5rem;
-            width: 100%;
-        }
-
-        /* SELECTION HIGHLIGHT */
-        ::selection {
-            background: var(--brand-blue);
-            color: var(--brand-brown);
-        }
-
-        /* DECORATIVE BACKGROUND ELEMENTS */
-        .hero-blob {
-            position: absolute;
-            z-index: 0;
-            filter: blur(80px);
-            opacity: 0.4;
-            border-radius: 50%;
-        }
-
-        /* STAR RATING COMPONENT STYLES */
-        .star-rating svg {
-            cursor: pointer;
-            transition: all 0.2s ease;
-            fill: none;
-            stroke: currentColor;
-        }
-
-        .star-rating svg.active {
-            fill: var(--brand-blue) !important;
-            color: var(--brand-blue) !important;
-            stroke: var(--brand-blue) !important;
-        }
-
-        /* PREVENT OVERFLOW ON MOBILE ANIMATIONS */
-        .overflow-x-clip {
-            overflow-x: clip;
-        }
-
-        /* CART SELECTION STYLES */
-        .cart-option {
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid transparent;
-        }
-
-        .cart-option:hover {
-            transform: translateY(-4px);
-        }
-
-        .cart-option.selected {
-            border-color: var(--brand-blue);
-            background-color: rgba(89, 227, 230, 0.05);
-            box-shadow: 0 10px 25px -5px rgba(89, 227, 230, 0.2);
-        }
-
-        .cart-option.selected .check-badge {
-            display: flex;
-        }
-    </style>
 </head>
 
 <body class="overflow-x-clip">
@@ -308,7 +37,8 @@
      -->
     <nav id="navbar"
         class="fixed w-full z-50 nav-transition py-4 bg-brand-pink border-b border-brand-blue/20 shadow-md">
-        <div class="container mx-auto px-4 md:px-6 flex justify-between items-center">
+       <div class="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
+        
             <!-- Brand Identity -->
             <a href="#" class="flex items-center space-x-2 md:space-x-3 group">
                 <div
@@ -325,6 +55,14 @@
                         events sweeter</span>
                 </div>
             </a>
+
+            <!-- Mobile Menu Button -->
+<button
+  class="lg:hidden text-2xl font-bold text-brand-brown"
+  onclick="document.getElementById('mobileMenu').classList.toggle('hidden')"
+>
+  ☰
+</button>
 
             <!-- Desktop Menu (Hidden on mobile) -->
             <div class="hidden lg:flex items-center space-x-12">
@@ -344,6 +82,15 @@
                     a Quote</a>
             </div>
 
+            <!-- Mobile Menu -->
+<div id="mobileMenu" class="hidden lg:hidden w-full mt-4 bg-white rounded-2xl shadow-md p-4 space-y-4">
+  <a href="#home" class="block font-bold uppercase text-brand-brown">Home</a>
+  <a href="#about" class="block font-bold uppercase text-brand-brown">About</a>
+  <a href="#services" class="block font-bold uppercase text-brand-brown">Services</a>
+  <a href="#gallery" class="block font-bold uppercase text-brand-brown">Gallery</a>
+  <a href="#rent" class="block font-bold uppercase text-brand-brown">Rent a Cart</a>
+</div>
+
             <!-- Mobile Menu Toggle -->
             <button class="lg:hidden text-brand-brown p-2" onclick="toggleMenu()">
                 <i data-lucide="menu" class="w-7 h-7"></i>
@@ -352,13 +99,13 @@
     </nav>
 
     <!-- 
-     * MOBILE OVERLAY MENU 
+     * MOBILE OVERLAY MENU
      * Full-screen navigation for touch devices
      -->
     <div id="mobile-menu"
         class="fixed inset-0 bg-white z-[60] hidden flex-col p-6 md:p-10 space-y-10 animate-in slide-in-from-top duration-300">
         <div class="flex justify-between items-center border-b border-brand-brown/10 pb-6 relative z-10">
-            <div class="flex items-center space-x-3">
+            <div class="hidden lg:flex items-center space-x-8">
                 <img src="./images/Candy_Town_Logo.png" alt="Logo" class="w-10 h-10 rounded-full shadow-md">
                 <span class="font-black text-xl text-brand-brown uppercase tracking-tighter">The Candy Town</span>
             </div>
@@ -405,12 +152,12 @@
             <div class="absolute inset-0 bg-brand-pink/40"></div>
         </div>
 
-        <div class="container mx-auto px-4 md:px-6 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-10 md:gap-16 items-center">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
 
                 <div class="space-y-6 md:space-y-10 fade-in-up visible text-left mb-12 lg:mb-0">
                     <h1
-                        class="text-4xl md:text-6xl lg:text-7xl font-black text-brand-brown leading-tight tracking-tighter drop-shadow-sm">
+                        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-brand-brown leading-tight tracking-tight">
 
                         Bringing Live Food Experiences to<br class="hidden sm:block">
 
@@ -504,13 +251,13 @@
      * Brand story and heritage details
      -->
     <section id="about" class="py-16 md:py-32 bg-white">
-        <div class="container mx-auto px-4 md:px-6">
-            <div class="grid lg:grid-cols-2 gap-12 md:gap-24 items-center">
+        <div class="max-w-7xl mx-auto px-4 md:px-6">
+           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center lg:items-start">
                 <div class="relative fade-in-up">
 
                     <!-- About us Photo -->
 
-                    <img src="./images/About us Candy town image.png" alt="About Our Professional Stalls"
+                    <img src="./images/About us Candy town image.jpg" alt="About Our Professional Stalls"
                         class="relative z-10 rounded-[2rem] md:rounded-[3rem] shadow-2xl border-[8px] md:border-[12px] border-brand-pink transition-transform hover:scale-[1.02]">
                     <div
                         class="absolute -bottom-6 -left-4 md:-bottom-10 md:-left-10 bg-brand-brown p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] text-white shadow-3xl z-20 border border-brand-blue/40">
@@ -521,16 +268,19 @@
                             Hygiene <br> Setup</p>
                     </div>
                 </div>
-                <div class="space-y-6 md:space-y-10 fade-in-up text-left">
+                <div class="space-y-4 md:space-y-6 fade-in-up text-left">
+
                     <div>
                         <h2
-                            class="text-brand-blue font-black tracking-widest text-xl md:text-2xl mb-2 md:mb-4 uppercase text-left">
-                            About Us</h2>
-                        <h3
-                            class="text-3xl md:text-5xl lg:text-6xl font-black leading-tight text-brand-brown tracking-tighter text-left">
-                            The Candy Town Stalls</h3>
-                    </div>
-                    <p class="text-stone-500 leading-relaxed text-base md:text-lg font-medium text-left">
+  class="text-brand-blue font-black tracking-widest text-base sm:text-lg md:text-2xl mb-4 md:mb-4 uppercase text-left mt-2 -ml-1 md:-ml-2">
+  About Us
+<h2 class="text-brand-blue font-bold tracking-widest text-[10px] md:text-[12px] uppercase mb-2 text-left">
+</h2>
+
+<h3 class="text-2xl md:text-4xl lg:text-5xl font-black leading-tight text-brand-brown tracking-tighter text-left -ml-1 md:-ml-2">
+  The Candy Town Stalls
+</h3>
+                   <p class="mt-7 text-stone-500 leading-relaxed text-sm sm:text-base md:text-lg font-medium text-left">
                         The Candy Town provides professionally managed <span class="font-bold text-brand-brown">Live
                             Food Stall services for Weddings, Corporate
                             events, and large public gatherings.</span> Our focus is on operational reliability, quality
@@ -539,9 +289,7 @@
                         <br>
                         <br>
                         We have successfully served over <span class="font-bold text-brand-brown">30,000 guests in a
-                            single day</span> and have supported high-footfall
-                        events including Nykaaland and India vs Pakistan match-day celebrations, reflecting our ability
-                        to manage scale without disruption.
+                            single day</span> delivering seamless service across large-scale corporate events, brand activations such as Nykaaland, high-footfall match-day celebrations (India vs Pakistan), and premium kids’ birthday events, demonstrating our ability to manage scale with operational excellence.
                         <br>
                         <br>
                         The Candy Town is built on <span class="font-bold text-brand-brown">Trust, Experience, and
@@ -552,254 +300,411 @@
         </div>
     </section>
 
+    
+<section id="most-selling" class="bg-pink-50 py-16 md:py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    
+    <!-- Heading -->
+    <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+      <h2 class="text-brand-blue font-bold tracking-widest text-[10px] md:text-[12px] uppercase">
+        Most Selling
+      </h2>
+      <h3 class="text-2xl md:text-5xl font-black text-brand-brown tracking-tight">
+        Most Selling Live Counters.
+      </h3>
+      <p class="text-stone-500 font-bold text-sm md:text-base">
+        Our most loved live stalls for every celebration.
+      </p>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+
+      <!-- Chocolate Fountain -->
+      <a href="chocolate-fountain.html" class="block">
+        <div class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
+
+          <div class="relative w-full h-64 md:h-72 overflow-hidden">
+            <img 
+              src="./images/Chocolate fountain stall/Chocolate-Fountain_1.jpg"
+              alt="Chocolate Fountain Stall"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+              <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">
+                5-Tier Luxury
+              </span>
+            </div>
+          </div>
+
+          <div class="p-8 flex flex-col items-center text-center flex-grow">
+            <h4 class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors">
+              Chocolate Fountain
+            </h4>
+            <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">
+              Imported Belgian chocolate served with fresh fruit skewers & marshmallows.
+            </p>
+            <div class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all"></div>
+          </div>
+
+        </div>
+      </a>
+
+      <!-- Live Popcorn -->
+      <a href="popcorn.html" class="block">
+        <div class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
+
+          <div class="relative w-full h-64 md:h-72 overflow-hidden">
+            <img 
+              src="./images/Popcorn stall/Popcorn-Stall_1.JPG"
+              alt="Live Popcorn Stall"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+              <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">
+                Fresh & Hot
+              </span>
+            </div>
+          </div>
+
+          <div class="p-8 flex flex-col items-center text-center flex-grow">
+            <h4 class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors">
+              Live Popcorn
+            </h4>
+            <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">
+              Cinema-style popcorn with sweet & salted flavours served live.
+            </p>
+            <div class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all"></div>
+          </div>
+
+        </div>
+      </a>
+
+      <!-- Candy Floss -->
+      <a href="candy-floss.html" class="block">
+        <div class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
+
+          <div class="relative w-full h-64 md:h-72 overflow-hidden">
+            <img 
+              src="./images/Candy Floss Stall/Candy-Floss_1.jpg"
+              alt="Candy Floss Stall"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+              <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">
+                Kids Favourite
+              </span>
+            </div>
+          </div>
+
+          <div class="p-8 flex flex-col items-center text-center flex-grow">
+            <h4 class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors">
+              Candy Floss
+            </h4>
+            <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">
+              Whimsical clouds of sugar spun live in vibrant organic colours.
+            </p>
+            <div class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all"></div>
+          </div>
+
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
     <!-- 
      * SERVICES GRID 
      * Displays available live stall configurations
      -->
-    <section id="services" class="py-16 md:py-32 bg-brand-pink relative">
+    <section id="services" class="py-8 md:py-12 bg-brand-pink relative">
         <div class="container mx-auto px-4 md:px-6">
-            <div class="text-center max-w-3xl mx-auto mb-12 md:mb-24 space-y-4 md:space-y-6">
+            <div class="text-center max-w-3xl mx-auto mb-6 md:mb-10 space-y-2 md:space-y-3">
                 <h2
                     class="text-brand-blue font-bold tracking-widest text-[9px] md:text-[11px] mb-2 uppercase text-center">
                     What we serve</h2>
-                <h3 class="text-3xl md:text-5xl font-black text-brand-brown tracking-tighter">Signature live counters.
+                <h3 class="text-4xl md:text-6xl font-black text-brand-brown tracking-tighter">Signature live counters.
                 </h3>
                 <p class="text-stone-500 font-bold text-sm md:text-base">Premium snacking experiences curated for your
                     unique event theme.</p>
             </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 items-stretch">
+              
+<a href="ice-gola.html" class="block">
+  <div class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-                <div
-                    class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
-                    <div class="relative w-full h-64 md:h-72 overflow-hidden">
-                        <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768800931/Chocolate_Fountain_btpvcs.png"
-                            alt="Chocolate Fountain Stall"
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div
-                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
-                            <span
-                                class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">5-tier
-                                luxury</span>
-                        </div>
-                    </div>
-                    <div class="p-8 flex flex-col items-center text-center flex-grow">
-                        <h4
-                            class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
-                            Chocolate Fountain</h4>
-                        <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">Imported Belgian
-                            chocolate served with fresh fruit skewers and marshmallows.</p>
-                        <div
-                            class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all">
-                        </div>
-                    </div>
-                </div>
+    <div class="relative w-full h-64 md:h-72 overflow-hidden">
+      <img
+        src="./images/Ice Gola Stall/Ice-Gola_1.jpg"
+        alt="Ice Gola Stall"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+      />
+      <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+        <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">
+          100% Mineral Ice
+        </span>
+      </div>
+    </div>
 
-                <div
-                    class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
-                    <div class="relative w-full h-64 md:h-72 overflow-hidden">
-                        <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768801252/IMG_7230_k7hm3m.jpg"
-                            alt="Live Popcorn Stall"
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div
-                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
-                            <span
-                                class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">Vintage
-                                cart</span>
-                        </div>
-                    </div>
-                    <div class="p-8 flex flex-col items-center text-center flex-grow">
-                        <h4
-                            class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
-                            Live Popcorn</h4>
-                        <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">Cinema-style hot
-                            popcorn in custom branded tubs. Sweet & salted options.</p>
-                        <div
-                            class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all">
-                        </div>
-                    </div>
-                </div>
+    <div class="p-8 flex flex-col items-center text-center flex-grow">
+      <h4 class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
+        Nostalgic Ice Gola
+      </h4>
+      <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">
+        Traditional chuski made with mineral water ice and premium syrups.
+      </p>
+      <div class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all"></div>
+    </div>
 
-                <div
-                    class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
-                    <div class="relative w-full h-64 md:h-72 overflow-hidden">
-                        <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1766908751/WhatsApp_Image_2025-12-25_at_1.20.06_PM_zikfo9.jpg"
-                            alt="Cotton Candy Stall"
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div
-                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
-                            <span
-                                class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">Organic
-                                sugar</span>
-                        </div>
-                    </div>
-                    <div class="p-8 flex flex-col items-center text-center flex-grow">
-                        <h4
-                            class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
-                            Cotton Candy</h4>
-                        <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">Whimsical clouds of
-                            sugar spun live. Organic sugars and vibrant colors available.</p>
-                        <div
-                            class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all">
-                        </div>
-                    </div>
-                </div>
+  </div>
+</a>
 
-                <div
-                    class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
-                    <div class="relative w-full h-64 md:h-72 overflow-hidden">
-                        <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1766909749/icegola_hymloa.jpg"
-                            alt="Ice Gola Stall"
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div
-                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
-                            <span
-                                class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">100%
-                                mineral ice</span>
-                        </div>
-                    </div>
-                    <div class="p-8 flex flex-col items-center text-center flex-grow">
-                        <h4
-                            class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
-                            Nostalgic Ice Gola</h4>
-                        <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">Traditional Chuski
-                            made with mineral water ice and premium syrups.</p>
-                        <div
-                            class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all">
-                        </div>
-                    </div>
-                </div>
 
-                <div
-                    class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
-                    <div class="relative w-full h-64 md:h-72 overflow-hidden">
-                        <img src="./images/Potato Twister.PNG" alt="Potato Twister Stall"
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div
-                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
-                            <span
-                                class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">Live
-                                spiral cut</span>
-                        </div>
-                    </div>
-                    <div class="p-8 flex flex-col items-center text-center flex-grow">
-                        <h4
-                            class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
-                            Potato Twisters</h4>
-                        <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">Freshly cut spiral
-                            potatoes fried and dusted with signature masalas.</p>
-                        <div
-                            class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all">
-                        </div>
-                    </div>
-                </div>
+                <a href="potato-twister.html" class="block">
+  <div class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
 
-                <div
-                    class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
-                    <div class="relative w-full h-64 md:h-72 overflow-hidden">
-                        <img src="./images/Crunchy Waffles.PNG" alt="Crunchy Waffles Stall"
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div
-                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
-                            <span
-                                class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">Gourmet
-                                toppings</span>
-                        </div>
-                    </div>
-                    <div class="p-8 flex flex-col items-center text-center flex-grow">
-                        <h4
-                            class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
-                            Crunchy Waffles</h4>
-                        <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">Freshly baked Belgian
-                            style waffles served with gourmet toppings.</p>
-                        <div
-                            class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all">
-                        </div>
-                    </div>
-                </div>
+    <div class="relative w-full h-64 md:h-72 overflow-hidden">
+      <img
+        src="./images/Potato Twister/Potato-twister-stall_1.jpg"
+        alt="Potato Twister Stall"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+      />
+      <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+        <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">
+          Live Spiral Cut
+        </span>
+      </div>
+    </div>
 
-                <div
-                    class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
-                    <div class="relative w-full h-64 md:h-72 overflow-hidden">
-                        <img src="./images/Chana Jor Garam.PNG" alt="Chana Jor Garam Stall"
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div
-                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
-                            <span
-                                class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">Chatpata
-                                Flashback</span>
-                        </div>
-                    </div>
-                    <div class="p-8 flex flex-col items-center text-center flex-grow">
-                        <h4
-                            class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
-                            Chana Jor Garam</h4>
-                        <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">The snack we shook,
-                            mixed, and shared — straight from childhood streets.</p>
-                        <div
-                            class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all">
-                        </div>
-                    </div>
-                </div>
+    <div class="p-8 flex flex-col items-center text-center flex-grow">
+      <h4 class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
+        Potato Twisters
+      </h4>
+      <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">
+        Freshly cut spiral potatoes fried and dusted with signature masalas.
+      </p>
+      <div class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all"></div>
+    </div>
+
+  </div>
+</a>
+
+
+               <a href="waffle-stall.html" class="block">
+  <div class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
+
+    <div class="relative w-full h-64 md:h-72 overflow-hidden">
+      <img
+        src="./images/Waffle Stall/Waffle-Stall_1.jpg"
+        alt="Crunchy Waffles Stall"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+      />
+      <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+        <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">
+          Gourmet Toppings
+        </span>
+      </div>
+    </div>
+
+    <div class="p-8 flex flex-col items-center text-center flex-grow">
+      <h4 class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
+        Crunchy Waffles
+      </h4>
+      <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">
+        Freshly baked Belgian style waffles served with gourmet toppings.
+      </p>
+      <div class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all"></div>
+    </div>
+
+  </div>
+</a>
+
+
+                <a href="chana-jor-garam.html" class="block">
+  <div class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
+
+    <div class="relative w-full h-64 md:h-72 overflow-hidden">
+      <img
+        src="./images/Chana jor garam stall/Chana-jor-stall_1.jpg"
+        alt="Chana Jor Garam Stall"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+      />
+      <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+        <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">
+          Chatpata Flashback
+        </span>
+      </div>
+    </div>
+
+    <div class="p-8 flex flex-col items-center text-center flex-grow">
+      <h4 class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
+        Chana Jor Garam
+      </h4>
+      <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">
+        The snack we shook, mixed, and shared — straight from childhood streets.
+      </p>
+      <div class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all"></div>
+    </div>
+
+  </div>
+</a>
 
                 <!-- Stall 8: Masala Sweet Corn (UPDATED PHOTO & VISIBILITY) -->
-                <div
-                    class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
-                    <div
-                        class="relative w-full h-64 md:h-72 overflow-hidden bg-stone-50 flex items-center justify-center">
-                        <!-- Use object-contain to ensure the full image is visible top-to-bottom as requested -->
-                        <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768801065/Untitled-1_sbrksh.jpg"
-                            alt="Masala Sweet Corn Stall"
-                            class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105">
-                        <div
-                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
-                            <span class="text-[10px] font-bold uppercase tracking-widest text-brand-blue">Corn
-                                Memories</span>
-                        </div>
-                    </div>
-                    <div class="p-8 flex flex-col items-center text-center flex-grow">
-                        <h4
-                            class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
-                            Masala Sweet Corn</h4>
-                        <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">The timeless street
-                            taste of school days and warm summer evenings.</p>
-                        <div
-                            class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all">
-                        </div>
-                    </div>
-                </div>
+               <a href="masala-sweet-corn.html" class="block">
+  <div class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
 
-                <div
-                    class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
-                    <div class="relative w-full h-64 md:h-72 overflow-hidden">
-                        <img src="./images/Bachpan ki yaddien.PNG" alt="Bachpan ki Yaadien Stall"
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div
-                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
-                            <span
-                                class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">Sweet
-                                Nostalgia</span>
-                        </div>
-                    </div>
-                    <div class="p-8 flex flex-col items-center text-center flex-grow">
-                        <h4
-                            class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
-                            Bachpan ki Yaadien</h4>
-                        <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">A stall that tastes
-                            like childhood — where every candy brings back a story.</p>
-                        <div
-                            class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all">
-                        </div>
-                    </div>
+    <div class="relative w-full h-64 md:h-72 overflow-hidden bg-stone-50 flex items-center justify-center">
+      <img 
+        src="./images/Masala sweet corn stall/Masala-sweet-corn_1.jpg"
+        alt="Masala Sweet Corn Stall"
+        class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+      />
+      <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+        <span class="text-[10px] font-bold uppercase tracking-widest text-brand-blue">
+          Corn Memories
+        </span>
+      </div>
+    </div>
+
+    <div class="p-8 flex flex-col items-center text-center flex-grow">
+      <h4 class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
+        Masala Sweet Corn
+      </h4>
+      <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">
+        The timeless street taste of school days and warm summer evenings.
+      </p>
+      <div class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all"></div>
+    </div>
+  </div>
+</a>
+                <a href="bachpan-ki-yaadein.html" class="block">
+  <div class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
+
+    <div class="relative w-full h-64 md:h-72 overflow-hidden">
+      <img 
+        src="./images/Bachpan Ki Yaadein Stall/Bachpan-ki-yaadein_1.jpg" 
+        alt="Bachpan Ki Yaadein Stall"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+      />
+      <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+        <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">
+          Sweet Nostalgia
+        </span>
+      </div>
+    </div>
+
+    <div class="p-8 flex flex-col items-center text-center flex-grow">
+      <h4 class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
+        Bachpan Ki Yaadein
+      </h4>
+      <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">
+        A stall that tastes like childhood — where every candy brings back a story.
+      </p>
+      <div class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all"></div>
+    </div>
+
+  </div>
+</a>
+
+ <a href="tangy-maggie.html" class="block">
+  <div class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
+
+    <div class="relative w-full h-64 md:h-72 overflow-hidden">
+      <img
+        src="./images/Maggie Stall/Tangy-maggie__1.jpg"
+        alt="Tangy Maggie Stall"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+      />
+      <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+        <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">
+          Tangy Flashback
+        </span>
+      </div>
+    </div>
+
+    <div class="p-8 flex flex-col items-center text-center flex-grow">
+      <h4 class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
+        Tangy Maggie
+      </h4>
+      <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">
+        That familiar tang in every bite —
+         comfort food, served hot and fresh.
+      </p>
+      <div class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all"></div>
+    </div>
+
+  </div>
+</a>
+
+ <a href="french-fries.html" class="block">
+  <div class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
+
+    <div class="relative w-full h-64 md:h-72 overflow-hidden">
+      <img
+        src="./images/French Fries Stall/French-fries_1.jpg"
+        alt="French Fries Stall"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+      />
+      <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+        <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">
+          French Fries Flashback
+        </span>
+      </div>
+    </div>
+
+    <div class="p-8 flex flex-col items-center text-center flex-grow">
+      <h4 class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
+        French Fries
+      </h4>
+      <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">
+        Crunchy on the outside, soft inside,
+        fries that everyone loves.
+      </p>
+      <div class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all"></div>
+    </div>
+
+  </div>
+</a>
+
+ <a href="cupcakes.html" class="block">
+  <div class="service-card group bg-white rounded-[2rem] md:rounded-[3rem] shadow-sm border border-stone-100 flex flex-col overflow-hidden transition-all hover:shadow-xl">
+
+    <div class="relative w-full h-64 md:h-72 overflow-hidden">
+      <img
+        src="./images/Cupcake stall/Cupcake-stall_1.jpg"
+        alt="Cupcakes Stall"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+      />
+      <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+        <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-brand-blue">
+          Cupcakes Flashback
+        </span>
+      </div>
+    </div>
+
+    <div class="p-8 flex flex-col items-center text-center flex-grow">
+      <h4 class="font-black text-2xl md:text-3xl mb-3 text-brand-brown group-hover:text-brand-blue transition-colors tracking-tighter">
+        Cupcakes
+      </h4>
+      <p class="text-sm md:text-base text-stone-500 leading-relaxed font-medium">
+        Colorful bites of happiness,
+        too cute to resist.
+      </p>
+      <div class="mt-auto pt-6 w-12 h-1 bg-brand-blue/20 rounded-full group-hover:w-20 group-hover:bg-brand-blue transition-all"></div>
+    </div>
+
+  </div>
+</a>
                 </div>
             </div>
-        </div>
     </section>
 
     <!-- 
      * QUALITY ASSURANCE 
      * Trust signals highlighting hygiene and professional checks
      -->
-    <section id="quality" class="py-16 md:py-24 bg-white border-t border-stone-100">
+    <section id="quality" class="py-10 md:py-14 bg-white border-t border-stone-100">
         <div class="container mx-auto px-4 md:px-6">
             <div class="max-w-6xl mx-auto">
                 <div class="grid lg:grid-cols-2 gap-12 md:gap-20 items-center">
@@ -880,7 +785,7 @@
                         </div>
                         <div
                             class="relative rounded-[2rem] md:rounded-[3rem] overflow-hidden border-4 md:border-8 border-white shadow-2xl">
-                            <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=1000"
+                            <img src="./images/Hygiene Certified.jpg"
                                 alt="Hygiene Standards and Audit" class="w-full h-[350px] md:h-[500px] object-cover">
                             <div
                                 class="absolute top-4 left-4 md:top-8 md:left-8 bg-white/90 backdrop-blur px-4 md:px-6 py-2 md:py-4 rounded-xl md:rounded-2xl border border-brand-blue/20 shadow-xl">
@@ -903,7 +808,7 @@
      * Carousel component for visual proof of work
      -->
 
-    <section id="event-showcase" class="py-16 md:py-32 bg-white overflow-hidden select-none">
+    <section id="event-showcase" class="py-10 md:py-14 bg-white overflow-hidden select-none">
         <div class="container mx-auto px-4 md:px-6">
             <div class="text-center mb-8 md:mb-16 space-y-3 md:space-y-4">
                 <h2 class="text-brand-blue font-bold tracking-widest text-[9px] md:text-[11px] mb-2 uppercase">
@@ -966,7 +871,7 @@
                         </div>
 
                         <div class="carousel-slide min-w-full sm:min-w-[48%] lg:min-w-[32.5%] shrink-0">
-                            <img src="./images/Moments we've created/moment7.JPG"
+                            <img src="./images/Moments we've created/moment 7.jpeg"
                                 class="w-full h-[250px] sm:h-[400px] md:h-[450px] object-cover rounded-2xl shadow-sm pointer-events-none"
                                 alt="Event 7">
                         </div>
@@ -978,7 +883,13 @@
                         </div>
 
                         <div class="carousel-slide min-w-full sm:min-w-[48%] lg:min-w-[32.5%] shrink-0">
-                            <img src="./images/Moments we've created/moment9.JPG"
+                            <img src="./images/Moments we've created/moment 9.jpeg"
+                                class="w-full h-[250px] sm:h-[400px] md:h-[450px] object-cover rounded-2xl shadow-sm pointer-events-none"
+                                alt="Event 9">
+                        </div>
+
+                         <div class="carousel-slide min-w-full sm:min-w-[48%] lg:min-w-[32.5%] shrink-0">
+                            <img src="./images/Moments we've created/moment 10.jpeg"
                                 class="w-full h-[250px] sm:h-[400px] md:h-[450px] object-cover rounded-2xl shadow-sm pointer-events-none"
                                 alt="Event 9">
                         </div>
@@ -1087,7 +998,7 @@
         <div
             class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')]">
         </div>
-        <div class="container mx-auto px-4 md:px-6 relative z-10 text-center">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 relative z-10 text-center">
 
             <div class="flex flex-col items-center mb-12 md:mb-20 space-y-4 md:space-y-6">
                 <div class="space-y-2 text-center">
@@ -1401,9 +1312,10 @@
                 <p class="text-stone-300 text-xs md:text-sm font-bold leading-relaxed text-left">"India's finest live
                     stall services across Maharashtra ,Delhi, Gujarat and Rajasthan."</p>
                 <div class="flex space-x-4 md:space-x-6">
-                    <a href="https://www.instagram.com/thecandytown_/" target="_blank"
+                   <a href="https://www.instagram.com/thecandytown_/" target="_blank"
                         class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-blue transition-all border border-white/10 group">
-                        <i data-lucide="instagram" class="group-hover:scale-110"></i>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Instagram-Icon.png"
+                            class="w-5 h-5 md:w-6 md:h-6 group-hover:scale-110" alt="Instagram Link">
                     </a>
 
                     <a href="https://wa.me/919867910957" target="_blank"
@@ -1414,12 +1326,14 @@
 
                     <a href="https://youtube.com/@thecandytown1?si=PW0irRAAM9STwHj2" target="_blank"
                         class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-blue transition-all border border-white/10 group">
-                        <i data-lucide="youtube" class="group-hover:scale-110"></i>
+                         <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg"
+                            class="w-5 h-5 md:w-6 md:h-6 group-hover:scale-110" alt="YouTube Link">
                     </a>
 
                     <a href="INSERT_LINKEDIN_LINK_HERE" target="_blank"
                         class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-blue transition-all border border-white/10 group">
-                        <i data-lucide="linkedin" class="group-hover:scale-110"></i>
+                         <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg"
+                            class="w-5 h-5 md:w-6 md:h-6 group-hover:scale-110" alt="LinkedIn Link">
                     </a>
                 </div>
             </div>
@@ -1463,11 +1377,12 @@
                 </ul>
             </div>
         </div>
+        
 
         <!-- Copyright Line -->
         <div
             class="container mx-auto px-6 pt-10 md:pt-12 mt-10 md:mt-12 border-t border-white/5 text-[9px] md:text-[11px] text-stone-500 tracking-[0.2em] font-black uppercase text-center">
-            2026 The Candy Town. All rights reserved.
+            © 2022 The Candy Town® — All Rights Reserved.
         </div>
     </footer>
 
@@ -1486,7 +1401,7 @@
     <div id="cartModal"
         class="fixed inset-0 z-[2000] hidden items-center justify-center p-4 md:p-6 bg-brand-brown/80 backdrop-blur-md">
         <div
-            class="bg-white p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] w-full max-w-4xl shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            class="relative bg-white p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] w-full max-w-4xl shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeCartModal()" class="absolute top-6 right-6 text-stone-400 hover:text-brand-brown p-2">
                 <i data-lucide="x" class="w-7 h-7"></i>
             </button>
@@ -1495,14 +1410,35 @@
                     Premium Cart</h4>
                 <p class="text-stone-500 text-sm md:text-base font-bold">Select a cart style for your event to get more
                     details</p>
+
+                    <!-- Cart Image Popup (inside cart modal) -->
+<div id="cartImagePreview"
+     class="absolute inset-0 hidden items-center justify-center bg-white/70 backdrop-blur-sm rounded-[2rem] md:rounded-[3rem] z-50">
+
+  <div class="relative bg-white rounded-2xl p-4 md:p-6 shadow-2xl max-w-[90vw] max-h-[85vh] flex items-center justify-center">
+    <button onclick="closeCartImage()"
+  class="absolute top-2 right-2 md:-top-3 md:-right-3 bg-white rounded-full shadow-md p-3 md:p-2 text-lg z-50">
+  ✕
+</button>
+
+    <img id="cartPreviewImg"
+         src=""
+         class="max-w-[90vw] md:max-w-[80vw] max-h-[70vh] md:max-h-[80vh] object-contain rounded-xl"
+         alt="Cart Preview" />
+  </div>
+</div>
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-10">
                 <!-- Updated Cart Option 1 -->
                 <div class="cart-option bg-stone-50 p-4 rounded-3xl relative"
                     onclick="selectCart(this, 'Wooden Cart 1')">
-                    <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768802231/IMG_7237_ihvage.png"
-                        class="w-full h-32 md:h-40 object-contain rounded-2xl mb-3" alt="Cart 1">
+                   <img 
+  src="https://res.cloudinary.com/dslvuduln/image/upload/v1768802231/IMG_7237_ihvage.png"
+  class="w-full h-32 md:h-40 object-contain rounded-2xl mb-3 cursor-pointer"
+  alt="Cart 1"
+  onclick="event.stopPropagation(); openCartImage(this.src)"
+>
                     <p class="font-black text-xs text-brand-brown text-center uppercase">Wooden Cart 1</p>
                     <div
                         class="check-badge absolute top-2 right-2 w-6 h-6 bg-brand-blue text-white rounded-full hidden items-center justify-center">
@@ -1513,7 +1449,9 @@
                 <div class="cart-option bg-stone-50 p-4 rounded-3xl relative"
                     onclick="selectCart(this, 'Wooden Cart 2')">
                     <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768803249/IMG_7242_wu0jr4.png"
-                        class="w-full h-32 md:h-40 object-contain rounded-2xl mb-3" alt="Cart 2">
+                        class="w-full h-32 md:h-40 object-contain rounded-2xl mb-3 cursor-pointer" 
+                        alt="Cart 2"
+                        onclick="event.stopPropagation(); openCartImage(this.src)">
                     <p class="font-black text-xs text-brand-brown text-center uppercase">Wooden Cart 2</p>
                     <div
                         class="check-badge absolute top-2 right-2 w-6 h-6 bg-brand-blue text-white rounded-full hidden items-center justify-center">
@@ -1524,7 +1462,9 @@
                 <div class="cart-option bg-stone-50 p-4 rounded-3xl relative"
                     onclick="selectCart(this, 'Wooden Cart 3')">
                     <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768804141/IMG_7246_e7gpuz.png"
-                        class="w-full h-32 md:h-40 object-contain rounded-2xl mb-3" alt="Cart 3">
+                        class="w-full h-32 md:h-40 object-contain rounded-2xl mb-3 cursor-pointer" 
+                        alt="Cart 3"
+                        onclick="event.stopPropagation(); openCartImage(this.src)">
                     <p class="font-black text-xs text-brand-brown text-center uppercase">Wooden Cart 3</p>
                     <div
                         class="check-badge absolute top-2 right-2 w-6 h-6 bg-brand-blue text-white rounded-full hidden items-center justify-center">
@@ -1852,6 +1792,41 @@
         // Auto-advance gallery
         setInterval(() => { curSlide = (curSlide + 1) % totalSlides; updateCarousel(); }, 6000);
     </script>
+
+    <script>
+  function openCartImage(src) {
+    const popup = document.getElementById("cartImagePreview");
+    const img = document.getElementById("cartPreviewImg");
+
+    img.src = src;
+    popup.classList.remove("hidden");
+    popup.classList.add("flex");
+  }
+
+  function closeCartImage() {
+    const popup = document.getElementById("cartImagePreview");
+    popup.classList.add("hidden");
+    popup.classList.remove("flex");
+  }
+</script>
+
+    <!-- Cart Image Popup -->
+<div id="cartImageModal" 
+  class="fixed inset-0 bg-white/60 backdrop-blur-md hidden flex items-center justify-center z-[3000] p-4">
+  <div class="relative bg-white rounded-2xl p-4 max-w-[90vw] max-h-[90vh]">
+    <button onclick="closeCartImage()"
+  class="absolute top-2 right-2 md:-top-3 md:-right-3 bg-white rounded-full shadow-md p-2 z-50">
+  ✕
+</button>
+
+    <img 
+      id="cartImagePreview" 
+      src="" 
+      alt="Cart Preview" 
+      class="max-w-[85vw] max-h-[80vh] object-contain rounded-xl"
+    />
+  </div>
+</div>
 </body>
 
 </html>
