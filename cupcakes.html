@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
@@ -145,9 +145,11 @@
         }
       }
     </style>
+    <!-- Icon Library -->
+    <script src="https://unpkg.com/lucide@latest"></script>
   </head>
 
-<body class="bg-brand-pink font-[Inter] page-fade">
+<body class="bg-brand-pink font-[Inter]">
 
 
     <!-- NAVBAR (same theme as homepage) -->
@@ -179,6 +181,11 @@
           </div>
         </a>
 
+        <!-- Mobile Menu Toggle -->
+        <button class="md:hidden text-brand-brown p-2" onclick="toggleMenu()">
+          <i data-lucide="menu" class="w-7 h-7"></i>
+        </button>
+
         <!-- Nav links -->
         <div
           class="hidden md:flex items-center space-x-8 font-bold tracking-widest text-xs uppercase text-brand-brown"
@@ -207,10 +214,37 @@
         </div>
       </div>
     </nav>
-    <main class="pt-24 md:pt-32 max-w-7xl mx-auto px-6">
-          </span>
-        </a>
-      </div>
+
+    <!-- MOBILE OVERLAY MENU -->
+    <div id="mobile-menu"
+        class="fixed inset-0 bg-white z-[60] hidden flex-col p-6 md:p-10 space-y-10 animate-in slide-in-from-top duration-300">
+        <div class="flex justify-between items-center border-b border-brand-brown/10 pb-6 relative z-10">
+            <div class="flex items-center space-x-4">
+                <img src="./images/Candy_Town_Logo.png" alt="Logo" class="w-10 h-10 rounded-full shadow-md">
+                <span class="font-black text-xl text-brand-brown uppercase tracking-tighter">The Candy Town</span>
+            </div>
+            <button onclick="toggleMenu()"
+                class="p-2 bg-white rounded-full shadow-sm border border-brand-brown/5 text-brand-brown hover:scale-110 transition">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <div class="flex flex-col space-y-6 text-left mt-8">
+            <a href="index.html#home" onclick="toggleMenu()"
+                class="text-3xl font-black text-brand-brown hover:text-brand-blue">Home</a>
+            <a href="index.html#about" onclick="toggleMenu()"
+                class="text-3xl font-black text-brand-brown hover:text-brand-blue">About</a>
+            <a href="index.html#services" onclick="toggleMenu()"
+                class="text-3xl font-black text-brand-brown hover:text-brand-blue">Services</a>
+            <a href="gallery.html" onclick="toggleMenu()"
+                class="text-3xl font-black text-brand-brown hover:text-brand-blue">Gallery</a>
+            <a href="index.html#contact" onclick="toggleMenu()"
+                class="text-3xl font-black text-brand-brown hover:text-brand-blue">Rent a Cart</a>
+            <a href="index.html#contact" onclick="toggleMenu()"
+                class="w-full py-5 bg-brand-brown text-white text-center rounded-2xl font-bold uppercase tracking-widest text-sm shadow-xl mt-4">GET A QUOTE</a>
+        </div>
+    </div>
+
+    <main class="pt-24 md:pt-32 max-w-7xl mx-auto px-6 page-fade">
 
       <!-- CONTENT -->
       <section class="pt-0 md:pt-2 pb-12 md:pb-16">
@@ -257,9 +291,27 @@
 
           <!-- RIGHT: Details + Pricing -->
           <div class="space-y-6">
-            <h1 class="text-4xl md:text-5xl font-black text-brand-brown">
-              Cupcakes Stall
-            </h1>
+            <!-- Urgency & Social Proof -->
+            <div class="space-y-2">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 pb-1.5 rounded-full bg-red-100 text-red-600 font-bold text-xs uppercase tracking-widest border border-red-200 shadow-sm animate-pulse">
+                <span>&#128293;</span> Trending - High Demand
+              </span>
+              
+              <h1 class="text-4xl md:text-5xl font-black text-brand-brown pt-1">
+                Cupcakes Stall
+              </h1>
+              
+              <div class="flex items-center gap-1 text-yellow-500 pt-1">
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <span class="text-stone-500 text-xs font-bold tracking-wide uppercase ml-2 mt-0.5">
+                  (4.9/5 Average Rating)
+                </span>
+              </div>
+            </div>
 
             <p class="text-stone-600 text-lg leading-relaxed max-w-xl">
               Our delightful “Cupcakes” stall offers soft, freshly baked cupcakes topped with colorful frostings
@@ -283,23 +335,49 @@
 
             <!-- Pricing Card -->
             <div
-              class="bg-brand-pink/30 p-5 md:p-6 rounded-2xl shadow-lg space-y-4 max-w-sm border border-brand-blue/20"
+              class="bg-brand-pink/30 p-5 md:p-6 rounded-2xl shadow-lg space-y-5 max-w-sm border border-brand-blue/20 relative overflow-hidden"
             >
-              <p class="text-xl md:text-2xl font-black text-brand-brown">
+              <!-- Decorative background element -->
+              <div class="absolute -top-12 -right-12 w-32 h-32 bg-brand-blue/10 rounded-full blur-2xl"></div>
+
+              <p class="text-xl md:text-2xl font-black text-brand-brown relative z-10">
                 Stalls starting from
-                <span class="text-brand-blue">₹4,999/-</span>
+                <span class="text-brand-blue block mt-1 text-3xl">₹4,999/-</span>
               </p>
 
               <a
                 href="index.html#contact"
-                class="inline-block px-8 py-3 bg-brand-brown text-white rounded-full font-bold uppercase tracking-widest text-xs hover:-translate-y-0.5 hover:shadow-xl transition"
+                class="group inline-flex items-center justify-center gap-2 w-full px-8 py-3.5 bg-brand-brown text-white rounded-full font-black uppercase tracking-widest text-sm hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 relative z-10 animate-pulse"
               >
                 Get a Quote
+                <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
               </a>
 
-              <p class="text-xs text-stone-500">
+              <p class="text-[10px] uppercase font-bold tracking-widest text-stone-400 relative z-10 pt-1">
                 *Pricing varies based on guest count and city.
               </p>
+
+              <!-- Trust Badges -->
+              <div class="grid grid-cols-3 gap-2 pt-4 border-t border-brand-blue/10 relative z-10">
+                <div class="flex flex-col items-center text-center space-y-1">
+                  <div class="w-8 h-8 rounded-full bg-white shadow-sm border border-brand-blue/30 flex items-center justify-center text-brand-blue">
+                    <i data-lucide="award" class="w-4 h-4"></i>
+                  </div>
+                  <span class="text-[9px] font-bold text-brand-brown uppercase tracking-tight leading-tight">Premium Quality</span>
+                </div>
+                <div class="flex flex-col items-center text-center space-y-1">
+                  <div class="w-8 h-8 rounded-full bg-white shadow-sm border border-brand-blue/30 flex items-center justify-center text-brand-blue">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                  </div>
+                  <span class="text-[9px] font-bold text-brand-brown uppercase tracking-tight leading-tight">100% Hygienic</span>
+                </div>
+                <div class="flex flex-col items-center text-center space-y-1">
+                  <div class="w-8 h-8 rounded-full bg-white shadow-sm border border-brand-blue/30 flex items-center justify-center text-brand-blue">
+                    <i data-lucide="chef-hat" class="w-4 h-4"></i>
+                  </div>
+                  <span class="text-[9px] font-bold text-brand-brown uppercase tracking-tight leading-tight">Trained Staff</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -705,5 +783,33 @@
         © 2022 The Candy Town® — All Rights Reserved.
       </div>
     </footer>
+
+    <!-- Mobile Sticky CTA Bar -->
+    <div class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-brand-blue/20 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] p-4 flex items-center justify-between pb-6">
+      <div class="flex flex-col">
+        <span class="text-[10px] font-black uppercase text-stone-400 tracking-widest">Cupcakes</span>
+        <span class="text-brand-blue font-black text-xl">&#8377;4,999/-</span>
+      </div>
+      <a href="index.html#contact" class="px-6 py-3 bg-brand-brown text-white rounded-full font-black uppercase tracking-widest text-xs shadow-xl animate-pulse whitespace-nowrap">
+        Book Now
+      </a>
+    </div>
+
+
+    <script>
+      function toggleMenu() {
+        const menu = document.getElementById("mobile-menu");
+        if (menu.classList.contains("hidden")) {
+          menu.classList.remove("hidden");
+          menu.classList.add("flex");
+        } else {
+          menu.classList.add("hidden");
+          menu.classList.remove("flex");
+        }
+      }
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    </script>
   </body>
 </html>
