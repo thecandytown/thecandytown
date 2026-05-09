@@ -7,9 +7,6 @@
     <title>Gallery | The Candy Town</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- External Dependencies -->
-    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font family: Inter (Sans-serif) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
@@ -367,7 +364,7 @@
         <div onclick="openModal('surat')"
             class="gallery-card group cursor-pointer bg-white rounded-2xl md:rounded-3xl shadow-lg overflow-hidden transition-all duration-500 hover:-translate-y-2">
             <div class="h-56 md:h-72 overflow-hidden">
-                <img src="images/Surat/Surat1.JPG"
+                <img src="images/Surat/Surat1.jpg"
                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
             </div>
             <div class="p-5 md:p-8">
@@ -408,11 +405,11 @@
             </div>
             <div class="p-5 md:p-8">
                 <h3 class="font-black text-xl md:text-2xl text-brand-brown uppercase tracking-tighter">Jaipur</h3>
-                <p class="text-[9px] md:text-[10px] font-bold text-brand-blue uppercase tracking-[0.1em] mt-1">Elite
-                    Corporate Mixers</p>
+                <p class="text-[9px] md:text-[10px] font-bold text-brand-blue uppercase tracking-[0.1em] mt-1">Royal
+                    Wedding Celebrations</p>
             </div>
         </div>
-    <div onclick="openModal('pune')"
+        <div onclick="openModal('pune')"
             class="gallery-card group cursor-pointer bg-white rounded-2xl md:rounded-3xl shadow-lg overflow-hidden transition-all duration-500 hover:-translate-y-2">
             <div class="h-56 md:h-72 overflow-hidden">
                 <img src="images/Pune/Pune1.jpg"
@@ -420,8 +417,8 @@
             </div>
             <div class="p-5 md:p-8">
                 <h3 class="font-black text-xl md:text-2xl text-brand-brown uppercase tracking-tighter">Pune</h3>
-                <p class="text-[9px] md:text-[10px] font-bold text-brand-blue uppercase tracking-[0.1em] mt-1">Elite
-                    Corporate Mixers</p>
+                <p class="text-[9px] md:text-[10px] font-bold text-brand-blue uppercase tracking-[0.1em] mt-1">Premium
+                    Corporate Events</p>
             </div>
         </div>
     </div>
@@ -438,7 +435,7 @@
             <div
                 class="relative group h-[50vh] md:h-[75vh] bg-stone-100 flex items-center justify-center overflow-hidden">
                 <img id="carousel-image" src=""
-                    class="w-full h-full object-contain md:object-cover transition-opacity duration-300">
+                    class="w-full h-full object-contain transition-opacity duration-300">
 
                 <div class="absolute inset-0 flex items-center justify-between px-2 md:px-4">
                     <button onclick="prevImage()"
@@ -461,7 +458,7 @@
                 </div>
                 <div id="image-counter"
                     class="text-[10px] md:text-[12px] font-black text-brand-brown/30 uppercase tracking-[0.2em] mt-4 md:mt-0">
-                    01 / 03
+                    01 / 01
                 </div>
             </div>
         </div>
@@ -545,13 +542,67 @@
             menu.classList.toggle('flex');
         }
 
-const eventImages = {
-    ahmedabad: ["images/Ahmedabad/Ahmedabad2.jpg", "images/Ahmedabad/Ahmedabad3.JPG", "images/Ahmedabad/Ahmedabad4.jpg"],
-    surat: ["images/Surat/Surat2.JPG", "images/Surat/Surat3.JPG", "images/Surat/Surat4.JPG"],
-    mumbai: ["images/Mumbai/Mumbai1.jpg", "images/Mumbai/Mumbai2.jpg", "images/Mumbai/Mumbai3.jpg"],
-    delhi: ["images/Delhi/delhi2.jpeg", "images/Delhi/delhi3.jpeg", "images/Delhi/delhi4.jpeg"],
-    pune: ["images/Pune/Pune1.jpg", "images/Pune/Pune2.jpg", "images/Pune/Pune3.jpg"],
-    jaipur: ["images/Jaipur/Jaipur1.jpg", "images/Jaipur/Jaipur2.jpg", "images/Jaipur/Jaipur3.jpg"]
+// ─── UP TO 5 IMAGES PER CITY ──────────────────────────────────────────────
+// Pre-configured with 5 slots each. The system auto-validates on open and
+// skips missing files — just drop a new photo in the folder to add it.
+//
+// Naming convention:
+//   Ahmedabad → Ahmedabad1.JPG … Ahmedabad5.JPG
+//   Surat     → Surat1.JPG … Surat5.JPG
+//   Mumbai    → Mumbai1.jpg … Mumbai5.jpg
+//   Delhi     → delhi1.jpeg … delhi5.jpeg
+//   Pune      → Pune1.jpg … Pune5.jpg
+//   Jaipur    → Jaipur1.jpg … Jaipur5.jpg
+// ─────────────────────────────────────────────────────────────────────────
+const allEventImages = {
+    ahmedabad: [
+        "images/Ahmedabad/Ahmedabad1.JPG",
+        "images/Ahmedabad/Ahmedabad2.jpeg",
+        "images/Ahmedabad/Ahmedabad3.jpeg",
+        "images/Ahmedabad/Ahmedabad4.jpeg",
+        "images/Ahmedabad/Ahmedabad5.jpeg",
+        "images/Ahmedabad/Ahmedabad6.jpeg"
+    ],
+    surat: [
+        "images/Surat/Surat1.jpg",
+        "images/Surat/Surat2.jpg",
+        "images/Surat/Surat3.jpg",
+        "images/Surat/Surat4.jpg",
+        "images/Surat/Surat5.jpg",
+        "images/Surat/Surat6.jpg"
+    ],
+    mumbai: [
+        "images/Mumbai/Mumbai1.jpg",
+        "images/Mumbai/Mumbai2.jpg",
+        "images/Mumbai/Mumbai3.jpg",
+        "images/Mumbai/Mumbai4.jpg",
+        "images/Mumbai/Mumbai5.jpeg",
+        "images/Mumbai/Mumbai6.jpg"
+    ],
+    delhi: [
+        "images/Delhi/delhi1.jpeg",
+        "images/Delhi/delhi2.jpeg",
+        "images/Delhi/delhi3.jpeg",
+        "images/Delhi/delhi4.jpeg",
+        "images/Delhi/delhi5.jpeg",
+        "images/Delhi/delhi6.jpg"
+    ],
+    pune: [
+        "images/Pune/Pune1.jpg",
+        "images/Pune/Pune2.jpg",
+        "images/Pune/Pune3.jpg",
+        "images/Pune/Pune4.jpeg",
+        "images/Pune/Pune5.jpeg",
+        "images/Pune/Pune6.jpeg"
+    ],
+    jaipur: [
+        "images/Jaipur/Jaipur1.jpg",
+        "images/Jaipur/Jaipur2.jpg",
+        "images/Jaipur/Jaipur3.jpg",
+        "images/Jaipur/Jaipur4.jpeg",
+        "images/Jaipur/Jaipur5.jpeg",
+        "images/Jaipur/Jaipur6.jpg"
+    ]
 };
 
 let currentEvent = "";
@@ -561,35 +612,24 @@ const modal = document.getElementById("event-modal");
 const img = document.getElementById("carousel-image");
 const counter = document.getElementById("image-counter");
 
-// ✅ PRELOAD IMAGES (BIGGEST PERFORMANCE BOOST)
-function preload(images) {
-    images.forEach(src => {
-        const i = new Image();
-        i.src = src;
-    });
-}
-
 function openModal(event) {
-
     event = event.toLowerCase();
-
-    if (!eventImages[event]) return;
+    if (!allEventImages[event]) return;
 
     currentEvent = event;
     currentIndex = 0;
 
-    preload(eventImages[event]);
-
-    // FIX DISPLAY
     modal.classList.remove("hidden");
     modal.classList.add("flex");
-
     document.body.style.overflow = "hidden";
-
-    setImage(true);
 
     document.getElementById("modal-event-title").innerText =
         event.charAt(0).toUpperCase() + event.slice(1);
+
+    // Preload all images for smooth navigation
+    allEventImages[event].forEach(src => { const p = new Image(); p.src = src; });
+
+    setImage(true);
 }
 
 function closeModal() {
@@ -598,41 +638,51 @@ function closeModal() {
     document.body.style.overflow = "auto";
 }
 
-// 🔥 CORE FIX (NO FLICKER ENGINE)
+// 🔥 CORE ENGINE — no flicker, with onerror skip safety
 function setImage(firstLoad = false) {
+    const images = allEventImages[currentEvent];
+    if (!images || !images.length) return;
 
     const loader = new Image();
-    loader.src = eventImages[currentEvent][currentIndex];
+    loader.src = images[currentIndex];
 
     loader.onload = () => {
-
         img.style.transition = firstLoad ? "none" : "opacity 0.3s ease";
         img.style.opacity = "0";
-
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
                 img.src = loader.src;
                 img.style.opacity = "1";
             });
         });
-
         updateCounter();
+    };
+
+    // Safety: if a file is missing, skip to the next slot
+    loader.onerror = () => {
+        images.splice(currentIndex, 1);
+        if (images.length === 0) { closeModal(); return; }
+        currentIndex = currentIndex % images.length;
+        setImage(firstLoad);
     };
 }
 
 function nextImage() {
-    currentIndex = (currentIndex + 1) % eventImages[currentEvent].length;
+    const len = allEventImages[currentEvent].length;
+    currentIndex = (currentIndex + 1) % len;
     setImage();
 }
 
 function prevImage() {
-    currentIndex = (currentIndex - 1 + eventImages[currentEvent].length) % eventImages[currentEvent].length;
+    const len = allEventImages[currentEvent].length;
+    currentIndex = (currentIndex - 1 + len) % len;
     setImage();
 }
 
 function updateCounter() {
+    const len = allEventImages[currentEvent].length;
     counter.innerText =
-        `${String(currentIndex + 1).padStart(2, '0')} / ${String(eventImages[currentEvent].length).padStart(2, '0')}`;
+        `${String(currentIndex + 1).padStart(2, '0')} / ${String(len).padStart(2, '0')}`;
 }
 
 // BACKDROP CLICK
